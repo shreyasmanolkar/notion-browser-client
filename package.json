@@ -11,10 +11,16 @@
     "@types/node": "^17.0.45",
     "@types/react": "^18.2.9",
     "@types/react-dom": "^18.2.4",
+    "axios": "^1.4.0",
+    "git-conventional-commits": "^2.6.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.9.0",
+    "react-query": "^3.39.3",
     "react-redux": "^8.0.7",
+    "react-router-dom": "^6.12.0",
     "react-scripts": "5.0.1",
+    "sass": "^1.63.0",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
@@ -22,12 +28,18 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --ignore-path .gitignore .",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.{ts,tsx,css,scss}\"",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:jest-dom/recommended",
+      "eslint-config-prettier"
     ]
   },
   "browserslist": {
@@ -40,6 +52,21 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-jest-dom": "^5.0.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint"
+    ],
+    "*.{ts,tsx,css,scss}": [
+      "prettier --write"
     ]
   }
 }
