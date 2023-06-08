@@ -32,7 +32,8 @@
     "lint": "eslint --ignore-path .gitignore .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.{ts,tsx,css,scss}\"",
     "prepare": "husky install",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "server": "json-server --watch ./src/data/db.json --port 4000"
   },
   "eslintConfig": {
     "extends": [
@@ -58,6 +59,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-jest-dom": "^5.0.1",
     "husky": "^8.0.0",
+    "json-server": "^0.17.3",
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8"
   },
