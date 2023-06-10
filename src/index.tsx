@@ -5,15 +5,20 @@ import { store } from "./app/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "./context/ThemeContext";
+import { ReactQueryProvider } from "./provider/reactQueryProvider";
+import { ReactQueryDevtools } from "react-query/devtools";
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <ReactQueryProvider>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+      </ReactQueryProvider>
     </Provider>
   </React.StrictMode>
 );

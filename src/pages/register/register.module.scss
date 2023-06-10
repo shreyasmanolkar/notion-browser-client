@@ -22,7 +22,7 @@
   .register_panel {
     @include flex-center();
     flex-direction: column;
-    min-height: 60vh;
+    min-height: 75vh;
 
     h1 {
       font-size: 54px;
@@ -31,6 +31,8 @@
 
     .error {
       color: $danger;
+      font-size: 14px;
+      margin: 0;
     }
 
     a {
@@ -44,6 +46,7 @@
       label {
         color: $dark-color-secondary;
         font-size: 14px;
+        padding-top: 10px;
       }
 
       input {
@@ -59,6 +62,7 @@
       }
 
       button {
+        margin-top: 20px;
         padding: 8px;
         font-size: 16px;
         background-color: $secondary;
