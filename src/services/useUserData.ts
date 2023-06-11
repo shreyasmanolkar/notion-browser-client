@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "react-query";
 import { UserType } from "../common/types/User";
-import { request } from "../lib/axios";
+import { request } from "../lib/axios/index";
 import { AxiosError } from "axios";
 
 type userDataType = Omit<

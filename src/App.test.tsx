@@ -3,12 +3,12 @@ import { Provider } from "react-redux";
 import { store } from "./app/store";
 import App from "./App";
 
-test.skip("renders learn react link", () => {
+test("renders learn react link", () => {
   const { getByText } = render(
     <Provider store={store}>
       <App />
     </Provider>
   );
 
-  expect(screen.getByText(/notion-clone/i)).toBeInTheDocument();
+  expect(screen.getByText(/Register/i)).toBeInTheDocument();
 });
