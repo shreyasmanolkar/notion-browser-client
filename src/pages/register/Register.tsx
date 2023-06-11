@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useId, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import { ReactComponent as NotionLogo } from "../../assets/images/notion-logo.svg";
 import styles from "./register.module.scss";
@@ -10,12 +10,13 @@ import {
 import { useThemeDetector } from "../../hooks/useThemeDetector";
 import { parseJWT } from "../../utils/parseJWT";
 import { request } from "../../lib/axios";
-
-type validateProps = {
-  name: string;
-  email: string;
-  password: string;
-};
+import { useDispatch } from "react-redux";
+import { setUser } from "../../slice/userSlice";
+import { AxiosError } from "axios";
+import {
+  validateRegistration,
+  validateRegistrationProps,
+} from "../../utils/validateRegistration";
 
 const Register = () => {
   const { theme } = useContext(ThemeContext);
@@ -24,46 +25,21 @@ const Register = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
-  // const [error, setError] = useState<string | null>("invalid passsword");
-  const [formErrors, setFormErrors] = useState<Partial<validateProps>>({});
+  const [formErrors, setFormErrors] = useState<
+    Partial<validateRegistrationProps>
+  >({});
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
   const isDarkMode = useThemeDetector();
   const { mutate } = useRegisterUserData();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      const color = getRandomColor();
-      const url = createImageFromInitials(50, name, color)!;
-
-      const userData = {
-        name,
-        email,
-        password,
-        isDarkMode,
-        profilePicture: {
-          url,
-        },
-      };
-
-      mutate(userData, {
-        onSuccess: async (data) => {
-          const { userId } = parseJWT(data.accessToken);
-
-          console.log("at", data.accessToken);
-          console.log("ui", userId);
-
-          // const user = await request({ url: `/users/${userId}` });
-
-          // console.log("user", JSON.stringify(user, null, 2));
-        },
-      });
-
-      setName("");
-      setEmail("");
-      setPassword("");
+      handleRegistration();
     }
-  }, [formErrors]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formErrors, isSubmit]);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setName(e.target.value);
@@ -82,35 +58,45 @@ const Register = () => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    setFormErrors(validate({ name, email, password }));
+    setFormErrors(validateRegistration({ name, email, password }));
     setIsSubmit(true);
-
-    // TODO: add register flow
   };
 
-  const validate = (values: validateProps) => {
-    const errors: Partial<validateProps> = {};
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+  const handleRegistration = () => {
+    const color = getRandomColor();
+    const url = createImageFromInitials(50, name, color)!;
 
-    if (!values.name) {
-      errors.name = "Name is required!";
-    }
+    const userData = {
+      name,
+      email,
+      password,
+      isDarkMode,
+      profilePicture: {
+        url,
+      },
+    };
 
-    if (!values.email) {
-      errors.email = "Email is required!";
-    } else if (!regex.test(values.email)) {
-      errors.email = "Enter valid Email!";
-    }
+    mutate(userData, {
+      onSuccess: async (data) => {
+        if (data) {
+          const { userId } = parseJWT(data.accessToken);
+          const user = await request({ url: `/users/${userId}` });
 
-    if (!values.password) {
-      errors.password = "Password is required!";
-    } else if (+values.password.length < 4) {
-      errors.password = "Password must be more than 4 characters!";
-    } else if (+values.password.length > 12) {
-      errors.password = "Password must be less than 12 characters!";
-    }
+          dispatch(setUser({ ...user.data }));
 
-    return errors;
+          setName("");
+          setEmail("");
+          setPassword("");
+        }
+      },
+      onError: (error: AxiosError) => {
+        const data = error.response?.data as {
+          error: string;
+        };
+
+        setError(data.error);
+      },
+    });
   };
 
   return (

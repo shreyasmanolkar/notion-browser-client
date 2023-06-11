@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "react-query";
 import { UserType } from "../common/types/User";
 import { request } from "../lib/axios";
+import { AxiosError } from "axios";
 
 type userDataType = Omit<
   UserType,
@@ -21,7 +22,6 @@ const registerUser = async (user: userDataType) => {
   const response = await request({
     url: "/register",
     method: "post",
-    // withCredentials: true,
     data: user,
   });
 
@@ -33,6 +33,7 @@ export const useRegisterUserData = () => {
     onSuccess: (data) => {
       return data;
     },
+    onError: (error: AxiosError) => {},
   });
 };
 

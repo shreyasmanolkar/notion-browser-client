@@ -36,6 +36,14 @@ const onRequestError = (error: AxiosError): Promise<AxiosError> => {
 };
 
 const onResponse = (response: AxiosResponse): AxiosResponse => {
+  if (response.config.url === "/register" || response.config.url === "/login") {
+    const accessTokenFromServer = response.data.accessToken;
+
+    if (accessTokenFromServer) {
+      accessToken = accessTokenFromServer;
+      response.config.headers.Authorization = `Bearer ${accessTokenFromServer}`;
+    }
+  }
   return response;
 };
 
@@ -71,20 +79,10 @@ client.interceptors.response.use(onResponse, onResponseError);
 export const request = (
   options: AxiosRequestConfig
 ): Promise<AxiosResponse> => {
-  // let token = "";
-  // client.defaults.headers.common.Authorization = `Bearer ${token}`;
-
-  // options.headers = {
-  //   "Content-Type": "application/json",
-  // };
-  // options.withCredentials = true;
-
   const onSuccess = (response: AxiosResponse) => response;
   const onError = (error: any) => {
-    return error;
+    throw error;
   };
-
-  console.log("op", JSON.stringify(options, null, 2));
 
   return client(options).then(onSuccess).catch(onError);
 };
