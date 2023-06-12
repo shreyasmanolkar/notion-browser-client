@@ -70,5 +70,10 @@
     "*.{ts,tsx,css,scss}": [
       "prettier --write"
     ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^axios$": "axios/dist/axios.js"
+    }
   }
 }

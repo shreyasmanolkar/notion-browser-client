@@ -1,9 +1,20 @@
+import { QueryClient, QueryClientProvider } from "react-query";
 import Register from "../Register";
 import { render, screen } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { store } from "../../../app/store";
+
+const queryClient = new QueryClient();
 
 describe("Register", () => {
   it("renders correctly", () => {
-    render(<Register />);
+    render(
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <Register />
+        </QueryClientProvider>
+      </Provider>
+    );
 
     const notionLogo = screen.queryByTestId("notion-logo");
     const textElement = screen.getByText("Notion");

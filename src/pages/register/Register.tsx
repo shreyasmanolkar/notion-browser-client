@@ -10,7 +10,7 @@ import {
 } from "../../utils/generateProfilePicture";
 import { useThemeDetector } from "../../hooks/useThemeDetector";
 import { parseJWT } from "../../utils/parseJWT";
-import { request } from "../../lib/axios/index.js";
+import { request } from "../../lib/axios/index";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../slice/userSlice";
 import {

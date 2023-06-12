@@ -1,7 +1,7 @@
 import LogIn from "../LogIn";
 import { render, screen } from "@testing-library/react";
 
-describe.skip("Login", () => {
+describe("Login", () => {
   it("renders correctly", () => {
     render(<LogIn />);
 

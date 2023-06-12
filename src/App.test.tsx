@@ -2,11 +2,16 @@ import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import App from "./App";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 test("renders learn react link", () => {
-  const { getByText } = render(
+  render(
     <Provider store={store}>
-      <App />
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
     </Provider>
   );
 

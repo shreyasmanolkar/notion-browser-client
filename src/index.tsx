@@ -7,19 +7,20 @@ import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "./context/ThemeContext";
 import { ReactQueryProvider } from "./provider/reactQueryProvider";
 import { ReactQueryDevtools } from "react-query/devtools";
+
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <ReactQueryProvider>
+    <ReactQueryProvider>
+      <Provider store={store}>
         <ThemeProvider>
           <App />
         </ThemeProvider>
         <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
-      </ReactQueryProvider>
-    </Provider>
+      </Provider>
+    </ReactQueryProvider>
   </React.StrictMode>
 );
 
