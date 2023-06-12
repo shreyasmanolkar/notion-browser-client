@@ -6,7 +6,6 @@
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
     "@types/node": "^17.0.45",
     "@types/react": "^18.2.9",
     "@types/react-dom": "^18.2.4",
@@ -33,7 +32,8 @@
     "format": "prettier --ignore-path .gitignore --write \"**/*.{ts,tsx,css,scss}\"",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
-    "server": "json-server --watch ./src/data/db.json --port 4000"
+    "server": "json-server --watch ./src/data/db.json --port 4000",
+    "coverage": "npm test -- --coverage --watchAll --collectCoverageFrom='src/components/**/*.{ts,tsx}' --collectCoverageFrom='src/pages/**/*.{ts,tsx}'"
   },
   "eslintConfig": {
     "extends": [
@@ -56,11 +56,13 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/user-event": "^14.4.3",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-jest-dom": "^5.0.1",
     "husky": "^8.0.0",
     "json-server": "^0.17.3",
     "lint-staged": "^13.2.2",
+    "msw": "^1.2.2",
     "prettier": "^2.8.8"
   },
   "lint-staged": {
