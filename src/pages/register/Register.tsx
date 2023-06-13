@@ -9,10 +9,7 @@ import { JWTParser } from "../../utils/parseJWT";
 import { request } from "../../lib/axios/index";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../slice/userSlice";
-import {
-  validateRegistration,
-  validateRegistrationProps,
-} from "../../utils/validateRegistration";
+import { Validate, validateRegistrationProps } from "../../utils/validate";
 import styles from "./register.module.scss";
 
 const Register = () => {
@@ -55,7 +52,7 @@ const Register = () => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    setFormErrors(validateRegistration({ name, email, password }));
+    setFormErrors(Validate.validateRegistration({ name, email, password }));
     setIsSubmit(true);
   };
 

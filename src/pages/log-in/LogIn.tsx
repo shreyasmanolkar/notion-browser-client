@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import { ReactComponent as NotionLogo } from "../../assets/images/notion-logo.svg";
-import { validateLogin, validateLoginProps } from "../../utils/validateLogin";
+import { Validate, validateLoginProps } from "../../utils/validate";
 import { useUserData } from "../../services/useUserData";
 import { JWTParser } from "../../utils/parseJWT";
 import { request } from "../../lib/axios";
@@ -41,7 +41,7 @@ const LogIn = () => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    setFormErrors(validateLogin({ email, password }));
+    setFormErrors(Validate.validateLogin({ email, password }));
     setIsSubmit(true);
   };
 
