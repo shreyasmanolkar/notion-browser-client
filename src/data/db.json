@@ -1,0 +1,184 @@
+{
+  "users": [
+    {
+      "_id" : "64811962d5cbcacf7249a724",
+      "name" : "user-name",
+      "email" : "user@email.com",
+      "password" : "$2b$10$f4t.nlhnHY.GwVPQG3TX.e0/nv7hCCN40Vf61mMAvz90yb.JfmWiq",
+      "isDarkMode" : true,
+      "profilePicture" : {
+        "url" : "sample-url"
+      },
+      "workspaces" : [
+        {
+          "workspaceId" : "64811962d5cbcacf7249a722",
+          "favorites" : []
+        }
+      ],
+      "createdAt" : "2023-06-07T23:57:22.240+0000"
+    }
+  ],
+  "workspaces": [
+    {
+      "_id" : "64811962d5cbcacf7249a722",
+      "name" : "home-workspace",
+      "icon" : "1F3C7",
+      "members" : [
+        "64811962d5cbcacf7249a724"
+      ],
+      "pages" : [
+        {
+          "id" : "64811962d5cbcacf7249a723",
+          "reference" : "notion-clone-project-421abf18b3ce4091235c85288c0b6e4f3c54168f940ea9448a163a14604d8e49",
+          "path" : null,
+          "icon" : "1F575"
+        },
+        {
+          "id" : "64811a2cd5cbcacf7249a727",
+          "reference" : "about-notion-clone-bbdfde064c737a3af8d29171d29a2474c20df99ff2500af0746c19386a9d3acb",
+          "path" : null,
+          "icon" : "1F41A"
+        },
+        {
+          "id" : "64811a6cd5cbcacf7249a728",
+          "reference" : "about-notion-clone-project-detail-ae37d3c3f5fb23f2409ee44da094a7bbdabd7f0e87ffdd223385fc03d0917a1a",
+          "path" : null,
+          "icon" : "1F41A"
+        }
+      ],
+      "createdAt" : "2023-06-07T23:57:22.146+0000"
+    }
+  ],
+  "pages": [
+    {
+      "_id" : "64811962d5cbcacf7249a723",
+      "title" : "notion clone project",
+      "icon" : "1F575",
+      "coverPicture" : {
+        "url" : "http://cover-picture.com"
+      },
+      "content" : {
+        "type" : "doc",
+        "content" : [
+          {
+            "type" : "dBlock",
+            "content" : [
+              {
+                "type" : "heading",
+                "attrs" : {
+                  "level" : 1
+                },
+                "content" : [
+                  {
+                    "type" : "text",
+                    "text" : "About Notion Clone Project"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "favorite" : ["64811962d5cbcacf7249a724"],
+      "pageSettings" : {
+        "font" : "serif",
+        "smallText" : true,
+        "fullWidth" : true,
+        "lock" : false
+      },
+      "path" : null,
+      "workspaceId" : "64811962d5cbcacf7249a722",
+      "reference" : "notion-clone-project-421abf18b3ce4091235c85288c0b6e4f3c54168f940ea9448a163a14604d8e49",
+      "createdAt" : "2023-06-07T23:57:22.168+0000"
+    },
+    {
+      "_id" : "64811a2cd5cbcacf7249a727",
+      "title" : "about notion clone",
+      "icon" : "1F41A",
+      "coverPicture" : {
+        "url" : "http://sample-url.com"
+      },
+      "content" : {
+        "type" : "doc",
+        "content" : [
+          {
+            "type" : "dBlock",
+            "content" : [
+              {
+                "type" : "heading",
+                "attrs" : {
+                  "level" : 1
+                },
+                "content" : [
+                  {
+                    "type" : "text",
+                    "text" : "Welcome to notion clone"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "favorite" : [],
+      "pageSettings" : {
+        "font" : "serif",
+        "smallText" : true,
+        "fullWidth" : true,
+        "lock" : false
+      },
+      "path" : null,
+      "workspaceId" : "64811962d5cbcacf7249a722",
+      "reference" : "about-notion-clone-bbdfde064c737a3af8d29171d29a2474c20df99ff2500af0746c19386a9d3acb",
+      "createdAt" : "2023-06-08T00:00:44.127+0000"
+    },
+    {
+      "_id" : "64811a6cd5cbcacf7249a728",
+      "title" : "about notion clone project detail",
+      "icon" : "1F41A",
+      "coverPicture" : {
+        "url" : "http://sample-url-img.com"
+      },
+      "content" : {
+        "type" : "doc",
+        "content" : [
+          {
+            "type" : "dBlock",
+            "content" : [
+              {
+                "type" : "heading",
+                "attrs" : {
+                  "level" : 1
+                },
+                "content" : [
+                  {
+                    "type" : "text",
+                    "text" : "this is the details about notion project"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "favorite" : [],
+      "pageSettings" : {
+        "font" : "serif",
+        "smallText" : true,
+        "fullWidth" : true,
+        "lock" : false
+      },
+      "path" : null,
+      "workspaceId" : "64811962d5cbcacf7249a722",
+      "reference" : "about-notion-clone-project-detail-ae37d3c3f5fb23f2409ee44da094a7bbdabd7f0e87ffdd223385fc03d0917a1a",
+      "createdAt" : "2023-06-08T00:01:48.048+0000"
+    }
+  ],
+  "tokens": [
+    {
+      "_id" : "64811981d5cbcacf7249a726",
+      "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDgxMTk2MmQ1Y2JjYWNmNzI0OWE3MjQiLCJpYXQiOjE2ODYxODIyNzN9.vWivWEqdJrDLERLED4YRDhvaLZHaieduM7gXkSId_30",
+      "createdAt" : "2023-06-07T23:57:53.350+0000"
+  }
+  ]
+}
