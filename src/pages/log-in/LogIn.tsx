@@ -1,6 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import { ReactComponent as NotionLogo } from "../../assets/images/notion-logo.svg";
+import { validateLogin, validateLoginProps } from "../../utils/validateLogin";
+import { useLoginUserData } from "../../services/useUserData";
+import { parseJWT } from "../../utils/parseJWT";
+import { request } from "../../lib/axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../slice/userSlice";
+import { AxiosError } from "axios";
 import styles from "./login.module.scss";
 
 const LogIn = () => {
@@ -8,6 +15,18 @@ const LogIn = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
+  const [formErrors, setFormErrors] = useState<Partial<validateLoginProps>>({});
+  const [isSubmit, setIsSubmit] = useState<boolean>(false);
+
+  const { mutate } = useLoginUserData();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      handleLogin();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formErrors, isSubmit]);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value);
@@ -22,12 +41,38 @@ const LogIn = () => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    // TODO: add login flow
+    setFormErrors(validateLogin({ email, password }));
+    setIsSubmit(true);
+  };
 
-    console.log("email", email);
-    console.log("password", password);
-    setEmail("");
-    setPassword("");
+  const handleLogin = () => {
+    const credientials = {
+      email,
+      password,
+    };
+
+    mutate(credientials, {
+      onSuccess: async (data) => {
+        if (data) {
+          const { userId } = parseJWT(data.accessToken);
+          const user = await request({ url: `/users/${userId}` });
+
+          dispatch(setUser({ ...user.data }));
+
+          setEmail("");
+          setPassword("");
+
+          // redirect from here
+        }
+      },
+      onError: (error: AxiosError) => {
+        const data = error.response?.data as {
+          error: string;
+        };
+
+        setError(data.error);
+      },
+    });
   };
 
   return (
@@ -47,7 +92,9 @@ const LogIn = () => {
             placeholder="Enter your email address..."
             onChange={handleEmailChange}
           />
-          <br />
+          {formErrors.email && (
+            <p className={`${styles.error}`}>{formErrors.email}</p>
+          )}
           <label htmlFor="password">Password</label>
           <input
             id="password"
@@ -56,12 +103,13 @@ const LogIn = () => {
             placeholder="Enter your password..."
             onChange={handlePasswordChange}
           />
-          <br />
+          {formErrors.password && (
+            <p className={`${styles.error}`}>{formErrors.password}</p>
+          )}
           <button type="submit">Login</button>
+          <br />
         </form>
-        <br />
         {error && <p className={`${styles.error}`}>{error}</p>}
-        <br />
         <a href="/">Create New Account</a>
       </div>
     </div>

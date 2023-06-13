@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { AxiosError } from "axios";
 import { ThemeContext } from "../../context/ThemeContext";
 import { ReactComponent as NotionLogo } from "../../assets/images/notion-logo.svg";
-import styles from "./register.module.scss";
 import { useRegisterUserData } from "../../services/useUserData";
 import {
   createImageFromInitials,
@@ -17,6 +16,7 @@ import {
   validateRegistration,
   validateRegistrationProps,
 } from "../../utils/validateRegistration";
+import styles from "./register.module.scss";
 
 const Register = () => {
   const { theme } = useContext(ThemeContext);
@@ -55,7 +55,7 @@ const Register = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     setFormErrors(validateRegistration({ name, email, password }));
@@ -87,6 +87,8 @@ const Register = () => {
           setName("");
           setEmail("");
           setPassword("");
+
+          // redirect from here
         }
       },
       onError: (error: AxiosError) => {

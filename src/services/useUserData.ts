@@ -8,6 +8,11 @@ type userDataType = Omit<
   "id" | "workspaces" | "createdAt" | "updatedAt"
 >;
 
+type credientialsType = {
+  email: string;
+  password: string;
+};
+
 const registerUser = async (user: userDataType) => {
   const response = await request({
     url: "/register",
@@ -18,8 +23,27 @@ const registerUser = async (user: userDataType) => {
   return response.data;
 };
 
+const loginUser = async (credientials: credientialsType) => {
+  const response = await request({
+    url: "/login",
+    method: "post",
+    data: credientials,
+  });
+
+  return response.data;
+};
+
 export const useRegisterUserData = () => {
   return useMutation(registerUser, {
+    onSuccess: (data) => {
+      return data;
+    },
+    onError: (error: AxiosError) => {},
+  });
+};
+
+export const useLoginUserData = () => {
+  return useMutation(loginUser, {
     onSuccess: (data) => {
       return data;
     },
