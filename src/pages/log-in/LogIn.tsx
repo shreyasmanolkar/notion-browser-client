@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import { ReactComponent as NotionLogo } from "../../assets/images/notion-logo.svg";
 import { validateLogin, validateLoginProps } from "../../utils/validateLogin";
-import { useLoginUserData } from "../../services/useUserData";
-import { parseJWT } from "../../utils/parseJWT";
+import { useUserData } from "../../services/useUserData";
+import { JWTParser } from "../../utils/parseJWT";
 import { request } from "../../lib/axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../slice/userSlice";
@@ -18,7 +18,7 @@ const LogIn = () => {
   const [formErrors, setFormErrors] = useState<Partial<validateLoginProps>>({});
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
-  const { mutate } = useLoginUserData();
+  const { mutate } = useUserData.useLoginUserData();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const LogIn = () => {
     mutate(credientials, {
       onSuccess: async (data) => {
         if (data) {
-          const { userId } = parseJWT(data.accessToken);
+          const { userId } = JWTParser.parseJWT(data.accessToken);
           const user = await request({ url: `/users/${userId}` });
 
           dispatch(setUser({ ...user.data }));
@@ -106,7 +106,7 @@ const LogIn = () => {
           {formErrors.password && (
             <p className={`${styles.error}`}>{formErrors.password}</p>
           )}
-          <button type="submit">Login</button>
+          <button type="submit">Log in</button>
           <br />
         </form>
         {error && <p className={`${styles.error}`}>{error}</p>}

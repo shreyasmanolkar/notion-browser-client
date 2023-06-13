@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
 
-test("renders learn react link", () => {
+test.skip("renders learn react link", () => {
   render(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>

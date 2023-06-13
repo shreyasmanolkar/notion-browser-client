@@ -2,13 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { AxiosError } from "axios";
 import { ThemeContext } from "../../context/ThemeContext";
 import { ReactComponent as NotionLogo } from "../../assets/images/notion-logo.svg";
-import { useRegisterUserData } from "../../services/useUserData";
-import {
-  createImageFromInitials,
-  getRandomColor,
-} from "../../utils/generateProfilePicture";
+import { useUserData } from "../../services/useUserData";
+import { GenerateProfilePicture } from "../../utils/generateProfilePicture";
 import { useThemeDetector } from "../../hooks/useThemeDetector";
-import { parseJWT } from "../../utils/parseJWT";
+import { JWTParser } from "../../utils/parseJWT";
 import { request } from "../../lib/axios/index";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../slice/userSlice";
@@ -31,7 +28,7 @@ const Register = () => {
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
   const isDarkMode = useThemeDetector();
-  const { mutate } = useRegisterUserData();
+  const { mutate } = useUserData.useRegisterUserData();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -63,8 +60,12 @@ const Register = () => {
   };
 
   const handleRegistration = () => {
-    const color = getRandomColor();
-    const url = createImageFromInitials(50, name, color)!;
+    const color = GenerateProfilePicture.getRandomColor();
+    const url = GenerateProfilePicture.createImageFromInitials(
+      50,
+      name,
+      color
+    )!;
 
     const userData = {
       name,
@@ -79,7 +80,7 @@ const Register = () => {
     mutate(userData, {
       onSuccess: async (data) => {
         if (data) {
-          const { userId } = parseJWT(data.accessToken);
+          const { userId } = JWTParser.parseJWT(data.accessToken);
           const user = await request({ url: `/users/${userId}` });
 
           dispatch(setUser({ ...user.data }));

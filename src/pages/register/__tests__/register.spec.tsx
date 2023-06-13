@@ -9,6 +9,9 @@ import { Provider } from "react-redux";
 import { store } from "../../../app/store";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
+import { GenerateProfilePicture } from "../../../utils/generateProfilePicture";
+import { server } from "../../../mocks/server";
+import { rest } from "msw";
 
 const queryClient = new QueryClient();
 
@@ -115,5 +118,94 @@ describe("Register", () => {
     });
 
     expect(passwordTextboxElement.value).toBe("12345678");
+  });
+
+  it("should handle successful registration", async () => {
+    jest
+      .spyOn(GenerateProfilePicture, "createImageFromInitials")
+      .mockImplementationOnce(() => {
+        return "data:img//sample-url";
+      });
+
+    const nameTextboxElement = screen.getByRole("textbox", {
+      name: "Name",
+    }) as HTMLInputElement;
+
+    const emailTextboxElement = screen.getByRole("textbox", {
+      name: "Email",
+    }) as HTMLInputElement;
+
+    const passwordTextboxElement = screen.getByLabelText(
+      "Password"
+    ) as HTMLInputElement;
+
+    const submitButtonElement = screen.getByRole("button", {
+      name: /Sign up/i,
+    });
+
+    fireEvent.change(nameTextboxElement, { target: { value: "John Doe" } });
+
+    fireEvent.change(emailTextboxElement, {
+      target: { value: "JohnDoe@gmail.com" },
+    });
+
+    fireEvent.change(passwordTextboxElement, {
+      target: { value: "12345678" },
+    });
+
+    await act(async () => {
+      await userEvent.click(submitButtonElement);
+    });
+
+    expect(GenerateProfilePicture.createImageFromInitials).toHaveBeenCalled();
+  });
+
+  it("should handle registration error", async () => {
+    server.use(
+      rest.post("http://localhost:5000/v1/register", (req, res, ctx) => {
+        return res(
+          ctx.status(409),
+          ctx.json({
+            error: "Email is already in use",
+          })
+        );
+      })
+    );
+
+    const nameTextboxElement = screen.getByRole("textbox", {
+      name: "Name",
+    }) as HTMLInputElement;
+
+    const emailTextboxElement = screen.getByRole("textbox", {
+      name: "Email",
+    }) as HTMLInputElement;
+
+    const passwordTextboxElement = screen.getByLabelText(
+      "Password"
+    ) as HTMLInputElement;
+
+    const submitButtonElement = screen.getByRole("button", {
+      name: /Sign up/i,
+    });
+
+    fireEvent.change(nameTextboxElement, { target: { value: "John Doe" } });
+
+    fireEvent.change(emailTextboxElement, {
+      target: { value: "JohnDoe@gmail.com" },
+    });
+
+    fireEvent.change(passwordTextboxElement, {
+      target: { value: "12345678" },
+    });
+
+    await act(async () => {
+      await userEvent.click(submitButtonElement);
+    });
+
+    const emailInUseError = await screen.findByText((content, element) =>
+      content.startsWith("Email is already in use")
+    );
+
+    expect(emailInUseError).toBeInTheDocument();
   });
 });
