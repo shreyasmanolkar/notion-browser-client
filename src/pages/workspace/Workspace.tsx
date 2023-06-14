@@ -1,17 +1,56 @@
+import { MouseEvent, useState } from "react";
 import styles from "./workspace.module.scss";
 
 const Workspace = () => {
+  const [leftOpen, setLeftOpen] = useState<boolean>(true);
+  const [rightOpen, setRightOpen] = useState<boolean>(false);
+  const [rightPanelContent, setRightPanelContent] = useState<string | null>(
+    null
+  );
+
+  const toggleSidebar = (event: MouseEvent) => {
+    const targetId = event.currentTarget.id;
+    const parentNode = event.currentTarget.parentNode as HTMLElement;
+
+    if (parentNode) {
+      const key = `${parentNode.id}_open`;
+
+      if (key === "left_header_open" || key === "menu_icon_open") {
+        setLeftOpen(!leftOpen);
+      } else if (key === "right_header_open" || key === "options_open") {
+        if (targetId === "history") {
+          !rightOpen && setRightOpen(true);
+
+          setRightPanelContent("history");
+        } else if (targetId === "comment") {
+          !rightOpen && setRightOpen(true);
+
+          setRightPanelContent("comment");
+        } else {
+          setRightOpen(false);
+        }
+      }
+    }
+  };
+
   return (
-    <div id={`${styles.layout}`}>
+    <div className={`${styles.layout}`}>
       {/* left sidebar */}
 
-      <div id={`${styles.left}`}>
-        <div className={`${styles.sidebar}`}>
-          <div className={`${styles.header}`}>
+      <div
+        id="left"
+        className={`${styles.left} ${
+          leftOpen ? styles.left_open : styles.left_closed
+        }`}
+      >
+        <div className={`${styles.sidebar} ${leftOpen ? "open" : "closed"}`}>
+          <div id="left_header" className={`${styles.header}`}>
             <div className={`${styles.title_container}`}>
               <p>Workspace</p>
             </div>
-            <div className={`${styles.icon}`}>&#171;</div>
+            <div className={`${styles.icon}`} onClick={toggleSidebar}>
+              &#171;
+            </div>
           </div>
           <div className={`${styles.content}`}></div>
         </div>
@@ -19,18 +58,32 @@ const Workspace = () => {
 
       {/* main */}
 
-      <div id={`${styles.main}`}>
+      <div className={`${styles.main}`}>
         <div className={`${styles.header}`}>
-          <div id={`${styles.path}`}>
-            <div className={`${styles.on_menu_icon}`}>&equiv;</div>
+          <div id="menu_icon" className={`${styles.path}`}>
+            <div className={`${styles.on_menu_icon}`} onClick={toggleSidebar}>
+              &equiv;
+            </div>
             <h3>Page Title</h3>
           </div>
-          <div className={`${styles.main_options}`}>
+          <div id="options" className={`${styles.main_options}`}>
             <p>Edited At</p>
             <p>Share</p>
-            <p>Comment</p>
+            <div
+              id="history"
+              className={`${styles.history}`}
+              onClick={toggleSidebar}
+            >
+              &#9830;
+            </div>
             <p>History</p>
-            <p className={`${styles.comments}`}>&#9733;</p>
+            <div
+              id="comment"
+              className={`${styles.comments}`}
+              onClick={toggleSidebar}
+            >
+              &#9733;
+            </div>
             <p>options</p>
           </div>
         </div>
@@ -42,13 +95,20 @@ const Workspace = () => {
 
       {/* right sidebar */}
 
-      <div id={`${styles.right}`}>
-        <div className={`${styles.sidebar}`}>
-          <div className={`${styles.header}`}>
-            <div className={`${styles.icon}`}>&#187;</div>
+      <div
+        id="right"
+        className={`${styles.right} ${
+          rightOpen ? styles.right_open : styles.right_closed
+        }`}
+      >
+        <div className={`${styles.sidebar} ${rightOpen ? "open" : "closed"}`}>
+          <div id="right_header" className={`${styles.header}`}>
+            <div className={`${styles.icon}`} onClick={toggleSidebar}>
+              &#187;
+            </div>
           </div>
           <div className={`${styles.content}`}>
-            <p>comment</p>
+            {rightPanelContent === "comment" ? <p>Comment</p> : <p>History</p>}
           </div>
         </div>
       </div>

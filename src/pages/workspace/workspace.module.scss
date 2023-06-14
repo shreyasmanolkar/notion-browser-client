@@ -1,12 +1,29 @@
 @use "../../styles/abstracts/colors" as *;
 @use "../../styles/abstracts/layouts" as *;
 
-#layout {
+.layout {
   display: flex;
   overflow: hidden;
 
-  #left {
+  .left_open {
+    width: 220px;
+  }
+
+  .left_closed {
+    width: 0;
+  }
+
+  .right_open {
+    width: 330px;
+  }
+
+  .right_closed {
+    width: 0;
+  }
+
+  .left {
     background-color: gray;
+    transition: width 0.3s ease-in-out;
 
     .sidebar {
       background-color: rgb(51, 51, 51);
@@ -38,7 +55,7 @@
     }
   }
 
-  #main {
+  .main {
     width: 100%;
 
     .header {
@@ -46,14 +63,14 @@
       justify-content: space-between;
       background-color: gray;
 
-      .on_menu_icon {
-        font-size: 2em;
-        padding: 10px;
-        position: fixed;
-        cursor: pointer;
-      }
-
       .path {
+        .on_menu_icon {
+          font-size: 2em;
+          padding: 10px;
+          position: fixed;
+          cursor: pointer;
+        }
+
         h3 {
           margin-left: 40px;
         }
@@ -67,6 +84,13 @@
         }
 
         .comments {
+          font-size: 2em;
+          padding: 8px 0;
+          margin: 0 10px 0 0;
+          cursor: pointer;
+        }
+
+        .history {
           font-size: 2em;
           padding: 8px 0;
           margin: 0 10px 0 0;
@@ -93,8 +117,9 @@
     }
   }
 
-  #right {
+  .right {
     background-color: gray;
+    transition: width 0.3s ease-in-out;
 
     .sidebar {
       color: #80807c;
@@ -120,6 +145,31 @@
         height: 100vh;
         justify-content: center;
         align-items: center;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .layout {
+    .main {
+      min-width: 1px;
+
+      .header {
+        height: 60px;
+        align-items: center;
+
+        .path {
+          h3 {
+            font-size: 16px;
+          }
+        }
+
+        .main_options {
+          p:first-child {
+            display: none;
+          }
+        }
       }
     }
   }
