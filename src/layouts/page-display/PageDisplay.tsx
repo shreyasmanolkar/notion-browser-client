@@ -11,9 +11,13 @@ const PageDisplay: React.FC<MainSectionProps> = ({
   toggleSidebar,
 }) => {
   return (
-    <div className={`${styles.main}`}>
+    <div className={`${styles.main}`} data-testid="page-display">
       <div className={`${styles.header}`}>
-        <div id="menu_icon" className={`${styles.path}`}>
+        <div
+          id="menu_icon"
+          className={`${styles.path}`}
+          data-testid="menu-icon"
+        >
           {!leftOpen && (
             <div className={`${styles.on_menu_icon}`} onClick={toggleSidebar}>
               &equiv;

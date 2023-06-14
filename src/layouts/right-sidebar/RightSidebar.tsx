@@ -15,6 +15,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
   return (
     <div
       id="right"
+      data-testid="right-sidebar"
       className={`${styles.right} ${
         rightOpen ? styles.right_open : styles.right_closed
       }`}

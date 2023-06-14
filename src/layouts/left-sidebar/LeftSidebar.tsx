@@ -13,16 +13,25 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
   return (
     <div
       id="left"
+      data-testid="left-sidebar"
       className={`${styles.left} ${
         leftOpen ? styles.left_open : styles.left_closed
       }`}
     >
       <div className={`${styles.sidebar} ${leftOpen ? "open" : "closed"}`}>
-        <div id="left_header" className={`${styles.header}`}>
+        <div
+          id="left_header"
+          className={`${styles.header}`}
+          data-testid="left-header"
+        >
           <div className={`${styles.title_container}`}>
             <p>Workspace</p>
           </div>
-          <div className={`${styles.icon}`} onClick={toggleSidebar}>
+          <div
+            data-testid="toggle-left-icon"
+            className={`${styles.icon}`}
+            onClick={toggleSidebar}
+          >
             &#171;
           </div>
         </div>

@@ -37,7 +37,7 @@ const Workspace = () => {
   };
 
   return (
-    <div className={`${styles.layout}`}>
+    <div className={`${styles.layout}`} data-testid="workspace">
       <LeftSidebar leftOpen={leftOpen} toggleSidebar={toggleSidebar} />
 
       <PageDisplay leftOpen={leftOpen} toggleSidebar={toggleSidebar} />
