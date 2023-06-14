@@ -1,5 +1,8 @@
 import { MouseEvent, useState } from "react";
 import styles from "./workspace.module.scss";
+import LeftSidebar from "../../layouts/left-sidebar";
+import PageDisplay from "../../layouts/page-display";
+import RightSidebar from "../../layouts/right-sidebar";
 
 const Workspace = () => {
   const [leftOpen, setLeftOpen] = useState<boolean>(true);
@@ -35,83 +38,15 @@ const Workspace = () => {
 
   return (
     <div className={`${styles.layout}`}>
-      {/* left sidebar */}
+      <LeftSidebar leftOpen={leftOpen} toggleSidebar={toggleSidebar} />
 
-      <div
-        id="left"
-        className={`${styles.left} ${
-          leftOpen ? styles.left_open : styles.left_closed
-        }`}
-      >
-        <div className={`${styles.sidebar} ${leftOpen ? "open" : "closed"}`}>
-          <div id="left_header" className={`${styles.header}`}>
-            <div className={`${styles.title_container}`}>
-              <p>Workspace</p>
-            </div>
-            <div className={`${styles.icon}`} onClick={toggleSidebar}>
-              &#171;
-            </div>
-          </div>
-          <div className={`${styles.content}`}></div>
-        </div>
-      </div>
+      <PageDisplay leftOpen={leftOpen} toggleSidebar={toggleSidebar} />
 
-      {/* main */}
-
-      <div className={`${styles.main}`}>
-        <div className={`${styles.header}`}>
-          <div id="menu_icon" className={`${styles.path}`}>
-            <div className={`${styles.on_menu_icon}`} onClick={toggleSidebar}>
-              &equiv;
-            </div>
-            <h3>Page Title</h3>
-          </div>
-          <div id="options" className={`${styles.main_options}`}>
-            <p>Edited At</p>
-            <p>Share</p>
-            <div
-              id="history"
-              className={`${styles.history}`}
-              onClick={toggleSidebar}
-            >
-              &#9830;
-            </div>
-            <p>History</p>
-            <div
-              id="comment"
-              className={`${styles.comments}`}
-              onClick={toggleSidebar}
-            >
-              &#9733;
-            </div>
-            <p>options</p>
-          </div>
-        </div>
-        <div className={`${styles.content}`}>
-          <div className={`${styles.cover}`}></div>
-          <div className={`${styles.page_content}`}></div>
-        </div>
-      </div>
-
-      {/* right sidebar */}
-
-      <div
-        id="right"
-        className={`${styles.right} ${
-          rightOpen ? styles.right_open : styles.right_closed
-        }`}
-      >
-        <div className={`${styles.sidebar} ${rightOpen ? "open" : "closed"}`}>
-          <div id="right_header" className={`${styles.header}`}>
-            <div className={`${styles.icon}`} onClick={toggleSidebar}>
-              &#187;
-            </div>
-          </div>
-          <div className={`${styles.content}`}>
-            {rightPanelContent === "comment" ? <p>Comment</p> : <p>History</p>}
-          </div>
-        </div>
-      </div>
+      <RightSidebar
+        rightOpen={rightOpen}
+        toggleSidebar={toggleSidebar}
+        rightPanelContent={rightPanelContent}
+      />
     </div>
   );
 };
