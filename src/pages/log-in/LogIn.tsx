@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../slice/userSlice";
 import { AxiosError } from "axios";
 import styles from "./login.module.scss";
+import { setWorkspace } from "../../slice/workspaceSlice";
 
 const LogIn = () => {
   const { theme } = useContext(ThemeContext);
@@ -57,7 +58,13 @@ const LogIn = () => {
           const { userId } = JWTParser.parseJWT(data.accessToken);
           const user = await request({ url: `/users/${userId}` });
 
+          const { workspaceId } = user.data.workspaces?.[0] || {};
+          const workspace = await request({
+            url: `/workspaces/${workspaceId}`,
+          });
+
           dispatch(setUser({ ...user.data }));
+          dispatch(setWorkspace({ ...workspace.data }));
 
           setEmail("");
           setPassword("");
