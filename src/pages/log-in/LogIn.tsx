@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
-import { ReactComponent as NotionLogo } from "../../assets/images/notion-logo.svg";
+import { ReactComponent as NotionLogo } from "../../assets/icons/notion-logo.svg";
 import { Validate, validateLoginProps } from "../../utils/validate";
 import { useUserData } from "../../services/useUserData";
 import { JWTParser } from "../../utils/parseJWT";

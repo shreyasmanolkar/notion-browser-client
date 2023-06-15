@@ -1,0 +1,7 @@
+@use "../../styles/abstracts/colors" as *;
+@use "../../styles/abstracts/layouts" as *;
+
+.layout {
+  display: flex;
+  overflow: hidden;
+}

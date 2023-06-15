@@ -33,7 +33,7 @@
     "prepare": "husky install",
     "pre-commit": "lint-staged",
     "server": "json-server --watch ./src/data/db.json --port 4000",
-    "coverage": "npm test -- --coverage --watchAll --collectCoverageFrom='src/components/**/*.{ts,tsx}' --collectCoverageFrom='src/pages/**/*.{ts,tsx}'"
+    "coverage": "npm test -- --coverage --watchAll --collectCoverageFrom='src/components/**/*{ts,tsx}' --collectCoverageFrom='src/pages/**/*.{ts,tsx}' --collectCoverageFrom='src/slice/**/*{ts,tsx}' --collectCoverageFrom='src/layouts/**/*{ts,tsx}'"
   },
   "eslintConfig": {
     "extends": [
