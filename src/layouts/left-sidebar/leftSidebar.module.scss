@@ -20,18 +20,12 @@
 
     .header {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
       height: 45px;
-
-      .title_container {
-        padding: 10px;
-      }
+      cursor: pointer;
 
       .icon {
         font-size: 2em;
         padding: 0 10px;
-        cursor: pointer;
       }
     }
 

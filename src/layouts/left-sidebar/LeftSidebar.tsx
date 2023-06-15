@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import styles from "./leftSidebar.module.scss";
 import { SidebarLogicContext } from "../../context/SidebarContext";
+import SidebarSwitcher from "../../components/sidebar-switcher";
+import styles from "./leftSidebar.module.scss";
 
 const LeftSidebar = () => {
   const { leftOpen, toggleSidebar } = useContext(SidebarLogicContext);
@@ -19,9 +20,7 @@ const LeftSidebar = () => {
           className={`${styles.header}`}
           data-testid="left-header"
         >
-          <div className={`${styles.title_container}`}>
-            <p>Workspace</p>
-          </div>
+          <SidebarSwitcher />
           <div
             data-testid="toggle-left-icon"
             className={`${styles.icon}`}

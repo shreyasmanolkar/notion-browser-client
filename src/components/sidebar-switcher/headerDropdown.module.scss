@@ -1,0 +1,35 @@
+.header_dropdown_background {
+  width: 100vw;
+  height: 100vw;
+  position: fixed;
+  cursor: auto;
+
+  .header_dropdown {
+    position: absolute;
+    top: 70px;
+    left: 150px;
+    width: 200px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+
+    .tab {
+      display: flex;
+      cursor: pointer;
+
+      .icon {
+        align-self: center;
+        width: 16px;
+      }
+
+      p {
+        margin: 0;
+        padding: 10px;
+        font-size: 14px;
+      }
+    }
+  }
+}
