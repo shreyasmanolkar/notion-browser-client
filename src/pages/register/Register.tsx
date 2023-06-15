@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AxiosError } from "axios";
 import { ThemeContext } from "../../context/ThemeContext";
-import { ReactComponent as NotionLogo } from "../../assets/images/notion-logo.svg";
+import { ReactComponent as NotionLogo } from "../../assets/icons/notion-logo.svg";
 import { useUserData } from "../../services/useUserData";
 import { GenerateProfilePicture } from "../../utils/generateProfilePicture";
 import { useThemeDetector } from "../../hooks/useThemeDetector";

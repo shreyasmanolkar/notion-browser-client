@@ -1,0 +1,75 @@
+@use "../../styles/abstracts/colors" as *;
+@use "../../styles/abstracts/layouts" as *;
+
+.container {
+  height: 100vh;
+
+  .nav {
+    display: flex;
+    padding: 24px 0 0 300px;
+
+    .logo {
+      width: 50px;
+      height: 50px;
+    }
+
+    p {
+      margin-left: 0.5em;
+      font-size: 1.2em;
+    }
+  }
+
+  .not_found_panel {
+    @include flex-center();
+    flex-direction: column;
+    min-height: 70vh;
+
+    p {
+      font-size: 1.2em;
+    }
+
+    button {
+      padding: 8px 16px;
+      font-size: 16px;
+      background-color: $primary;
+      color: $background-secondary;
+      border: none;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: $primary-shadow;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.light {
+  background-color: $background-secondary;
+
+  .not_found_panel {
+    .eyes {
+      path {
+        fill: $dark-color-tertiary;
+      }
+    }
+  }
+}
+
+.dark {
+  background-color: $dark-background-secondary;
+  color: $background-secondary;
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    .nav {
+      padding: 24px 0 0 64px;
+    }
+
+    .not_found_panel {
+      padding: 20px;
+      min-height: 70vh;
+    }
+  }
+}
