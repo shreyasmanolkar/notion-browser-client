@@ -8,9 +8,9 @@ function App() {
   return (
     <div className="App">
       {/* <h1>Notion-Clone</h1> */}
-      {/* <Register />
-      <LogIn />
-      <NotFound /> */}
+      {/* <Register /> */}
+      {/* <LogIn /> */}
+      {/* <NotFound /> */}
       <Workspace />
     </div>
   );

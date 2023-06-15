@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../slice/userSlice";
 import { Validate, validateRegistrationProps } from "../../utils/validate";
 import styles from "./register.module.scss";
+import { setWorkspace } from "../../slice/workspaceSlice";
 
 const Register = () => {
   const { theme } = useContext(ThemeContext);
@@ -80,7 +81,13 @@ const Register = () => {
           const { userId } = JWTParser.parseJWT(data.accessToken);
           const user = await request({ url: `/users/${userId}` });
 
+          const { workspaceId } = user.data.workspaces?.[0] || {};
+          const workspace = await request({
+            url: `/workspaces/${workspaceId}`,
+          });
+
           dispatch(setUser({ ...user.data }));
+          dispatch(setWorkspace({ ...workspace.data }));
 
           setName("");
           setEmail("");
