@@ -4,15 +4,7 @@ import RightSidebar from "../RightSidebar";
 
 describe("RightSidebar", () => {
   beforeAll(() => {
-    const mockToggleSidebar = jest.fn();
-
-    render(
-      <RightSidebar
-        rightOpen={true}
-        toggleSidebar={mockToggleSidebar}
-        rightPanelContent={null}
-      />
-    );
+    render(<RightSidebar />);
   });
 
   it("should render rightSidebar jsx correctly", () => {

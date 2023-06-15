@@ -1,15 +1,10 @@
-import { MouseEvent } from "react";
+import { useContext } from "react";
 import styles from "./pageDisplay.module.scss";
+import { SidebarLogicContext } from "../../context/SidebarContext";
 
-interface MainSectionProps {
-  leftOpen: boolean;
-  toggleSidebar: (event: MouseEvent<HTMLDivElement>) => void;
-}
+const PageDisplay = () => {
+  const { leftOpen, toggleSidebar } = useContext(SidebarLogicContext);
 
-const PageDisplay: React.FC<MainSectionProps> = ({
-  leftOpen,
-  toggleSidebar,
-}) => {
   return (
     <div className={`${styles.main}`} data-testid="page-display">
       <div className={`${styles.header}`}>

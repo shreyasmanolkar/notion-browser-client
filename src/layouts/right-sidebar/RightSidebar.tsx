@@ -1,17 +1,11 @@
-import { MouseEvent } from "react";
+import { useContext } from "react";
 import styles from "./rightSidebar.module.scss";
+import { SidebarLogicContext } from "../../context/SidebarContext";
 
-interface RightSidebarProps {
-  rightOpen: boolean;
-  toggleSidebar: (event: MouseEvent<HTMLDivElement>) => void;
-  rightPanelContent: string | null;
-}
+const RightSidebar = () => {
+  const { rightOpen, rightPanelContent, toggleSidebar } =
+    useContext(SidebarLogicContext);
 
-const RightSidebar: React.FC<RightSidebarProps> = ({
-  rightOpen,
-  toggleSidebar,
-  rightPanelContent,
-}) => {
   return (
     <div
       id="right"

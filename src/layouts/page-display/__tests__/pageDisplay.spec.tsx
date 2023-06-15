@@ -4,9 +4,7 @@ import PageDisplay from "../PageDisplay";
 
 describe("PageDisplay", () => {
   beforeAll(() => {
-    const mockToggleSidebar = jest.fn();
-
-    render(<PageDisplay leftOpen={true} toggleSidebar={mockToggleSidebar} />);
+    render(<PageDisplay />);
   });
 
   it("should render pageDisplay jsx correctly", () => {

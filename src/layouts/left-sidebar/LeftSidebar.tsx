@@ -1,15 +1,10 @@
-import { MouseEvent } from "react";
+import { useContext } from "react";
 import styles from "./leftSidebar.module.scss";
+import { SidebarLogicContext } from "../../context/SidebarContext";
 
-interface LeftSidebarProps {
-  leftOpen: boolean;
-  toggleSidebar: (event: MouseEvent<HTMLDivElement>) => void;
-}
+const LeftSidebar = () => {
+  const { leftOpen, toggleSidebar } = useContext(SidebarLogicContext);
 
-const LeftSidebar: React.FC<LeftSidebarProps> = ({
-  leftOpen,
-  toggleSidebar,
-}) => {
   return (
     <div
       id="left"
