@@ -5,6 +5,9 @@ import HeaderDropdown from "./HeaderDropdown";
 import styles from "./switcherDropdown.module.scss";
 import WorkspaceDisplayList from "./WorkspaceDisplayList";
 import { ThemeContext } from "../../context/ThemeContext";
+import { useDispatch } from "react-redux";
+import { logout } from "../../slice/userSlice";
+import AddAccount from "./AddAccount";
 
 type SwitcherDropdownProps = {
   open: boolean;
@@ -17,11 +20,18 @@ const SwitcherDropdown: React.FC<SwitcherDropdownProps> = ({
 }) => {
   const { theme } = useContext(ThemeContext);
   const [openHeaderDropdown, setOpenHeaderDropdown] = useState<boolean>(false);
+  const [openAddAccount, setOpenAddAccount] = useState<boolean>(false);
   const userInfo = useAppSelector((state) => state.user.userInfo);
+  const dispatch = useDispatch();
 
-  // const workspaceInfo = useAppSelector(
-  //   (state) => state.workspace.workspaceInfo
-  // );
+  const handleLogout = () => {
+    dispatch(logout());
+    // TODO: navigate to register page
+  };
+
+  const handleGetMac = () => {
+    window.open("https://www.notion.so/desktop", "_blank");
+  };
 
   if (!open) return null;
 
@@ -50,15 +60,30 @@ const SwitcherDropdown: React.FC<SwitcherDropdownProps> = ({
           </div>
           <WorkspaceDisplayList />
           <div className={`${styles.options}`}>
-            <div className={`${styles.option}`}>Add another account</div>
-            <div className={`${styles.option}`}>Log out</div>
-            <div className={`${styles.option}`}>Get Mac app</div>
+            <div
+              className={`${styles.option}`}
+              onClick={() => {
+                setOpenAddAccount(true);
+              }}
+            >
+              Add another account
+            </div>
+            <div className={`${styles.option}`} onClick={handleLogout}>
+              Log out
+            </div>
+            <div className={`${styles.option}`} onClick={handleGetMac}>
+              Get Mac app
+            </div>
           </div>
         </div>
       </div>
       <HeaderDropdown
         openHeader={openHeaderDropdown}
         onCloseHeader={() => setOpenHeaderDropdown(false)}
+      />
+      <AddAccount
+        addAccountOpen={openAddAccount}
+        addAccountOnClose={() => setOpenAddAccount(false)}
       />
     </>
   );

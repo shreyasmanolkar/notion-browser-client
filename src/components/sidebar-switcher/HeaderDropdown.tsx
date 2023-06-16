@@ -3,6 +3,8 @@ import { ReactComponent as SquarePlusIcon } from "../../assets/icons/square-plus
 import { ReactComponent as CircleCrossIcon } from "../../assets/icons/circle-cross.svg";
 import styles from "./headerDropdown.module.scss";
 import { ThemeContext } from "../../context/ThemeContext";
+import { useDispatch } from "react-redux";
+import { logout } from "../../slice/userSlice";
 
 type HeaderDropdownProps = {
   openHeader: boolean;
@@ -16,6 +18,12 @@ const HeaderDropdown: React.FC<HeaderDropdownProps> = ({
   onCloseHeader,
 }) => {
   const { theme } = useContext(ThemeContext);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    // TODO: navigate to register page
+  };
 
   if (!openHeader) return null;
 
@@ -36,7 +44,7 @@ const HeaderDropdown: React.FC<HeaderDropdownProps> = ({
           </div>
           <p>Join or create workspace</p>
         </div>
-        <div className={`${styles.tab}`}>
+        <div className={`${styles.tab}`} onClick={handleLogout}>
           <div className={`${styles.icon}`}>
             <CircleCrossIcon />
           </div>

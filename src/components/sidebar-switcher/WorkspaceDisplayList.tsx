@@ -3,26 +3,23 @@ import twemoji from "twemoji";
 import { ReactComponent as DragHandleIcon } from "../../assets/icons/drag-handle.svg";
 import styles from "./workspaceDisplayList.module.scss";
 import { ThemeContext } from "../../context/ThemeContext";
+import { useAppSelector } from "../../app/hooks";
 
 const WorkspaceDisplayList = () => {
   const { theme } = useContext(ThemeContext);
   const dragItem = React.useRef<any>(null);
   const dragOverItem = React.useRef<any>(null);
-  const [workspacesMetaData, setWorkspacesMetaData] = useState([
-    {
-      id: "1",
-      name: "home-workspace",
-      icon: "1f30e",
-    },
-    {
-      id: "2",
-      name: "office-workspace",
-      icon: "1f5fc",
-    },
-  ]);
+  const userInfo = useAppSelector((state) => state.user.userInfo);
+  const workspaceInfo = useAppSelector(
+    (state) => state.workspace.workspaceInfo
+  );
+
+  const [workspacesMetaData, setWorkspacesMetaData] = useState(
+    userInfo?.workspaces
+  );
 
   const handleSort = () => {
-    let _workspaceMetaData = [...workspacesMetaData];
+    let _workspaceMetaData = [...workspacesMetaData!];
 
     const dragItemContent = _workspaceMetaData.splice(dragItem.current, 1)[0];
 
@@ -42,9 +39,15 @@ const WorkspaceDisplayList = () => {
     return emojiImage;
   };
 
+  const handleBrokenImage = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src =
+      "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f1e6.png";
+    e.currentTarget.onerror = null;
+  };
+
   return (
     <div className={`${styles.display_container} ${styles[theme]}`}>
-      {workspacesMetaData.map((item, index) => (
+      {workspacesMetaData?.map((item, index) => (
         <div
           key={index}
           className={`${styles.workspace_tab}`}
@@ -59,11 +62,18 @@ const WorkspaceDisplayList = () => {
               <DragHandleIcon />
             </div>
             <div className={`${styles.workspace_icon}`}>
-              <img src={getEmojiUrl(item.icon!)} alt="" draggable="false" />
+              <img
+                src={getEmojiUrl(item.workspaceIcon!)}
+                onError={(e) => handleBrokenImage(e)}
+                alt=""
+                draggable="false"
+              />
             </div>
-            <div className={`${styles.workspace_title}`}>{item.name}</div>
+            <div className={`${styles.workspace_title}`}>
+              {item.workspaceName}
+            </div>
           </div>
-          {index === 0 ? (
+          {workspaceInfo?.id === item.workspaceId ? (
             <div className={`${styles.workspace_check}`}>&#10003;</div>
           ) : (
             ""
