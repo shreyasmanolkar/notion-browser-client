@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ReactComponent as SquarePlusIcon } from "../../assets/icons/square-plus.svg";
 import { ReactComponent as CircleCrossIcon } from "../../assets/icons/circle-cross.svg";
 import styles from "./headerDropdown.module.scss";
+import { ThemeContext } from "../../context/ThemeContext";
 
 type HeaderDropdownProps = {
   openHeader: boolean;
@@ -14,10 +15,13 @@ const HeaderDropdown: React.FC<HeaderDropdownProps> = ({
   openHeader,
   onCloseHeader,
 }) => {
+  const { theme } = useContext(ThemeContext);
+
   if (!openHeader) return null;
+
   return (
     <div
-      className={`${styles.header_dropdown_background}`}
+      className={`${styles.header_dropdown_background} ${styles[theme]}`}
       onClick={onCloseHeader}
     >
       <div

@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import twemoji from "twemoji";
 import { ReactComponent as ExpandIcon } from "../../assets/icons/expand.svg";
 import SwitcherDropdown from "./SwitcherDropdown";
 import { useAppSelector } from "../../app/hooks";
 import styles from "./sidebarSwitcher.module.scss";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const SidebarSwitcher = () => {
+  const { theme } = useContext(ThemeContext);
   const [workspaceEmoji, setWorkspaceEmoji] = useState<string | null>(null);
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
   const workspaceInfo = useAppSelector(
@@ -25,7 +27,7 @@ const SidebarSwitcher = () => {
   return (
     <>
       <div
-        className={`${styles.sidebar_switcher}`}
+        className={`${styles.sidebar_switcher} ${styles[theme]}`}
         onClick={() => {
           setOpenDropdown(true);
         }}

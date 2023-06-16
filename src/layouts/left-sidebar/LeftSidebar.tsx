@@ -2,15 +2,17 @@ import { useContext } from "react";
 import { SidebarLogicContext } from "../../context/SidebarContext";
 import SidebarSwitcher from "../../components/sidebar-switcher";
 import styles from "./leftSidebar.module.scss";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const LeftSidebar = () => {
   const { leftOpen, toggleSidebar } = useContext(SidebarLogicContext);
+  const { theme } = useContext(ThemeContext);
 
   return (
     <div
       id="left"
       data-testid="left-sidebar"
-      className={`${styles.left} ${
+      className={`${styles.left} ${styles[theme]} ${
         leftOpen ? styles.left_open : styles.left_closed
       }`}
     >

@@ -1,7 +1,10 @@
+@use "../../styles/abstracts/colors" as *;
+
 .dropdown_background {
   width: 100vw;
   height: 100vw;
   position: fixed;
+  user-select: none;
   cursor: auto;
 
   .dropdown {
@@ -10,7 +13,6 @@
     left: 10px;
     width: 250px;
     border-radius: 5px;
-    background-color: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 10px;
     display: flex;
@@ -26,48 +28,8 @@
 
       .dots_icon {
         width: 14px;
+        fill: $color-primary;
         cursor: pointer;
-      }
-    }
-
-    .display_container {
-      margin: 8px 0;
-      padding: 8px 0;
-      user-select: none;
-
-      .workspace_tab {
-        display: flex;
-        justify-content: space-between;
-        cursor: pointer;
-
-        .workspace_info {
-          display: flex;
-          gap: 10px;
-          padding: 8px 0;
-
-          .drag_handle {
-            align-self: center;
-            cursor: grab;
-          }
-
-          .workspace_icon {
-            align-self: center;
-
-            img {
-              width: 26px;
-            }
-          }
-
-          .workspace_title {
-            font-size: 14px;
-          }
-        }
-
-        .workspace_check {
-          user-select: none;
-          font-size: 1.6em;
-          align-self: center;
-        }
       }
     }
 
@@ -75,7 +37,39 @@
       .option {
         cursor: pointer;
         font-size: 12px;
-        padding: 8px 0;
+        padding: 8px 0 8px 12px;
+
+        &:hover {
+          background-color: $background-hover;
+        }
+      }
+    }
+  }
+}
+
+.light {
+  .dropdown {
+    background-color: $background-primary;
+    color: $color-primary;
+  }
+}
+
+.dark {
+  .dropdown {
+    background-color: $dark-background-primary;
+    color: $dark-color-primary;
+
+    .header {
+      .dots_icon {
+        fill: $dark-color-primary;
+      }
+    }
+
+    .options {
+      .option {
+        &:hover {
+          background-color: $dark-background-hover;
+        }
       }
     }
   }
