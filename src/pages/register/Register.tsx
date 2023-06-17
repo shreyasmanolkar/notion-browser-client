@@ -13,7 +13,9 @@ const Register = () => {
         <NotionLogo data-testid="notion-logo" className={`${styles.logo}`} />
         <p>Notion</p>
       </div>
-      <RegisterPanel />
+      <div className={`${styles.panel}`}>
+        <RegisterPanel />
+      </div>
     </div>
   );
 };

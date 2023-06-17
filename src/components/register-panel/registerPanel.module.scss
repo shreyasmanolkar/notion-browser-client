@@ -4,7 +4,7 @@
 .register_panel {
   @include flex-center();
   flex-direction: column;
-  min-height: 75vh;
+  height: 100%;
 
   h1 {
     font-size: 54px;

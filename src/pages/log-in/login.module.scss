@@ -18,6 +18,10 @@
       font-size: 1.2em;
     }
   }
+
+  .panel {
+    height: 70%;
+  }
 }
 
 .light {
@@ -27,39 +31,12 @@
 .dark {
   background-color: $dark-background-secondary;
   color: $background-secondary;
-
-  .login_panel {
-    a {
-      color: $color-secondary;
-    }
-
-    form {
-      label {
-        color: $color-secondary;
-      }
-
-      input {
-        background-color: $dark-background-primary;
-        border: 2px solid $dark-background-secondary;
-        color: $background-secondary;
-      }
-    }
-  }
 }
 
 @media screen and (max-width: 800px) {
   .container {
     .nav {
       padding: 24px 0 0 64px;
-    }
-
-    .login_panel {
-      padding: 20px;
-      min-height: 70vh;
-
-      h1 {
-        font-size: 44px;
-      }
     }
   }
 }

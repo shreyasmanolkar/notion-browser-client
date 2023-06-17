@@ -1,0 +1,87 @@
+import React, { useContext, useEffect, useState } from "react";
+import styles from "./createWorkspacePanel.module.scss";
+import { ThemeContext } from "../../context/ThemeContext";
+import { Validate, validateCreateWorkspaceProps } from "../../utils/validate";
+import EmojiSelector from "./EmojiSelector";
+
+const CreateWorkspacePanel = () => {
+  const { theme } = useContext(ThemeContext);
+  const [name, setName] = useState<string>("");
+  const [emoji, setEmoji] = useState<string>("");
+  const [emojiCode, setEmojiCode] = useState<string>("");
+  const [openPicker, setOpenPicker] = useState(false);
+  const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const [formErrors, setFormErrors] = useState<
+    Partial<validateCreateWorkspaceProps>
+  >({});
+
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      handleCreateWorkspace();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formErrors, isSubmit]);
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setName(e.target.value);
+  };
+
+  const handleSubmit = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+
+    setFormErrors(Validate.validateCreateWorkspace({ name }));
+    setIsSubmit(true);
+  };
+
+  const handleCreateWorkspace = () => {
+    console.log("handle create workspace");
+    console.log("name", name);
+    console.log("emoji", emojiCode);
+  };
+
+  const handleBrokenImage = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src =
+      "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f30e.png";
+    e.currentTarget.onerror = null;
+  };
+
+  return (
+    <>
+      <div className={`${styles.create_workspace_panel} ${styles[theme]}`}>
+        <h1>Create a workspace</h1>
+        <p>Fill in some details for your teammates.</p>
+        <div
+          className={`${styles.emoji_display}`}
+          onClick={() => setOpenPicker(true)}
+        >
+          <img src={emoji} alt="emoji" width={50} onError={handleBrokenImage} />
+        </div>
+        <p>Choose icon</p>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="name">Workspace name</label>
+          <input
+            id="name"
+            type="text"
+            value={name}
+            placeholder="The name of your workspace."
+            onChange={handleNameChange}
+          />
+          {formErrors.name && (
+            <p className={`${styles.error}`}>{formErrors.name}</p>
+          )}
+
+          <button type="submit">Continue</button>
+          <br />
+        </form>
+      </div>
+      <EmojiSelector
+        openPicker={openPicker}
+        closePicker={() => setOpenPicker(false)}
+        setEmoji={setEmoji}
+        setEmojiCode={setEmojiCode}
+      />
+    </>
+  );
+};
+
+export default CreateWorkspacePanel;

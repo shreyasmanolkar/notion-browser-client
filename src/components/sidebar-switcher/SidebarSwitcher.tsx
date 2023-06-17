@@ -24,6 +24,12 @@ const SidebarSwitcher = () => {
     setWorkspaceEmoji(emojiImage);
   }, [workspaceInfo?.icon]);
 
+  const handleBrokenImage = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src =
+      "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f1e6.png";
+    e.currentTarget.onerror = null;
+  };
+
   return (
     <>
       <div
@@ -33,7 +39,11 @@ const SidebarSwitcher = () => {
         }}
       >
         <div className={`${styles.icon}`}>
-          <img src={workspaceEmoji!} alt="≧◠‿◠≦✌" />
+          <img
+            src={workspaceEmoji!}
+            alt=""
+            onError={(e) => handleBrokenImage(e)}
+          />
         </div>
         <div className={`${styles.name}`}>{workspaceInfo?.name}</div>
         <div className={`${styles.expand}`}>

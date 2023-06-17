@@ -1,24 +1,32 @@
 @use "../../styles/abstracts/colors" as *;
 @use "../../styles/abstracts/layouts" as *;
 
-.login_panel {
+.create_workspace_panel {
   @include flex-center();
   flex-direction: column;
   height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  .emoji_display {
+    cursor: pointer;
+  }
 
   h1 {
-    font-size: 54px;
+    font-size: 32px;
     font-weight: bold;
+    margin: 0;
+  }
+
+  p {
+    margin-top: 10px;
   }
 
   .error {
     color: $danger;
     font-size: 14px;
     margin: 0;
-  }
-
-  a {
-    color: $dark-color-secondary;
   }
 
   form {
@@ -68,7 +76,7 @@
   background-color: $dark-background-secondary;
   color: $background-secondary;
 
-  a {
+  p {
     color: $color-secondary;
   }
 
@@ -81,17 +89,6 @@
       background-color: $dark-background-primary;
       border: 2px solid $dark-background-secondary;
       color: $background-secondary;
-    }
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .login_panel {
-    padding: 20px;
-    min-height: 70vh;
-
-    h1 {
-      font-size: 44px;
     }
   }
 }

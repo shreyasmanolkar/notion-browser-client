@@ -13,7 +13,9 @@ const LogIn = () => {
         <NotionLogo data-testid="notion-logo" className={`${styles.logo}`} />
         <p>Notion</p>
       </div>
-      <LoginPanel />
+      <div className={`${styles.panel}`}>
+        <LoginPanel />
+      </div>
     </div>
   );
 };

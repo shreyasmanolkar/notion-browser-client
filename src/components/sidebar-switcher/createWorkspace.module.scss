@@ -1,6 +1,6 @@
 @use "../../styles/abstracts/colors" as *;
 
-.add_account_background {
+.create_workspace_background {
   width: 100vw;
   height: 100vh;
   background-color: rgba(255, 255, 255, 0.5);
@@ -10,7 +10,7 @@
   align-items: center;
   cursor: auto;
 
-  .add_account {
+  .create_workspace {
     width: 450px;
     height: 550px;
     border-radius: 12px;
