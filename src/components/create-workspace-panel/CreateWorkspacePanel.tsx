@@ -3,17 +3,26 @@ import styles from "./createWorkspacePanel.module.scss";
 import { ThemeContext } from "../../context/ThemeContext";
 import { Validate, validateCreateWorkspaceProps } from "../../utils/validate";
 import EmojiSelector from "./EmojiSelector";
+import { useUserData } from "../../services/useUserData";
+import { useAppSelector } from "../../app/hooks";
+import { request } from "../../lib/axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../slice/userSlice";
+import { setWorkspace } from "../../slice/workspaceSlice";
 
 const CreateWorkspacePanel = () => {
   const { theme } = useContext(ThemeContext);
   const [name, setName] = useState<string>("");
   const [emoji, setEmoji] = useState<string>("");
-  const [emojiCode, setEmojiCode] = useState<string>("");
+  const [emojiCode, setEmojiCode] = useState<string>("1f30e");
   const [openPicker, setOpenPicker] = useState(false);
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const [formErrors, setFormErrors] = useState<
     Partial<validateCreateWorkspaceProps>
   >({});
+  const { mutate } = useUserData.useCreateWorkspaceData();
+  const userInfo = useAppSelector((state) => state.user.userInfo);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
@@ -34,9 +43,29 @@ const CreateWorkspacePanel = () => {
   };
 
   const handleCreateWorkspace = () => {
-    console.log("handle create workspace");
-    console.log("name", name);
-    console.log("emoji", emojiCode);
+    const icon = emojiCode;
+
+    const createWorkspaceData = {
+      name,
+      icon,
+    };
+
+    mutate(createWorkspaceData, {
+      onSuccess: async (data) => {
+        if (data) {
+          const userId = userInfo?.id;
+          const { workspaceId } = data;
+
+          const user = await request({ url: `/users/${userId}` });
+          const workspace = await request({
+            url: `/workspaces/${workspaceId}`,
+          });
+
+          dispatch(setUser({ ...user.data }));
+          dispatch(setWorkspace({ ...workspace.data }));
+        }
+      },
+    });
   };
 
   const handleBrokenImage = (e: React.SyntheticEvent<HTMLImageElement>) => {

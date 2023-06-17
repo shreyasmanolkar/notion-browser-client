@@ -13,6 +13,11 @@ type credientialsType = {
   password: string;
 };
 
+type createWorkspaceDataType = {
+  name: string;
+  icon: string;
+};
+
 export class useUserData {
   static registerUser = async (user: userDataType) => {
     const response = await request({
@@ -34,6 +39,16 @@ export class useUserData {
     return response.data;
   };
 
+  static createWorkspace = async (data: createWorkspaceDataType) => {
+    const response = await request({
+      url: "/workspaces",
+      method: "post",
+      data,
+    });
+
+    return response.data;
+  };
+
   static useRegisterUserData = () => {
     return useMutation(useUserData.registerUser, {
       onSuccess: (data) => {
@@ -45,6 +60,15 @@ export class useUserData {
 
   static useLoginUserData = () => {
     return useMutation(useUserData.loginUser, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useCreateWorkspaceData = () => {
+    return useMutation(useUserData.createWorkspace, {
       onSuccess: (data) => {
         return data;
       },

@@ -4,6 +4,9 @@ import { ReactComponent as DragHandleIcon } from "../../assets/icons/drag-handle
 import styles from "./workspaceDisplayList.module.scss";
 import { ThemeContext } from "../../context/ThemeContext";
 import { useAppSelector } from "../../app/hooks";
+import { useDispatch } from "react-redux";
+import { setWorkspace } from "../../slice/workspaceSlice";
+import { request } from "../../lib/axios";
 
 const WorkspaceDisplayList = () => {
   const { theme } = useContext(ThemeContext);
@@ -17,6 +20,7 @@ const WorkspaceDisplayList = () => {
   const [workspacesMetaData, setWorkspacesMetaData] = useState(
     userInfo?.workspaces
   );
+  const dispatch = useDispatch();
 
   const handleSort = () => {
     let _workspaceMetaData = [...workspacesMetaData!];
@@ -29,6 +33,14 @@ const WorkspaceDisplayList = () => {
     dragOverItem.current = null;
 
     setWorkspacesMetaData(_workspaceMetaData);
+  };
+
+  const handleOnClick = async (workspaceId: string) => {
+    const workspace = await request({
+      url: `/workspaces/${workspaceId}`,
+    });
+
+    dispatch(setWorkspace({ ...workspace.data }));
   };
 
   const getEmojiUrl = (unified: string) => {
@@ -69,7 +81,10 @@ const WorkspaceDisplayList = () => {
                 draggable="false"
               />
             </div>
-            <div className={`${styles.workspace_title}`}>
+            <div
+              className={`${styles.workspace_title}`}
+              onClick={() => handleOnClick(item.workspaceId)}
+            >
               {item.workspaceName}
             </div>
           </div>
