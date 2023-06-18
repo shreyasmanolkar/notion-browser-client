@@ -39,6 +39,7 @@ const workspaceSlice = createSlice({
     builder.addCase(userLogout, (state) => {
       state.workspaceInfo = null;
       localStorage.removeItem("workspaceInfo");
+      localStorage.removeItem("workspaceListState");
     });
   },
 });

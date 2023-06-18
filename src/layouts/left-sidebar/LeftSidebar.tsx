@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { SidebarLogicContext } from "../../context/SidebarContext";
 import SidebarSwitcher from "../../components/sidebar-switcher";
-import styles from "./leftSidebar.module.scss";
 import { ThemeContext } from "../../context/ThemeContext";
+import styles from "./leftSidebar.module.scss";
 
 const LeftSidebar = () => {
   const { leftOpen, toggleSidebar } = useContext(SidebarLogicContext);

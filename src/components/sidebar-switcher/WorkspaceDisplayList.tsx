@@ -66,7 +66,7 @@ const WorkspaceDisplayList = () => {
           JSON.stringify(workspacesMetaData)
         );
       }
-    } else {
+    } else if (workspacesMetaData?.length !== initialWorkspaces?.length) {
       localStorage.setItem(
         "workspaceListState",
         JSON.stringify(initialWorkspaces)
@@ -76,10 +76,12 @@ const WorkspaceDisplayList = () => {
   }, [workspacesMetaData, initialWorkspaces]);
 
   useEffect(() => {
+    // TODO: after implementing redirect on logout change if statement accordingly
+
     const savedState = localStorage.getItem("workspaceListState");
 
-    if (savedState) {
-      setWorkspacesMetaData(JSON.parse(savedState));
+    if (savedState !== "undefined") {
+      setWorkspacesMetaData(JSON.parse(savedState!));
     }
   }, []);
 

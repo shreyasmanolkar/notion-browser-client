@@ -1,4 +1,4 @@
-import React, { createContext, useState, MouseEvent, useEffect } from "react";
+import React, { createContext, useState, MouseEvent } from "react";
 
 export const SidebarLogicContext = createContext<any>({
   leftOpen: true,
@@ -15,32 +15,6 @@ export const SidebarLogicProvider: React.FC<{ children: any }> = ({
   const [rightPanelContent, setRightPanelContent] = useState<string | null>(
     null
   );
-
-  useEffect(() => {
-    if (
-      leftOpen !== true ||
-      rightOpen !== false ||
-      rightPanelContent !== null
-    ) {
-      const stateToSave = {
-        leftOpen,
-        rightOpen,
-        rightPanelContent,
-      };
-      localStorage.setItem("sidebarState", JSON.stringify(stateToSave));
-    }
-  }, [leftOpen, rightOpen, rightPanelContent]);
-
-  useEffect(() => {
-    const savedState = localStorage.getItem("sidebarState");
-    if (savedState) {
-      const { leftOpen, rightOpen, rightPanelContent } = JSON.parse(savedState);
-
-      setLeftOpen(leftOpen);
-      setRightOpen(rightOpen);
-      setRightPanelContent(rightPanelContent);
-    }
-  }, []);
 
   const toggleSidebar = (event: MouseEvent) => {
     const targetId = event.currentTarget.id;

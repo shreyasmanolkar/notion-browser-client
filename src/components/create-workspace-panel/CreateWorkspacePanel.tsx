@@ -63,6 +63,8 @@ const CreateWorkspacePanel = () => {
 
           dispatch(setUser({ ...user.data }));
           dispatch(setWorkspace({ ...workspace.data }));
+
+          setName("");
         }
       },
     });
@@ -80,6 +82,7 @@ const CreateWorkspacePanel = () => {
         <h1>Create a workspace</h1>
         <p>Fill in some details for your teammates.</p>
         <div
+          data-testid="emoji"
           className={`${styles.emoji_display}`}
           onClick={() => setOpenPicker(true)}
         >
