@@ -70,4 +70,12 @@ export const handlers = [
       );
     }
   ),
+  rest.post(`http://localhost:5000/v1/workspaces`, (req, res, ctx) => {
+    return res(
+      ctx.status(201),
+      ctx.json({
+        workspaceId: "64811962d5cbcacf7249a722",
+      })
+    );
+  }),
 ];

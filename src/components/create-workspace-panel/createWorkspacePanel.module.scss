@@ -1,0 +1,94 @@
+@use "../../styles/abstracts/colors" as *;
+@use "../../styles/abstracts/layouts" as *;
+
+.create_workspace_panel {
+  @include flex-center();
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  .emoji_display {
+    cursor: pointer;
+  }
+
+  h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  p {
+    margin-top: 10px;
+  }
+
+  .error {
+    color: $danger;
+    font-size: 14px;
+    margin: 0;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      color: $dark-color-secondary;
+      font-size: 14px;
+      padding-top: 10px;
+    }
+
+    input {
+      width: 250px;
+      padding: 5px;
+      font-size: 14px;
+
+      &:focus {
+        outline: none;
+        border: 2px solid $primary;
+        box-shadow: 0 0 5px $primary;
+      }
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 8px;
+      font-size: 16px;
+      background-color: $secondary;
+      color: $background-secondary;
+      border: none;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: $primary;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.light {
+  background-color: $background-secondary;
+}
+
+.dark {
+  background-color: $dark-background-secondary;
+  color: $background-secondary;
+
+  p {
+    color: $color-secondary;
+  }
+
+  form {
+    label {
+      color: $color-secondary;
+    }
+
+    input {
+      background-color: $dark-background-primary;
+      border: 2px solid $dark-background-secondary;
+      color: $background-secondary;
+    }
+  }
+}

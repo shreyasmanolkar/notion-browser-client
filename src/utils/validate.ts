@@ -9,6 +9,10 @@ export type validateRegistrationProps = {
   password: string;
 };
 
+export type validateCreateWorkspaceProps = {
+  name: string;
+};
+
 export class Validate {
   static validateLogin(values: validateLoginProps) {
     const errors: Partial<validateLoginProps> = {};
@@ -51,6 +55,16 @@ export class Validate {
       errors.password = "Password must be more than 4 characters!";
     } else if (values.password.length > 12) {
       errors.password = "Password must be less than 12 characters!";
+    }
+
+    return errors;
+  }
+
+  static validateCreateWorkspace(values: validateCreateWorkspaceProps) {
+    const errors: Partial<validateCreateWorkspaceProps> = {};
+
+    if (!values.name) {
+      errors.name = "Name is required!";
     }
 
     return errors;

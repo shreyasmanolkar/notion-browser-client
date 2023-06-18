@@ -2,6 +2,8 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export type workspaceType = {
   workspaceId: string;
+  workspaceName: string;
+  workspaceIcon: string;
   favorites: string[];
 };
 
