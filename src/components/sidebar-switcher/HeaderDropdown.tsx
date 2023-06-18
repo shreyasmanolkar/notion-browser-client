@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { ReactComponent as SquarePlusIcon } from "../../assets/icons/square-plus.svg";
 import { ReactComponent as CircleCrossIcon } from "../../assets/icons/circle-cross.svg";
-import styles from "./headerDropdown.module.scss";
 import { ThemeContext } from "../../context/ThemeContext";
 import { useDispatch } from "react-redux";
 import { logout } from "../../slice/userSlice";
 import CreateWorkspace from "./CreateWorkspace";
+import styles from "./headerDropdown.module.scss";
 
 type HeaderDropdownProps = {
   openHeader: boolean;

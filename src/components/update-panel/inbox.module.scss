@@ -1,0 +1,46 @@
+@use "../../styles/abstracts/colors" as *;
+@use "../../styles/abstracts/layouts" as *;
+
+.container {
+  height: 100%;
+  @include flex-center();
+  flex-direction: column;
+
+  .icon {
+    fill: $color-primary;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+
+    &:last-child {
+      width: 400px;
+      margin: 0;
+      margin-top: 8px;
+      font-size: 14px;
+      word-wrap: break-word;
+      text-align: center;
+      color: $dark-color-secondary;
+    }
+  }
+}
+
+.light {
+  p {
+    &:last-child {
+      color: $color-primary;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    p {
+      &:last-child {
+        width: unset;
+        word-wrap: unset;
+      }
+    }
+  }
+}
