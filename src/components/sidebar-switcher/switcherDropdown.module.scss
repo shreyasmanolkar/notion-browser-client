@@ -1,0 +1,76 @@
+@use "../../styles/abstracts/colors" as *;
+
+.dropdown_background {
+  width: 100vw;
+  height: 100vw;
+  position: fixed;
+  user-select: none;
+  cursor: auto;
+
+  .dropdown {
+    position: absolute;
+    top: 45px;
+    left: 10px;
+    width: 250px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+
+      .header_title {
+        font-size: 12px;
+      }
+
+      .dots_icon {
+        width: 14px;
+        fill: $color-primary;
+        cursor: pointer;
+      }
+    }
+
+    .options {
+      .option {
+        cursor: pointer;
+        font-size: 12px;
+        padding: 8px 0 8px 12px;
+
+        &:hover {
+          background-color: $background-hover;
+        }
+      }
+    }
+  }
+}
+
+.light {
+  .dropdown {
+    background-color: $background-primary;
+    color: $color-primary;
+  }
+}
+
+.dark {
+  .dropdown {
+    background-color: $dark-background-primary;
+    color: $dark-color-primary;
+
+    .header {
+      .dots_icon {
+        fill: $dark-color-primary;
+      }
+    }
+
+    .options {
+      .option {
+        &:hover {
+          background-color: $dark-background-hover;
+        }
+      }
+    }
+  }
+}

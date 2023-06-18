@@ -1,0 +1,53 @@
+@use "../../styles/abstracts/colors" as *;
+@use "../../styles/abstracts/layouts" as *;
+
+.sidebar_switcher {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  user-select: none;
+
+  .icon {
+    img {
+      width: 16px;
+    }
+  }
+
+  .name {
+    font-size: 14px;
+    width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: $dark-color-tertiary;
+  }
+
+  .expand {
+    width: 10px;
+    fill: $color-primary;
+  }
+
+  &:hover {
+    background-color: $background-hover;
+  }
+}
+
+.light {
+  background-color: $background-primary;
+  color: $color-primary;
+}
+
+.dark {
+  background-color: $dark-background-primary;
+  color: $color-primary;
+
+  .name {
+    color: $color-tertiary;
+  }
+
+  &:hover {
+    background-color: $dark-background-hover;
+  }
+}

@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { logout as userLogout } from "./userSlice";
 
 export type PageType = {
   id: string;
@@ -33,6 +34,13 @@ const workspaceSlice = createSlice({
       state.workspaceInfo = null;
       localStorage.removeItem("workspaceInfo");
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(userLogout, (state) => {
+      state.workspaceInfo = null;
+      localStorage.removeItem("workspaceInfo");
+      localStorage.removeItem("workspaceListState");
+    });
   },
 });
 

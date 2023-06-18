@@ -1,0 +1,67 @@
+@use "../../styles/abstracts/colors" as *;
+
+.display_container {
+  margin: 8px 0;
+  padding: 8px 0;
+  user-select: none;
+
+  .workspace_tab {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+
+    .workspace_info {
+      display: flex;
+      gap: 10px;
+      padding: 8px 0;
+
+      .drag_handle {
+        padding-left: 8px;
+        fill: $color-primary;
+        align-self: center;
+        cursor: grab;
+      }
+
+      .workspace_icon {
+        align-self: center;
+        width: 26px;
+        height: 26px;
+
+        img {
+          width: 26px;
+        }
+      }
+
+      .workspace_title {
+        color: $dark-color-tertiary;
+        font-size: 14px;
+      }
+    }
+
+    .workspace_check {
+      user-select: none;
+      font-size: 1.6em;
+      align-self: center;
+    }
+
+    &:hover {
+      background-color: $background-hover;
+    }
+  }
+}
+
+.dark {
+  fill: $dark-color-primary;
+
+  .workspace_tab {
+    .workspace_info {
+      .workspace_title {
+        color: $color-tertiary;
+      }
+    }
+
+    &:hover {
+      background-color: $dark-background-hover;
+    }
+  }
+}
