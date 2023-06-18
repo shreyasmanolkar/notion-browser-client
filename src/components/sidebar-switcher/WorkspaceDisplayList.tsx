@@ -1,12 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import twemoji from "twemoji";
 import { ReactComponent as DragHandleIcon } from "../../assets/icons/drag-handle.svg";
-import styles from "./workspaceDisplayList.module.scss";
 import { ThemeContext } from "../../context/ThemeContext";
 import { useAppSelector } from "../../app/hooks";
 import { useDispatch } from "react-redux";
 import { setWorkspace } from "../../slice/workspaceSlice";
 import { request } from "../../lib/axios";
+import styles from "./workspaceDisplayList.module.scss";
 
 const WorkspaceDisplayList = () => {
   const { theme } = useContext(ThemeContext);
@@ -17,9 +17,10 @@ const WorkspaceDisplayList = () => {
     (state) => state.workspace.workspaceInfo
   );
 
-  const [workspacesMetaData, setWorkspacesMetaData] = useState(
-    userInfo?.workspaces
-  );
+  const initialWorkspaces = userInfo?.workspaces;
+
+  const [workspacesMetaData, setWorkspacesMetaData] =
+    useState(initialWorkspaces);
   const dispatch = useDispatch();
 
   const handleSort = () => {
@@ -56,6 +57,31 @@ const WorkspaceDisplayList = () => {
       "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f1e6.png";
     e.currentTarget.onerror = null;
   };
+
+  useEffect(() => {
+    if (workspacesMetaData?.length === initialWorkspaces?.length) {
+      if (workspacesMetaData !== initialWorkspaces) {
+        localStorage.setItem(
+          "workspaceListState",
+          JSON.stringify(workspacesMetaData)
+        );
+      }
+    } else {
+      localStorage.setItem(
+        "workspaceListState",
+        JSON.stringify(initialWorkspaces)
+      );
+      setWorkspacesMetaData(initialWorkspaces);
+    }
+  }, [workspacesMetaData, initialWorkspaces]);
+
+  useEffect(() => {
+    const savedState = localStorage.getItem("workspaceListState");
+
+    if (savedState) {
+      setWorkspacesMetaData(JSON.parse(savedState));
+    }
+  }, []);
 
   return (
     <div className={`${styles.display_container} ${styles[theme]}`}>
