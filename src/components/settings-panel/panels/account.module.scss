@@ -171,6 +171,18 @@
             transform: translateX(12px);
           }
         }
+
+        .select {
+          select {
+            cursor: pointer;
+            outline: none;
+            font-size: 14px;
+            border: none;
+            background-color: $background-primary;
+            color: $dark-color-tertiary;
+            width: 85px;
+          }
+        }
       }
 
       &:first-child {
@@ -231,6 +243,13 @@
         .switch {
           .slider_round {
             background-color: $dark-background-hover-three;
+          }
+        }
+
+        .select {
+          select {
+            background-color: $dark-background-primary;
+            color: $dark-color-tertiary;
           }
         }
       }
