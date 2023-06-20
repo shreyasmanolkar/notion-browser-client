@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { ReactComponent as SettingsOutlineIcon } from "../../assets/icons/setting-outline.svg";
 import { ReactComponent as HelpIcon } from "../../assets/icons/help.svg";
-import styles from "./updatePanel.module.scss";
 import { ThemeContext } from "../../context/ThemeContext";
 import Inbox from "./Inbox";
 import Archived from "./Archived";
 import All from "./All";
+import styles from "./updatePanel.module.scss";
 
 type UpdatePanelProps = {
   open: boolean;

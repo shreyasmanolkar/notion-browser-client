@@ -7,10 +7,12 @@ import { ReactComponent as CirclePlusIcon } from "../../assets/icons/circle-plus
 import { ThemeContext } from "../../context/ThemeContext";
 import styles from "./optionsPanel.module.scss";
 import UpdatePanel from "../update-panel";
+import SettingsPanel from "../settings-panel";
 
 const OptionsPanel = () => {
   const { theme } = useContext(ThemeContext);
   const [openUpdatePanel, setOpenUpdatePanel] = useState(false);
+  const [openSettingsPanel, setOpenSettingsPanel] = useState(false);
 
   return (
     <>
@@ -38,7 +40,12 @@ const OptionsPanel = () => {
           </div>
           <p>All teamspaces</p>
         </div>
-        <div className={`${styles.tabs}`}>
+        <div
+          className={`${styles.tabs}`}
+          onClick={() => {
+            setOpenSettingsPanel(true);
+          }}
+        >
           <div className={`${styles.icon}`}>
             <SettingsIcon />
           </div>
@@ -54,6 +61,10 @@ const OptionsPanel = () => {
       <UpdatePanel
         open={openUpdatePanel}
         onClose={() => setOpenUpdatePanel(false)}
+      />
+      <SettingsPanel
+        open={openSettingsPanel}
+        onClose={() => setOpenSettingsPanel(false)}
       />
     </>
   );
