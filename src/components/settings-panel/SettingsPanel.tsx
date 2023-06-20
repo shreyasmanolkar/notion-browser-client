@@ -13,7 +13,6 @@ import { ReactComponent as IdentityIcon } from "../../assets/icons/identity.svg"
 import { ReactComponent as ConnectionIcon } from "../../assets/icons/connection.svg";
 import { ReactComponent as ImportIcon } from "../../assets/icons/import.svg";
 import { ThemeContext } from "../../context/ThemeContext";
-import styles from "./settingsPanel.module.scss";
 import { useAppSelector } from "../../app/hooks";
 import Account from "./panels/Account";
 import Notification from "./panels/Notification";
@@ -28,6 +27,7 @@ import Security from "./panels/Security";
 import Identity from "./panels/Identity";
 import Connections from "./panels/Connections";
 import Import from "./panels/Import";
+import styles from "./settingsPanel.module.scss";
 
 type SettingsPanelProps = {
   open: boolean;

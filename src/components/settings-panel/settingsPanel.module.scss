@@ -20,7 +20,7 @@
     display: flex;
 
     .sidebar {
-      width: 240px;
+      width: 21%;
       background-color: $background-primary;
       border-radius: 5px 0 0 5px;
 
@@ -97,6 +97,7 @@
 
         .active {
           font-weight: 800;
+          background-color: $background-hover;
         }
       }
 
@@ -139,7 +140,26 @@
 
         .active {
           font-weight: 800;
+          background-color: $background-hover;
         }
+      }
+    }
+
+    .body {
+      width: 79%;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 8px $scroll-track;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $scroll-thumb;
+        outline: 1px solid $scroll-thumb;
       }
     }
   }
@@ -147,10 +167,10 @@
 
 .dark {
   .settings_panel {
-    background-color: $dark-background-secondary;
+    background-color: $dark-background-primary;
 
     .sidebar {
-      background-color: $dark-background-primary;
+      background-color: $dark-background-quaternary;
 
       .account {
         color: $dark-color-primary;
@@ -180,6 +200,10 @@
             background-color: $dark-background-hover;
           }
         }
+
+        .active {
+          background-color: $dark-background-hover-two;
+        }
       }
 
       .workspace {
@@ -196,6 +220,21 @@
             background-color: $dark-background-hover;
           }
         }
+
+        .active {
+          background-color: $dark-background-hover-two;
+        }
+      }
+    }
+
+    .body {
+      &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 8px $dark-scroll-track;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $dark-scroll-thumb;
+        outline: 1px solid #3f3e39;
       }
     }
   }
