@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { useAppSelector } from "../../../app/hooks";
 import { ReactComponent as RightArrowIcon } from "../../../assets/icons/right-arrow.svg";
-import styles from "./account.module.scss";
 import { ThemeContext } from "../../../context/ThemeContext";
+import styles from "./account.module.scss";
 
 const Account = () => {
   const { theme } = useContext(ThemeContext);

@@ -34,7 +34,7 @@ const OptionsPanel = () => {
           </div>
           <p>Updates</p>
         </div>
-        <div className={`${styles.tabs}`}>
+        <div className={`${styles.tabs} ${styles.invalid}`}>
           <div className={`${styles.icon}`}>
             <TeamspacesIcon />
           </div>

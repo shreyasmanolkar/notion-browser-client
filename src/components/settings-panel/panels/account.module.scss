@@ -174,7 +174,7 @@
 
         .select {
           select {
-            cursor: pointer;
+            cursor: not-allowed;
             outline: none;
             font-size: 14px;
             border: none;
@@ -183,11 +183,33 @@
             width: 85px;
           }
         }
+
+        .valid {
+          select {
+            cursor: pointer;
+          }
+        }
+
+        p {
+          margin: 0;
+        }
+
+        .icon {
+          cursor: pointer;
+
+          &:hover {
+            background-color: #dfdfdf;
+          }
+        }
       }
 
       &:first-child {
         margin-top: 10px;
       }
+    }
+
+    .divider {
+      border-bottom: 1px solid $color-tertiary;
     }
   }
 }
@@ -228,6 +250,7 @@
       .key {
         p {
           color: $color-tertiary;
+          background-color: $dark-background-primary;
         }
       }
 
@@ -240,6 +263,7 @@
             background-color: $dark-background-quaternary;
           }
         }
+
         .switch {
           .slider_round {
             background-color: $dark-background-hover-three;
@@ -248,11 +272,21 @@
 
         .select {
           select {
+            color: $color-tertiary;
             background-color: $dark-background-primary;
-            color: $dark-color-tertiary;
+          }
+        }
+
+        .icon {
+          &:hover {
+            background-color: $dark-background-quaternary;
           }
         }
       }
+    }
+
+    .divider {
+      border-color: $dark-color-tertiary;
     }
   }
 }

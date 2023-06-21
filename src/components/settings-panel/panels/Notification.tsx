@@ -67,7 +67,7 @@ const Notification = () => {
               <p>Customize how Notion looks on your device.</p>
             </div>
             <div className={`${styles.control}`}>
-              <label className={`${styles.select}`}>
+              <label className={`${styles.select} ${styles.valid}`}>
                 <select name="appearance" id="appearance">
                   <option value="system">System</option>
                   <option value="off">Dark</option>
