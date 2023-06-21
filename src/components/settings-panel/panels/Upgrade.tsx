@@ -28,7 +28,9 @@ const Upgrade = () => {
                 )
               }
             >
-              <RightArrowIcon />
+              <div className={`${styles.icon}`}>
+                <RightArrowIcon />
+              </div>
             </div>
           </div>
         </div>

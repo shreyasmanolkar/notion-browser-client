@@ -18,6 +18,15 @@ type createWorkspaceDataType = {
   icon: string;
 };
 
+type updateUserNameDataType = {
+  name: string;
+  userId: string;
+};
+
+type deleteUserDataType = {
+  userId: string;
+};
+
 export class useUserData {
   static registerUser = async (user: userDataType) => {
     const response = await request({
@@ -49,6 +58,26 @@ export class useUserData {
     return response.data;
   };
 
+  static updateUserName = async (data: updateUserNameDataType) => {
+    const response = await request({
+      url: `/users/${data.userId}`,
+      method: "patch",
+      data,
+    });
+
+    return response.data;
+  };
+
+  static deleteUser = async (data: deleteUserDataType) => {
+    const response = await request({
+      url: `/users/${data.userId}`,
+      method: "delete",
+      data,
+    });
+
+    return response.data;
+  };
+
   static useRegisterUserData = () => {
     return useMutation(useUserData.registerUser, {
       onSuccess: (data) => {
@@ -69,6 +98,24 @@ export class useUserData {
 
   static useCreateWorkspaceData = () => {
     return useMutation(useUserData.createWorkspace, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useUpdateUserNameData = () => {
+    return useMutation(useUserData.updateUserName, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useDeleteUserData = () => {
+    return useMutation(useUserData.deleteUser, {
       onSuccess: (data) => {
         return data;
       },

@@ -1,12 +1,61 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAppSelector } from "../../../app/hooks";
 import { ReactComponent as RightArrowIcon } from "../../../assets/icons/right-arrow.svg";
 import { ThemeContext } from "../../../context/ThemeContext";
+import { useUserData } from "../../../services/useUserData";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../../slice/userSlice";
 import styles from "./account.module.scss";
 
 const Account = () => {
   const { theme } = useContext(ThemeContext);
   const userInfo = useAppSelector((state) => state.user.userInfo);
+  const [name, setName] = useState("");
+  const { mutate: mutateUpdateName } = useUserData.useUpdateUserNameData();
+  const { mutate: mutateDeleteUser } = useUserData.useDeleteUserData();
+  const dispatch = useDispatch();
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setName(e.target.value);
+  };
+
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+
+    const userId = userInfo?.id;
+
+    const userData = {
+      name: name!,
+      userId: userId!,
+    };
+
+    mutateUpdateName(userData, {
+      onSuccess: async (data) => {
+        if (data) {
+          const updatedName = data.name;
+
+          const updatedUser = {
+            ...userInfo!,
+            name: updatedName,
+          };
+
+          dispatch(setUser(updatedUser));
+        }
+      },
+    });
+  };
+
+  const handleDelete = () => {
+    const userData = { userId: userInfo?.id! };
+
+    mutateDeleteUser(userData);
+    // console.log("deleted succesfully");
+    // TODO redirect to registe page
+  };
+
+  useEffect(() => {
+    setName(userInfo?.name || "");
+  }, [userInfo?.name]);
 
   return (
     <div className={`${styles.panel} ${styles[theme]}`}>
@@ -21,9 +70,14 @@ const Account = () => {
             </div>
             <div className={`${styles.change_name}`}>
               <p>Preferred name</p>
-              <form>
-                <input type="text" name="" id="" />
-                <button>Change name</button>
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  id="name"
+                  value={name}
+                  onChange={handleNameChange}
+                />
+                <button type="submit">Change name</button>
               </form>
             </div>
           </div>
@@ -35,7 +89,7 @@ const Account = () => {
           <div className={`${styles.value_control}`}>
             <div className={`${styles.key}`}>
               <p>Email</p>
-              <p>shreyasmanolkar123@gmail.com</p>
+              <p>{userInfo?.email}</p>
             </div>
             <div className={`${styles.control}`}>
               <button>Change email</button>
@@ -97,7 +151,7 @@ const Account = () => {
                 this one.
               </p>
             </div>
-            <div className={`${styles.control}`}>
+            <div className={`${styles.control} ${styles.not_allowed}`}>
               <div className={`${styles.icon}`}>
                 <RightArrowIcon />
               </div>
@@ -112,7 +166,7 @@ const Account = () => {
               </p>
             </div>
             <div className={`${styles.control}`}>
-              <div className={`${styles.icon}`}>
+              <div className={`${styles.icon}`} onClick={handleDelete}>
                 <RightArrowIcon />
               </div>
             </div>

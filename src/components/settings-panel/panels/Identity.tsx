@@ -26,7 +26,7 @@ const Identity = () => {
             </div>
             <div className={`${styles.control}`}>
               <label className={`${styles.select}`}>
-                <select name="workspace" id="workspace">
+                <select name="workspace" id="workspace" disabled>
                   <option value="wo">Owner</option>
                   <option value="ko">Members</option>
                 </select>
@@ -63,7 +63,7 @@ const Identity = () => {
             </div>
             <div className={`${styles.control}`}>
               <label className={`${styles.select}`}>
-                <select name="login" id="login">
+                <select name="login" id="login" disabled>
                   <option value="wo">Any</option>
                   <option value="ko">New</option>
                 </select>

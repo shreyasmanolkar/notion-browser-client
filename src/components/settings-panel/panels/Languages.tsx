@@ -17,7 +17,7 @@ const Languages = () => {
             </div>
             <div className={`${styles.control}`}>
               <label className={`${styles.select}`}>
-                <select name="language" id="language">
+                <select name="language" id="language" disabled>
                   <option value="en">English</option>
                   <option value="ko">한국어</option>
                   <option value="jp">日本語</option>

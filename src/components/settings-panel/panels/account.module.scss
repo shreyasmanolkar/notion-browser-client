@@ -203,6 +203,18 @@
         }
       }
 
+      .active_button {
+        button {
+          cursor: pointer;
+        }
+      }
+
+      .not_allowed {
+        .icon {
+          cursor: not-allowed;
+        }
+      }
+
       &:first-child {
         margin-top: 10px;
       }

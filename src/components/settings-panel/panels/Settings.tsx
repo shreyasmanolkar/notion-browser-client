@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { ReactComponent as RightArrowIcon } from "../../../assets/icons/right-arrow.svg";
 import { ThemeContext } from "../../../context/ThemeContext";
 import styles from "./account.module.scss";
 
@@ -60,7 +59,7 @@ const Settings = () => {
               <p>Danger zone</p>
               <p>Delete Entire Workspace</p>
             </div>
-            <div className={`${styles.control}`}>
+            <div className={`${styles.control} ${styles.active_button}`}>
               <button>Delete</button>
             </div>
           </div>

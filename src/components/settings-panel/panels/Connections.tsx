@@ -17,7 +17,7 @@ const Connections = () => {
             </div>
             <div className={`${styles.control}`}>
               <label className={`${styles.select}`}>
-                <select name="restriction" id="restriction">
+                <select name="restriction" id="restriction" disabled>
                   <option value="re">Restriction</option>
                 </select>
               </label>

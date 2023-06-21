@@ -49,7 +49,7 @@ const Notification = () => {
             </div>
             <div className={`${styles.control}`}>
               <label className={`${styles.select}`}>
-                <select name="slack_notification" id="slack">
+                <select name="slack_notification" id="slack" disabled>
                   <option value="off">Off</option>
                   <option value="on">On</option>
                 </select>
@@ -86,7 +86,7 @@ const Notification = () => {
             </div>
             <div className={`${styles.control}`}>
               <label className={`${styles.select}`}>
-                <select name="open_on_start" id="open_on_start">
+                <select name="open_on_start" id="open_on_start" disabled>
                   <option value="system">Last</option>
                   <option value="off">Top</option>
                 </select>
@@ -116,7 +116,7 @@ const Notification = () => {
             </div>
             <div className={`${styles.control}`}>
               <label className={`${styles.select}`}>
-                <select name="cookie" id="cookie">
+                <select name="cookie" id="cookie" disabled>
                   <option value="customize">Customize</option>
                 </select>
               </label>
@@ -141,7 +141,7 @@ const Notification = () => {
             </div>
             <div className={`${styles.control}`}>
               <label className={`${styles.select}`}>
-                <select name="record" id="record">
+                <select name="record" id="record" disabled>
                   <option value="record">Record</option>
                   <option value="dont">Don't</option>
                 </select>

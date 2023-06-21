@@ -25,7 +25,9 @@ const MyConnections = () => {
                 )
               }
             >
-              <RightArrowIcon />
+              <div className={`${styles.icon}`}>
+                <RightArrowIcon />
+              </div>
             </div>
           </div>
         </div>
