@@ -1,9 +1,43 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../../context/ThemeContext";
+import { useThemeDetector } from "../../../hooks/useThemeDetector";
 import styles from "./account.module.scss";
 
 const Notification = () => {
-  const { theme } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
+  const [mode, setMode] = useState("");
+
+  const isDarkMode = useThemeDetector();
+
+  useEffect(() => {
+    if (mode !== "") {
+      localStorage.setItem("selectedMode", mode);
+    }
+  }, [mode]);
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem("selectedMode");
+    if (savedMode) {
+      setMode(savedMode);
+    } else {
+      setMode("system");
+    }
+  }, []);
+
+  const handleAppearance = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const mode = e.target.value;
+
+    if (mode === "system") {
+      setMode("system");
+      isDarkMode ? setTheme("dark") : setTheme("light");
+    } else if (mode === "dark") {
+      setMode("dark");
+      setTheme("dark");
+    } else {
+      setMode("light");
+      setTheme("light");
+    }
+  };
 
   return (
     <div className={`${styles.panel} ${styles[theme]}`}>
@@ -68,10 +102,15 @@ const Notification = () => {
             </div>
             <div className={`${styles.control}`}>
               <label className={`${styles.select} ${styles.valid}`}>
-                <select name="appearance" id="appearance">
+                <select
+                  name="appearance"
+                  id="appearance"
+                  value={mode}
+                  onChange={handleAppearance}
+                >
                   <option value="system">System</option>
-                  <option value="off">Dark</option>
-                  <option value="on">Light</option>
+                  <option value="dark">Dark</option>
+                  <option value="light">Light</option>
                 </select>
               </label>
             </div>
