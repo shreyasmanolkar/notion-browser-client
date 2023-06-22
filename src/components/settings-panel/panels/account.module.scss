@@ -203,9 +203,18 @@
         }
       }
 
-      .active_button {
+      .danger_button {
         button {
           cursor: pointer;
+          background-color: $background-secondary;
+          border: 1px solid $danger;
+          padding: 4px 6px;
+          font-size: 14px;
+          color: $danger;
+
+          &:hover {
+            background-color: #dfdfdf;
+          }
         }
       }
 
@@ -290,6 +299,17 @@
         }
 
         .icon {
+          &:hover {
+            background-color: $dark-background-quaternary;
+          }
+        }
+      }
+
+      .danger_button {
+        button {
+          background-color: $dark-background-primary;
+          color: $danger;
+
           &:hover {
             background-color: $dark-background-quaternary;
           }
