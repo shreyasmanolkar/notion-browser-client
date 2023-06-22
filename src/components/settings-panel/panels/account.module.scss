@@ -105,6 +105,18 @@
         .danger {
           color: $danger;
         }
+
+        .emoji_display {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px;
+          margin: 10px 0;
+
+          img {
+            cursor: pointer;
+          }
+        }
       }
 
       .control {
@@ -221,6 +233,12 @@
       .not_allowed {
         .icon {
           cursor: not-allowed;
+        }
+      }
+
+      .valid_button {
+        button {
+          cursor: pointer;
         }
       }
 
