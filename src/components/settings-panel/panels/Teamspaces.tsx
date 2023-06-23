@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { ThemeContext } from "../../../context/ThemeContext";
-import { ReactComponent as RightArrowIcon } from "../../../assets/icons/right-arrow.svg";
 import styles from "./account.module.scss";
 
 const Teamspaces = () => {

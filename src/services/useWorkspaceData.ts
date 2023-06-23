@@ -1,6 +1,7 @@
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { request } from "../lib/axios";
 import { AxiosError } from "axios";
+import { WorkspaceType } from "../common/types/User";
 
 type updateWorkspaceNameType = {
   name: string;
@@ -11,6 +12,12 @@ type updateWorkspaceIconType = {
   icon: string;
   workspaceId: string;
 };
+
+type deleteWorkspaceDataType = {
+  workspaceId: string;
+};
+
+type FetchWorkspaceById = (workspaceId: string) => Promise<WorkspaceType>;
 
 export class useWorkspaceData {
   static updateWorkspaceName = async (data: updateWorkspaceNameType) => {
@@ -33,6 +40,25 @@ export class useWorkspaceData {
     return response.data;
   };
 
+  static deleteWorkspace = async (data: deleteWorkspaceDataType) => {
+    const response = await request({
+      url: `/workspaces/${data.workspaceId}`,
+      method: "delete",
+      data,
+    });
+
+    return response.data;
+  };
+
+  static fetchWorkspace: FetchWorkspaceById = async (workspaceId: string) => {
+    const response = await request({
+      url: `/workspaces/${workspaceId}`,
+      method: "get",
+    });
+
+    return response.data;
+  };
+
   static useUpdateWorkspaceNameData = () => {
     return useMutation(useWorkspaceData.updateWorkspaceName, {
       onSuccess: (data) => {
@@ -50,4 +76,18 @@ export class useWorkspaceData {
       onError: (error: AxiosError) => {},
     });
   };
+
+  static useDeleteWorkspaceData = () => {
+    return useMutation(useWorkspaceData.deleteWorkspace, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useFetchWorkspaceById = (workspaceId: string) =>
+    useQuery(["workspace", workspaceId], () =>
+      useWorkspaceData.fetchWorkspace(workspaceId)
+    );
 }

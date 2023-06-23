@@ -23,6 +23,8 @@ const Settings = () => {
     useWorkspaceData.useUpdateWorkspaceNameData();
   const { mutate: mutateUpdateWorkspaceIcon } =
     useWorkspaceData.useUpdateWorkspaceIconData();
+  const { mutate: mutateDeleteWorkspace } =
+    useWorkspaceData.useDeleteWorkspaceData();
   const workspaceInfo = useAppSelector(
     (state) => state.workspace.workspaceInfo
   );
@@ -124,6 +126,51 @@ const Settings = () => {
     });
   };
 
+  const handleDelete = async () => {
+    const workspaces = userInfo?.workspaces;
+    const workspceData = { workspaceId: workspaceInfo?.id! };
+
+    if (workspaces?.length! === 1) {
+      window.alert("The last workspace cannot be deleted.");
+      return;
+    }
+
+    const filteredWorkspaces = workspaces?.filter(
+      (workspace) => workspace.workspaceId !== workspceData.workspaceId
+    );
+
+    if (filteredWorkspaces && filteredWorkspaces.length > 0) {
+      const alternateWorkspaceId = filteredWorkspaces[0];
+      const userId = userInfo?.id;
+
+      mutateDeleteWorkspace(workspceData, {
+        onSuccess: async () => {
+          const workspace = await request({
+            url: `/workspaces/${alternateWorkspaceId.workspaceId}`,
+          });
+
+          dispatch(setWorkspace({ ...workspace.data }));
+
+          const user = await request({ url: `/users/${userId}` });
+
+          dispatch(setUser({ ...user.data }));
+
+          const savedState = localStorage.getItem("workspaceListState");
+          const parsedSavedState: WorkspaceDataType[] = JSON.parse(savedState!);
+
+          const updatedWorkspace = parsedSavedState.filter(
+            (workspace) => workspace.workspaceId !== workspceData.workspaceId
+          );
+
+          localStorage.setItem(
+            "workspaceListState",
+            JSON.stringify(updatedWorkspace)
+          );
+        },
+      });
+    }
+  };
+
   useEffect(() => {
     setName(workspaceInfo?.name || "");
   }, [workspaceInfo?.name]);
@@ -208,7 +255,7 @@ const Settings = () => {
                 <p>Delete Entire Workspace</p>
               </div>
               <div className={`${styles.danger_button}`}>
-                <button>Delete</button>
+                <button onClick={handleDelete}>Delete</button>
               </div>
             </div>
           </div>
