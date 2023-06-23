@@ -1,0 +1,30 @@
+@use "../../styles/abstracts/colors" as *;
+
+.sidebar_body {
+  height: 80vh;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 8px $scroll-track;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $scroll-thumb;
+    outline: 1px solid $scroll-thumb;
+  }
+}
+
+.dark {
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 8px $dark-scroll-track;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $dark-scroll-thumb;
+    outline: 1px solid #3f3e39;
+  }
+}
