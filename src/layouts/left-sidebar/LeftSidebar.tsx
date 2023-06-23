@@ -3,6 +3,7 @@ import { SidebarLogicContext } from "../../context/SidebarContext";
 import SidebarSwitcher from "../../components/sidebar-switcher";
 import { ThemeContext } from "../../context/ThemeContext";
 import styles from "./leftSidebar.module.scss";
+import SidebarBody from "../../components/sidebar-body";
 
 const LeftSidebar = () => {
   const { leftOpen, toggleSidebar } = useContext(SidebarLogicContext);
@@ -31,7 +32,9 @@ const LeftSidebar = () => {
             &#171;
           </div>
         </div>
-        <div className={`${styles.content}`}></div>
+        <div className={`${styles.content}`}>
+          <SidebarBody />
+        </div>
       </div>
     </div>
   );

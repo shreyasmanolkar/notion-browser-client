@@ -18,6 +18,10 @@ export interface UserState {
   workspaces: workspaceType[];
 }
 
+export interface UserName {
+  name: string;
+}
+
 const storedUserInfo = localStorage.getItem("userInfo");
 
 const initialState: { userInfo: UserState | null } = {
