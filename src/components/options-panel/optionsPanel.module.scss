@@ -1,0 +1,53 @@
+@use "../../styles/abstracts/colors" as *;
+
+.options_panel {
+  user-select: none;
+  cursor: pointer;
+
+  .tabs {
+    display: flex;
+    margin: 0 4px;
+    padding: 6px 4px;
+
+    .icon {
+      fill: $color-primary;
+      padding: 0 10px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+
+    &:hover {
+      background-color: $background-hover;
+    }
+  }
+
+  .invalid {
+    cursor: not-allowed;
+  }
+}
+
+.light {
+  background-color: $background-primary;
+
+  .tabs {
+    color: $dark-color-primary;
+
+    .icon {
+      fill: $dark-color-primary;
+    }
+  }
+}
+
+.dark {
+  background-color: $dark-background-primary;
+  color: $color-primary;
+
+  .tabs {
+    &:hover {
+      background-color: $dark-background-hover;
+    }
+  }
+}

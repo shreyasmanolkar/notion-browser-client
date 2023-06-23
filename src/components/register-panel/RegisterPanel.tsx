@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import styles from "./registerPanel.module.scss";
 import { Validate, validateRegistrationProps } from "../../utils/validate";
 import { useThemeDetector } from "../../hooks/useThemeDetector";
 import { useUserData } from "../../services/useUserData";
@@ -11,6 +10,7 @@ import { setUser } from "../../slice/userSlice";
 import { setWorkspace } from "../../slice/workspaceSlice";
 import { AxiosError } from "axios";
 import { ThemeContext } from "../../context/ThemeContext";
+import styles from "./registerPanel.module.scss";
 
 const RegisterPanel = () => {
   const { theme } = useContext(ThemeContext);

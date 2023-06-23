@@ -1,0 +1,342 @@
+@use "../../../styles/abstracts/colors" as *;
+
+.panel {
+  padding: 42px 62px 0 62px;
+
+  .title {
+    padding-bottom: 14px;
+    color: $dark-color-tertiary;
+    border-bottom: 1px solid $color-tertiary;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+
+    .container {
+      display: flex;
+      padding-bottom: 40px;
+
+      .profile_picture {
+        display: flex;
+        flex-direction: column;
+        padding: 18px 0 0 0;
+
+        img {
+          border-radius: 50%;
+          width: 55px;
+          cursor: pointer;
+        }
+
+        p {
+          color: $dark-color-primary;
+          width: 75px;
+          font-size: 14px;
+        }
+      }
+
+      .change_name {
+        width: 100%;
+        padding: 10px 0 0 0;
+
+        p {
+          font-size: 12px;
+          margin-bottom: 6px;
+          color: $dark-color-secondary;
+        }
+
+        form {
+          display: flex;
+          justify-content: space-between;
+
+          input {
+            width: 235px;
+            padding: 5px;
+            font-size: 14px;
+            border: 1px solid $dark-color-primary;
+            background-color: $background-tertiary;
+
+            &:focus {
+              outline: none;
+              border: 1px solid $primary;
+              box-shadow: 0 0 5px $primary;
+            }
+          }
+
+          button {
+            background-color: $background-secondary;
+            border: 1px solid $dark-color-primary;
+            padding: 4px 6px;
+            font-size: 14px;
+
+            &:hover {
+              background-color: #dfdfdf;
+            }
+          }
+        }
+      }
+    }
+
+    .value_control {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+
+      &:last-child {
+        padding-bottom: 45px;
+      }
+
+      .key {
+        p {
+          width: 675px;
+          font-size: 14px;
+          margin: 0;
+          color: $dark-color-tertiary;
+
+          &:last-child {
+            margin-top: 4px;
+            font-size: 12px;
+            color: $dark-color-primary;
+          }
+        }
+
+        .danger {
+          color: $danger;
+        }
+
+        .emoji_display {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px;
+          margin: 10px 0;
+
+          img {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .control {
+        button {
+          cursor: not-allowed;
+          background-color: $background-secondary;
+          border: 1px solid $dark-color-primary;
+          padding: 4px 6px;
+          font-size: 14px;
+
+          &:hover {
+            background-color: #dfdfdf;
+          }
+        }
+
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 30px;
+          height: 18px;
+
+          input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+          }
+
+          .slider_round {
+            cursor: not-allowed;
+            position: absolute;
+            // cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #dfdfdf;
+            border-radius: 10px;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+
+            &:before {
+              position: absolute;
+              content: "";
+              height: 12px;
+              width: 12px;
+              left: 4px;
+              bottom: 3px;
+              background-color: white;
+              border-radius: 50%;
+            }
+          }
+
+          input:checked + .slider_round {
+            background-color: $primary;
+          }
+
+          input:focus + .slider_round {
+            box-shadow: 0 0 1px $primary;
+          }
+
+          input:checked + .slider_round::before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(12px);
+          }
+        }
+
+        .select {
+          select {
+            cursor: not-allowed;
+            outline: none;
+            font-size: 14px;
+            border: none;
+            background-color: $background-primary;
+            color: $dark-color-tertiary;
+            width: 85px;
+          }
+        }
+
+        .valid {
+          select {
+            cursor: pointer;
+          }
+        }
+
+        p {
+          margin: 0;
+        }
+
+        .icon {
+          cursor: pointer;
+
+          &:hover {
+            background-color: #dfdfdf;
+          }
+        }
+      }
+
+      .danger_button {
+        button {
+          cursor: pointer;
+          background-color: $background-secondary;
+          border: 1px solid $danger;
+          padding: 4px 6px;
+          font-size: 14px;
+          color: $danger;
+
+          &:hover {
+            background-color: #dfdfdf;
+          }
+        }
+      }
+
+      .not_allowed {
+        .icon {
+          cursor: not-allowed;
+        }
+      }
+
+      .valid_button {
+        button {
+          cursor: pointer;
+        }
+      }
+
+      &:first-child {
+        margin-top: 10px;
+      }
+    }
+
+    .divider {
+      border-bottom: 1px solid $color-tertiary;
+    }
+  }
+}
+
+.dark {
+  .title {
+    color: $color-tertiary;
+    border-color: $dark-color-tertiary;
+  }
+
+  .body {
+    .container {
+      .change_name {
+        p {
+          color: $color-primary;
+        }
+
+        form {
+          input {
+            background-color: $dark-background-quaternary;
+            border: 1px solid $dark-background-secondary;
+            color: $background-secondary;
+          }
+
+          button {
+            background-color: $dark-background-primary;
+            color: $color-tertiary;
+
+            &:hover {
+              background-color: $dark-background-quaternary;
+            }
+          }
+        }
+      }
+    }
+
+    .value_control {
+      .key {
+        p {
+          color: $color-tertiary;
+          background-color: $dark-background-primary;
+        }
+      }
+
+      .control {
+        button {
+          background-color: $dark-background-primary;
+          color: $color-tertiary;
+
+          &:hover {
+            background-color: $dark-background-quaternary;
+          }
+        }
+
+        .switch {
+          .slider_round {
+            background-color: $dark-background-hover-three;
+          }
+        }
+
+        .select {
+          select {
+            color: $color-tertiary;
+            background-color: $dark-background-primary;
+          }
+        }
+
+        .icon {
+          &:hover {
+            background-color: $dark-background-quaternary;
+          }
+        }
+      }
+
+      .danger_button {
+        button {
+          background-color: $dark-background-primary;
+          color: $danger;
+
+          &:hover {
+            background-color: $dark-background-quaternary;
+          }
+        }
+      }
+    }
+
+    .divider {
+      border-color: $dark-color-tertiary;
+    }
+  }
+}

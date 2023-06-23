@@ -3,7 +3,7 @@
 .add_account_background {
   width: 100vw;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgb(0, 0, 0, 0.5);
   position: fixed;
   display: flex;
   justify-content: center;
@@ -17,8 +17,4 @@
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
-}
-
-.dark {
-  background-color: rgb(0, 0, 0, 0.5);
 }
