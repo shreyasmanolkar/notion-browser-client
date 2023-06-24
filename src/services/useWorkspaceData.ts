@@ -19,6 +19,11 @@ type deleteWorkspaceDataType = {
 
 type FetchWorkspaceById = (workspaceId: string) => Promise<WorkspaceType>;
 
+type FetchChildPagesDataType = {
+  workspaceId: string;
+  pageReference: string;
+};
+
 export class useWorkspaceData {
   static updateWorkspaceName = async (data: updateWorkspaceNameType) => {
     const response = await request({
@@ -59,6 +64,15 @@ export class useWorkspaceData {
     return response.data;
   };
 
+  static fetchChildPages = async (data: FetchChildPagesDataType) => {
+    const response = await request({
+      url: `/workspaces/${data.workspaceId}/pages/${data.pageReference}/childrens`,
+      method: "get",
+    });
+
+    return response.data;
+  };
+
   static useUpdateWorkspaceNameData = () => {
     return useMutation(useWorkspaceData.updateWorkspaceName, {
       onSuccess: (data) => {
@@ -89,5 +103,13 @@ export class useWorkspaceData {
   static useFetchWorkspaceById = (workspaceId: string) =>
     useQuery(["workspace", workspaceId], () =>
       useWorkspaceData.fetchWorkspace(workspaceId)
+    );
+
+  static useFetchChildPagesByworkspaceIdAndPageReference = (
+    workspaceId: string,
+    pageReference: string
+  ) =>
+    useQuery(["child-pages", pageReference], () =>
+      useWorkspaceData.fetchChildPages({ workspaceId, pageReference })
     );
 }

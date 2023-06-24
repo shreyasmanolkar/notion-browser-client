@@ -1,26 +1,28 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import twemoji from "twemoji";
 import { ReactComponent as RightExpanIcon } from "../../assets/icons/right-expand.svg";
 import { ReactComponent as PlusThickIcon } from "../../assets/icons/plus-thick.svg";
-import styles from "./privatePageList.module.scss";
 import { ThemeContext } from "../../context/ThemeContext";
 import { useAppSelector } from "../../app/hooks";
+import PageDropdown from "./PageDropdown";
+import styles from "./privatePageList.module.scss";
 
 const PrivatePagesList = () => {
   const { theme } = useContext(ThemeContext);
+  const dragItem = React.useRef<any>(null);
+  const dragOverItem = React.useRef<any>(null);
   const workspaceInfo = useAppSelector(
     (state) => state.workspace.workspaceInfo
   );
-  const getEmojiUrl = (unified: string) => {
-    const emojiImage = twemoji.parse(
-      `https://twemoji.maxcdn.com/v/latest/72x72/${unified}.png`
-    );
-
-    return emojiImage;
-  };
 
   const initialPages = workspaceInfo?.pages;
-  const [pagesMetaData, setPagesMetaData] = useState(initialPages);
+
+  const rootPages = initialPages?.filter((page) => page.path === null);
+
+  const [pagesMetaData, setPagesMetaData] = useState(rootPages);
+
+  const firstPage = `${rootPages![0].id}`;
+  const [activePage, setActivePage] = useState(firstPage);
 
   const handleBrokenImage = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src =
@@ -29,36 +31,94 @@ const PrivatePagesList = () => {
   };
 
   const handleExpand = (e: React.SyntheticEvent<HTMLDivElement>) => {
-    const currentRotation = e.currentTarget.style.transform;
-    const currentRotationValue = parseInt(currentRotation.slice(7), 10);
-
-    // console.log("e", e.currentTarget.parentNode?.parentNode);
-    // console.log(
-    //   "es ",
-    //   e.currentTarget.parentNode?.parentNode?.nextSibling?.nextSibling
-    // );
-
-    // const element =
-    //   e.currentTarget.parentNode?.parentNode?.nextSibling?.nextSibling;
-
-    if (currentRotationValue === 90) {
-      e.currentTarget.style.transform = "rotate(0deg)";
-    } else {
-      e.currentTarget.style.transform = "rotate(90deg)";
-    }
+    // const currentRotation = e.currentTarget.style.transform;
+    // const currentRotationValue = parseInt(currentRotation.slice(7), 10);
+    // if (currentRotationValue === 90) {
+    //   e.currentTarget.style.transform = "rotate(0deg)";
+    // } else {
+    //   e.currentTarget.style.transform = "rotate(90deg)";
+    // }
   };
 
   const handleAddPage = () => {
     console.log("add page");
   };
 
+  const getEmojiUrl = (unified: string) => {
+    const emojiImage = twemoji.parse(
+      `https://twemoji.maxcdn.com/v/latest/72x72/${unified}.png`
+    );
+
+    return emojiImage;
+  };
+
+  const handleSort = () => {
+    let _pagesMetaData = [...pagesMetaData!];
+
+    const dragItemContent = _pagesMetaData.splice(dragItem.current, 1)[0];
+
+    _pagesMetaData.splice(dragOverItem.current, 0, dragItemContent);
+
+    dragItem.current = null;
+    dragOverItem.current = null;
+
+    setPagesMetaData(_pagesMetaData);
+  };
+
+  const handleOnPageTabClick = (id: string) => {
+    console.log("on", id);
+    setActivePage(id);
+  };
+
+  useEffect(() => {
+    if (pagesMetaData?.length === rootPages?.length) {
+      if (pagesMetaData !== rootPages) {
+        localStorage.setItem("pagesListState", JSON.stringify(pagesMetaData));
+      }
+    } else if (pagesMetaData?.length !== rootPages?.length) {
+      localStorage.setItem("pagesListState", JSON.stringify(rootPages));
+      setPagesMetaData(rootPages);
+    }
+  }, [pagesMetaData, rootPages]);
+
+  useEffect(() => {
+    const savedState = localStorage.getItem("pagesListState");
+
+    if (savedState !== "undefined") {
+      setPagesMetaData(JSON.parse(savedState!));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (activePage !== rootPages![0].id) {
+      localStorage.setItem("activePage", JSON.stringify(activePage));
+    }
+  }, [activePage, rootPages]);
+
+  useEffect(() => {
+    const savedState = localStorage.getItem("activePage");
+
+    if (savedState) {
+      setActivePage(JSON.parse(savedState!));
+    }
+  }, []);
+
   return (
     <>
       <div className={`${styles.display_container} ${styles[theme]}`}>
         <div className={`${styles.title}`}>Private</div>
-        {/* map here  */}
         {pagesMetaData?.map((item, index) => (
-          <div className={`${styles.page_tab}`} key={index}>
+          <div
+            className={`${styles.page_tab} ${
+              activePage === `${item.id}` ? styles.active : ""
+            }`}
+            key={index}
+            draggable="true"
+            onDragStart={(e) => (dragItem.current = index)}
+            onDragEnter={(e) => (dragOverItem.current = index)}
+            onDragEnd={handleSort}
+            onDragOver={(e) => e.preventDefault()}
+          >
             <div className={`${styles.page_info}`}>
               <label
                 htmlFor={`page_tab_display_${item.id}`}
@@ -79,7 +139,12 @@ const PrivatePagesList = () => {
                   draggable="false"
                 />
               </div>
-              <div className={`${styles.page_title}`}>{item.reference}</div>
+              <div
+                className={`${styles.page_title}`}
+                onClick={() => handleOnPageTabClick(item.id)}
+              >
+                {item.title}
+              </div>
               <div className={`${styles.page_settings}`}>
                 <div className={`${styles.add_icon}`} onClick={handleAddPage}>
                   <PlusThickIcon />
@@ -91,11 +156,14 @@ const PrivatePagesList = () => {
               className={`${styles.toggle_checkbox}`}
               id={`page_tab_display_${item.id}`}
             />
-            <div className={`${styles.tab_dropdown}`}></div>
+            <div className={`${styles.tab_dropdown}`}>
+              <PageDropdown
+                workspaceId={workspaceInfo?.id!}
+                pageReference={item.reference}
+              />
+            </div>
           </div>
         ))}
-        {/* end for map */}
-        {/* end */}
       </div>
     </>
   );

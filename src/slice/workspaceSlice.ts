@@ -6,6 +6,7 @@ export type PageType = {
   reference: string;
   path: string | null;
   icon: string;
+  title: string;
 };
 
 export interface WorkspaceState {

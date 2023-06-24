@@ -1,14 +1,15 @@
 @use "../../styles/abstracts/colors" as *;
 
-.display_container {
-  margin: 8px 0;
-  padding: 8px 0;
-  user-select: none;
+.page_dropdown {
+  margin-left: 20px;
 
-  .title {
-    font-size: 12px;
-    font-weight: 900;
-    padding: 4px 16px;
+  .no_content {
+    padding: 8px 0;
+
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
   }
 
   .page_tab {
@@ -83,12 +84,7 @@
     .tab_dropdown {
       display: none;
       width: 100%;
-      margin-left: 0;
     }
-  }
-
-  .active {
-    background-color: $background-hover;
   }
 }
 
@@ -117,9 +113,5 @@
     &:hover {
       background-color: $dark-background-hover;
     }
-  }
-
-  .active {
-    background-color: $dark-background-hover;
   }
 }
