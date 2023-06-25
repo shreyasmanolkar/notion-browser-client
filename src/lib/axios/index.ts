@@ -26,7 +26,7 @@ const onRequest = (
     if (!config.headers) {
       config.headers = {} as AxiosRequestHeaders;
     }
-    config.headers.Authorization = `Bearer ${accessToken}`;
+    client.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
   }
   return config;
 };
@@ -41,9 +41,12 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 
     if (accessTokenFromServer) {
       accessToken = accessTokenFromServer;
-      response.config.headers.Authorization = `Bearer ${accessTokenFromServer}`;
+      client.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${accessTokenFromServer}`;
     }
   }
+
   return response;
 };
 
@@ -52,6 +55,7 @@ const onResponseError = async (error: AxiosError): Promise<AxiosError> => {
 
   if (error.response?.status === 403 && !originalRequest._retry) {
     originalRequest._retry = true;
+
     try {
       const tokenResponse = await client.get("/token");
       const newAccessToken = tokenResponse.data.accessToken;

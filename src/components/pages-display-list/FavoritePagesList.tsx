@@ -5,27 +5,36 @@ import { ReactComponent as PlusThickIcon } from "../../assets/icons/plus-thick.s
 import { ThemeContext } from "../../context/ThemeContext";
 import { useAppSelector } from "../../app/hooks";
 import PageDropdown from "./PageDropdown";
+import { PageType } from "../../common/types/Workspace";
 import styles from "./privatePageList.module.scss";
-import CreatePagePanel from "../create-Page-panel/CreatePagePanel";
 
-const PrivatePagesList = () => {
+const FavoritePagesList = () => {
   const { theme } = useContext(ThemeContext);
   const dragItem = React.useRef<any>(null);
   const dragOverItem = React.useRef<any>(null);
   const workspaceInfo = useAppSelector(
     (state) => state.workspace.workspaceInfo
   );
+  const userInfo = useAppSelector((state) => state.user.userInfo);
 
-  const initialPages = workspaceInfo?.pages;
+  const userWorkspace = userInfo?.workspaces.find(
+    (workspace) => workspace.workspaceId === workspaceInfo?.id
+  );
 
-  const rootPages = initialPages?.filter((page) => page.path === null);
+  const favoriteIds = userWorkspace?.favorites;
 
-  const [pagesMetaData, setPagesMetaData] = useState(rootPages);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const favoritePages: PageType[] = [];
 
-  const firstPage = `${rootPages![0].id}`;
-  const [activePage, setActivePage] = useState(firstPage);
-  const [openCreatePage, setOpenCreatePage] = useState(false);
-  const [parentPageId, setParentPageId] = useState("");
+  // eslint-disable-next-line array-callback-return
+  favoriteIds?.map((id) => {
+    const FavoritePage = workspaceInfo?.pages.find((page) => page.id === id);
+    favoritePages.push(FavoritePage!);
+  });
+
+  const [pagesMetaData, setPagesMetaData] = useState(favoritePages);
+
+  const [activePage, setActivePage] = useState<string>();
 
   const handleBrokenImage = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src =
@@ -43,9 +52,8 @@ const PrivatePagesList = () => {
     // }
   };
 
-  const handleAddPage = (id: string) => {
-    setOpenCreatePage(true);
-    setParentPageId(id);
+  const handleAddPage = () => {
+    console.log("add page");
   };
 
   const getEmojiUrl = (unified: string) => {
@@ -74,18 +82,24 @@ const PrivatePagesList = () => {
   };
 
   useEffect(() => {
-    if (pagesMetaData?.length === rootPages?.length) {
-      if (pagesMetaData !== rootPages) {
-        localStorage.setItem("pagesListState", JSON.stringify(pagesMetaData));
+    if (pagesMetaData?.length === favoritePages?.length) {
+      if (pagesMetaData !== favoritePages) {
+        localStorage.setItem(
+          "favoritePagesListState",
+          JSON.stringify(pagesMetaData)
+        );
       }
-    } else if (pagesMetaData?.length !== rootPages?.length) {
-      localStorage.setItem("pagesListState", JSON.stringify(rootPages));
-      setPagesMetaData(rootPages);
+    } else if (pagesMetaData?.length !== favoritePages?.length) {
+      localStorage.setItem(
+        "favoritePagesListState",
+        JSON.stringify(favoritePages)
+      );
+      setPagesMetaData(favoritePages);
     }
-  }, [pagesMetaData, rootPages]);
+  }, [pagesMetaData, favoritePages]);
 
   useEffect(() => {
-    const savedState = localStorage.getItem("pagesListState");
+    const savedState = localStorage.getItem("favoritePagesListState");
 
     if (savedState !== "undefined") {
       setPagesMetaData(JSON.parse(savedState!));
@@ -93,10 +107,10 @@ const PrivatePagesList = () => {
   }, []);
 
   useEffect(() => {
-    if (activePage !== rootPages![0].id) {
+    if (activePage !== favoritePages![0].id) {
       localStorage.setItem("activePage", JSON.stringify(activePage));
     }
-  }, [activePage, rootPages]);
+  }, [activePage, favoritePages]);
 
   useEffect(() => {
     const savedState = localStorage.getItem("activePage");
@@ -109,7 +123,7 @@ const PrivatePagesList = () => {
   return (
     <>
       <div className={`${styles.display_container} ${styles[theme]}`}>
-        <div className={`${styles.title}`}>Private</div>
+        <div className={`${styles.title}`}>Favorites</div>
         {pagesMetaData?.map((item, index) => (
           <div
             className={`${styles.page_tab} ${
@@ -149,10 +163,7 @@ const PrivatePagesList = () => {
                 {item.title}
               </div>
               <div className={`${styles.page_settings}`}>
-                <div
-                  className={`${styles.add_icon}`}
-                  onClick={() => handleAddPage(item.id)}
-                >
+                <div className={`${styles.add_icon}`} onClick={handleAddPage}>
                   <PlusThickIcon />
                 </div>
               </div>
@@ -171,13 +182,8 @@ const PrivatePagesList = () => {
           </div>
         ))}
       </div>
-      <CreatePagePanel
-        open={openCreatePage}
-        onClose={() => setOpenCreatePage(false)}
-        parentPageId={parentPageId}
-      />
     </>
   );
 };
 
-export default PrivatePagesList;
+export default FavoritePagesList;

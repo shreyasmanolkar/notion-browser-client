@@ -23,8 +23,6 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
       pageReference
     );
 
-  console.log("con", JSON.stringify(childPagesOrNull, null, 2));
-
   const handleBrokenImage = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src =
       "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f1e6.png";
