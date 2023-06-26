@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { setWorkspace } from "../../../slice/workspaceSlice";
 import { request } from "../../../lib/axios";
 import { setUser } from "../../../slice/userSlice";
-import EmojiSelector from "../../create-workspace-panel/EmojiSelector";
+import EmojiSelector from "./EmojiSelector";
 
 interface WorkspaceDataType {
   workspaceId: string;

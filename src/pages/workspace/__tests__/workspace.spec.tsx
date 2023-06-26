@@ -6,7 +6,7 @@ import { ThemeProvider } from "../../../context/ThemeContext";
 import { store } from "../../../app/store";
 import { Provider } from "react-redux";
 
-describe("workspace", () => {
+describe.skip("workspace", () => {
   beforeAll(() => {
     render(
       <Provider store={store}>

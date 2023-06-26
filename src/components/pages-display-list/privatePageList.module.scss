@@ -1,0 +1,139 @@
+@use "../../styles/abstracts/colors" as *;
+
+.display_container {
+  margin: 8px 0;
+  padding: 8px 0;
+  user-select: none;
+
+  .title {
+    font-size: 12px;
+    font-weight: 900;
+    padding: 4px 16px;
+  }
+
+  .page_tab {
+    margin: 0px 4px;
+    border-radius: 2px;
+    padding: 4px 0;
+
+    .page_info {
+      display: flex;
+      align-items: center;
+      height: 26px;
+
+      .collapse_handle {
+        margin-left: 8px;
+        padding: 1px 3px;
+        border-radius: 2px;
+        fill: $color-primary;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $color-secondary;
+        }
+      }
+
+      .page_emoji {
+        margin-left: 4px;
+        img {
+          width: 18px;
+        }
+      }
+
+      .page_title {
+        margin-left: 6px;
+        font-size: 14px;
+        width: 65%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        cursor: pointer;
+      }
+
+      .page_settings {
+        width: 15%;
+        display: flex;
+        justify-content: space-around;
+
+        .add_icon {
+          padding: 2px;
+          border-radius: 2px;
+          cursor: pointer;
+          fill: $color-primary;
+
+          &:hover {
+            background-color: $color-secondary;
+          }
+        }
+      }
+    }
+
+    &:hover {
+      background-color: $background-hover;
+    }
+
+    .toggle_checkbox {
+      display: none;
+
+      &:checked + .tab_dropdown {
+        display: block;
+      }
+    }
+
+    .tab_dropdown {
+      display: none;
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .toggle_checkbox_fav {
+      display: none;
+
+      &:checked + .tab_dropdown_fav {
+        display: block;
+      }
+    }
+
+    .tab_dropdown_fav {
+      display: none;
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+
+  .active {
+    background-color: $background-hover;
+  }
+}
+
+.dark {
+  .page_tab {
+    .page_info {
+      .collapse_handle {
+        fill: $dark-color-primary;
+
+        &:hover {
+          background-color: $dark-background-hover-two;
+        }
+      }
+
+      .page_settings {
+        .add_icon {
+          fill: $dark-color-primary;
+
+          &:hover {
+            background-color: $dark-background-hover-two;
+          }
+        }
+      }
+    }
+
+    &:hover {
+      background-color: $dark-background-hover;
+    }
+  }
+
+  .active {
+    background-color: $dark-background-hover;
+  }
+}

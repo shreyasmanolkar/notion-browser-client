@@ -3,6 +3,7 @@ export type PageType = {
   reference: string;
   path: string | null;
   icon: string;
+  title: string;
 };
 
 export type WorkspaceType = {

@@ -5,14 +5,16 @@ import { ReactComponent as TeamspacesIcon } from "../../assets/icons/teamspace.s
 import { ReactComponent as SettingsIcon } from "../../assets/icons/settings.svg";
 import { ReactComponent as CirclePlusIcon } from "../../assets/icons/circle-plus.svg";
 import { ThemeContext } from "../../context/ThemeContext";
-import styles from "./optionsPanel.module.scss";
 import UpdatePanel from "../update-panel";
 import SettingsPanel from "../settings-panel";
+import styles from "./optionsPanel.module.scss";
+import CreatePagePanel from "../create-Page-panel/CreatePagePanel";
 
 const OptionsPanel = () => {
   const { theme } = useContext(ThemeContext);
   const [openUpdatePanel, setOpenUpdatePanel] = useState(false);
   const [openSettingsPanel, setOpenSettingsPanel] = useState(false);
+  const [openCreatePage, setOpenCreatePage] = useState(false);
 
   return (
     <>
@@ -38,7 +40,7 @@ const OptionsPanel = () => {
           <div className={`${styles.icon}`}>
             <TeamspacesIcon />
           </div>
-          <p>All teamspaces</p>
+          <p title="Time mocks my plans">All teamspaces</p>
         </div>
         <div
           className={`${styles.tabs}`}
@@ -51,7 +53,12 @@ const OptionsPanel = () => {
           </div>
           <p>Settings & members</p>
         </div>
-        <div className={`${styles.tabs}`}>
+        <div
+          className={`${styles.tabs}`}
+          onClick={() => {
+            setOpenCreatePage(true);
+          }}
+        >
           <div className={`${styles.icon}`}>
             <CirclePlusIcon />
           </div>
@@ -65,6 +72,10 @@ const OptionsPanel = () => {
       <SettingsPanel
         open={openSettingsPanel}
         onClose={() => setOpenSettingsPanel(false)}
+      />
+      <CreatePagePanel
+        open={openCreatePage}
+        onClose={() => setOpenCreatePage(false)}
       />
     </>
   );

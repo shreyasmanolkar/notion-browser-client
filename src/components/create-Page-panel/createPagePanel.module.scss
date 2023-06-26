@@ -1,0 +1,281 @@
+@use "../../styles/abstracts/colors" as *;
+
+.create_page_background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 0, 0, 0.5);
+
+  .create_page {
+    width: 975px;
+    height: 800px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: $background-secondary;
+    display: flex;
+    flex-direction: column;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      height: 6%;
+
+      .left_options {
+        display: flex;
+        align-items: center;
+        margin-left: 4px;
+
+        .icon {
+          margin-left: 8px;
+          padding: 4px;
+          fill: $dark-color-tertiary;
+          border-radius: 2px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $color-secondary;
+          }
+        }
+
+        .tab_divider {
+          p {
+            cursor: default;
+            margin: 4px 8px;
+            padding: 8px 4px;
+            color: $dark-color-tertiary;
+            font-size: 14px;
+          }
+        }
+
+        .add_to {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          user-select: none;
+          padding: 0 8px;
+          height: 24px;
+          border-radius: 2px;
+
+          .text {
+            p {
+              margin: 0;
+              font-size: 14px;
+            }
+          }
+
+          .parent_page_icon {
+            img {
+              margin-left: 8px;
+              width: 16px;
+              border-radius: 50%;
+            }
+          }
+
+          .parent_page_title {
+            margin: 0;
+            margin-left: 8px;
+            font-size: 14px;
+            font-weight: 900;
+            color: $dark-color-tertiary;
+          }
+
+          &:hover {
+            background-color: $color-secondary;
+          }
+        }
+      }
+
+      .right_options {
+        display: flex;
+        align-items: center;
+        margin-right: 16px;
+
+        .tab {
+          p {
+            cursor: not-allowed;
+            margin: 4px 8px;
+            padding: 8px 4px;
+            color: $dark-color-tertiary;
+            font-size: 14px;
+            border-radius: 2px;
+
+            &:hover {
+              background-color: $color-secondary;
+            }
+          }
+        }
+
+        .icon {
+          margin-left: 8px;
+          padding: 4px;
+          fill: $dark-color-secondary;
+          border-radius: 2px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $color-secondary;
+          }
+        }
+
+        .invalid_icon {
+          fill: $dark-color-tertiary;
+        }
+      }
+    }
+
+    .body {
+      padding: 0 10%;
+      height: 89%;
+
+      .cover {
+        height: 50px;
+      }
+
+      .emoji_display {
+        margin: 10px;
+      }
+
+      .title {
+        .page_options {
+          display: flex;
+          margin-left: 8px;
+
+          .add_button {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            border-radius: 2px;
+            height: 20px;
+            padding: 2px 8px;
+            fill: $dark-color-primary;
+            cursor: pointer;
+
+            &:hover {
+              background-color: $color-secondary;
+            }
+          }
+        }
+
+        form {
+          input {
+            width: 100%;
+            background-color: inherit;
+            border: none;
+            outline: none;
+            font-size: 44px;
+            font-family: sans-serif;
+            font-weight: 800;
+            padding: 10px;
+            color: $dark-color-tertiary;
+
+            &::placeholder {
+              color: $background-hover;
+            }
+          }
+        }
+      }
+    }
+
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        background-color: $primary;
+        border: none;
+        margin: 10px 24px;
+        padding: 8px 18px;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $primary-shadow;
+        }
+      }
+    }
+  }
+}
+
+.dark {
+  background-color: rgb(0, 0, 0, 0.5);
+
+  .create_page {
+    background-color: $dark-background-primary;
+
+    .header {
+      .left_options {
+        .icon {
+          fill: $color-primary;
+
+          &:hover {
+            background-color: $dark-background-hover-two;
+          }
+        }
+
+        .add_to {
+          .parent_page_title {
+            color: $color-secondary;
+          }
+
+          &:hover {
+            background-color: $dark-background-hover-two;
+          }
+        }
+      }
+
+      .right_options {
+        .icon {
+          fill: $color-secondary;
+
+          &:hover {
+            background-color: $dark-background-hover-two;
+          }
+        }
+
+        .tab {
+          p {
+            color: $color-secondary;
+
+            &:hover {
+              background-color: $dark-background-hover-two;
+            }
+          }
+        }
+
+        .invalid_icon {
+          fill: $color-primary;
+        }
+      }
+    }
+
+    .body {
+      .title {
+        .page_options {
+          .add_button {
+            fill: $color-primary;
+
+            &:hover {
+              background-color: $dark-background-hover-two;
+            }
+          }
+        }
+
+        form {
+          input {
+            color: $color-secondary;
+
+            &::placeholder {
+              color: $dark-background-hover;
+            }
+          }
+        }
+      }
+    }
+  }
+}
