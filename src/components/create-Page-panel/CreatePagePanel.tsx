@@ -18,6 +18,7 @@ import { request } from "../../lib/axios";
 import { useDispatch } from "react-redux";
 import { setWorkspace } from "../../slice/workspaceSlice";
 import { useQueryClient } from "react-query";
+import { setUser } from "../../slice/userSlice";
 
 type CreatePageProps = {
   open: boolean;
@@ -128,6 +129,7 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
       onSuccess: async (data) => {
         if (data) {
           const workspaceId = workspaceInfo?.id;
+          const user = await request({ url: `/users/${userInfo?.id}` });
           const workspace = await request({
             url: `/workspaces/${workspaceId}`,
           });
@@ -139,8 +141,13 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
             ]);
           }
 
+          dispatch(setUser({ ...user.data }));
           dispatch(setWorkspace({ ...workspace.data }));
           // TODO: redirect to page
+
+          setTitle("");
+          setDisplayEmoji(false);
+
           onClose();
         }
       },
