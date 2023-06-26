@@ -23,6 +23,11 @@ type updateUserNameDataType = {
   userId: string;
 };
 
+type updateIsDarkModeDataType = {
+  isDarkMode: boolean;
+  userId: string;
+};
+
 type deleteUserDataType = {
   userId: string;
 };
@@ -59,6 +64,16 @@ export class useUserData {
   };
 
   static updateUserName = async (data: updateUserNameDataType) => {
+    const response = await request({
+      url: `/users/${data.userId}`,
+      method: "patch",
+      data,
+    });
+
+    return response.data;
+  };
+
+  static updateIsDarkMode = async (data: updateIsDarkModeDataType) => {
     const response = await request({
       url: `/users/${data.userId}`,
       method: "patch",
@@ -107,6 +122,15 @@ export class useUserData {
 
   static useUpdateUserNameData = () => {
     return useMutation(useUserData.updateUserName, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useUpdateIsDarkModeData = () => {
+    return useMutation(useUserData.updateIsDarkMode, {
       onSuccess: (data) => {
         return data;
       },
