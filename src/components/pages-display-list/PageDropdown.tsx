@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useWorkspaceData } from "../../services/useWorkspaceData";
 import styles from "./pageDropdown.module.scss";
 import { PageType } from "../../slice/workspaceSlice";
@@ -6,6 +6,7 @@ import { ReactComponent as RightExpanIcon } from "../../assets/icons/right-expan
 import { ReactComponent as PlusThickIcon } from "../../assets/icons/plus-thick.svg";
 import twemoji from "twemoji";
 import { ThemeContext } from "../../context/ThemeContext";
+import CreatePagePanel from "../create-Page-panel/CreatePagePanel";
 
 type PageDropdownProps = {
   workspaceId: string;
@@ -17,6 +18,8 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
   pageReference,
 }) => {
   const { theme } = useContext(ThemeContext);
+  const [openCreatePage, setOpenCreatePage] = useState(false);
+  const [parentPageId, setParentPageId] = useState("");
   const { data: childPagesOrNull, isLoading } =
     useWorkspaceData.useFetchChildPagesByworkspaceIdAndPageReference(
       workspaceId,
@@ -39,8 +42,10 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
     // }
   };
 
-  const handleAddPage = () => {
-    console.log("add page");
+  const handleAddPage = (id: string) => {
+    // console.log("add page");
+    setOpenCreatePage(true);
+    setParentPageId(id);
   };
 
   const getEmojiUrl = (unified: string) => {
@@ -89,7 +94,7 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
                     <div className={`${styles.page_settings}`}>
                       <div
                         className={`${styles.add_icon}`}
-                        onClick={handleAddPage}
+                        onClick={() => handleAddPage(item.id)}
                       >
                         <PlusThickIcon />
                       </div>
@@ -112,6 +117,11 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
           )}
         </div>
       )}
+      <CreatePagePanel
+        open={openCreatePage}
+        onClose={() => setOpenCreatePage(false)}
+        parentPageId={parentPageId}
+      />
     </>
   );
 };

@@ -2,10 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../../context/ThemeContext";
 import { useThemeDetector } from "../../../hooks/useThemeDetector";
 import styles from "./account.module.scss";
+import { useUserData } from "../../../services/useUserData";
+import { useAppSelector } from "../../../app/hooks";
 
 const Notification = () => {
   const { theme, setTheme } = useContext(ThemeContext);
+  const userInfo = useAppSelector((state) => state.user.userInfo);
   const [mode, setMode] = useState("");
+  const { mutate: mutateIsDarkMode } = useUserData.useUpdateIsDarkModeData();
 
   const isDarkMode = useThemeDetector();
 
@@ -31,11 +35,23 @@ const Notification = () => {
       setMode("system");
       isDarkMode ? setTheme("dark") : setTheme("light");
     } else if (mode === "dark") {
+      const userData = {
+        isDarkMode: true,
+        userId: userInfo?.id!,
+      };
+
       setMode("dark");
       setTheme("dark");
+      mutateIsDarkMode(userData);
     } else {
+      const userData = {
+        isDarkMode: false,
+        userId: userInfo?.id!,
+      };
+
       setMode("light");
       setTheme("light");
+      mutateIsDarkMode(userData);
     }
   };
 

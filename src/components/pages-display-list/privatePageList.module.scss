@@ -85,6 +85,20 @@
       width: 100%;
       margin-left: 0;
     }
+
+    .toggle_checkbox_fav {
+      display: none;
+
+      &:checked + .tab_dropdown_fav {
+        display: block;
+      }
+    }
+
+    .tab_dropdown_fav {
+      display: none;
+      width: 100%;
+      margin-left: 0;
+    }
   }
 
   .active {

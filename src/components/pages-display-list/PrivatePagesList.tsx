@@ -33,16 +33,6 @@ const PrivatePagesList = () => {
     e.currentTarget.onerror = null;
   };
 
-  const handleExpand = (e: React.SyntheticEvent<HTMLDivElement>) => {
-    // const currentRotation = e.currentTarget.style.transform;
-    // const currentRotationValue = parseInt(currentRotation.slice(7), 10);
-    // if (currentRotationValue === 90) {
-    //   e.currentTarget.style.transform = "rotate(0deg)";
-    // } else {
-    //   e.currentTarget.style.transform = "rotate(90deg)";
-    // }
-  };
-
   const handleAddPage = (id: string) => {
     setOpenCreatePage(true);
     setParentPageId(id);
@@ -127,10 +117,7 @@ const PrivatePagesList = () => {
                 htmlFor={`page_tab_display_${item.id}`}
                 className={`${styles.dropdown}`}
               >
-                <div
-                  className={`${styles.collapse_handle}`}
-                  onClick={handleExpand}
-                >
+                <div className={`${styles.collapse_handle}`}>
                   <RightExpanIcon />
                 </div>
               </label>

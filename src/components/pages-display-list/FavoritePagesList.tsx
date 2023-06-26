@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import twemoji from "twemoji";
 import { ReactComponent as RightExpanIcon } from "../../assets/icons/right-expand.svg";
-import { ReactComponent as PlusThickIcon } from "../../assets/icons/plus-thick.svg";
+// import { ReactComponent as PlusThickIcon } from "../../assets/icons/plus-thick.svg";
 import { ThemeContext } from "../../context/ThemeContext";
 import { useAppSelector } from "../../app/hooks";
 import PageDropdown from "./PageDropdown";
@@ -40,20 +40,6 @@ const FavoritePagesList = () => {
     e.currentTarget.src =
       "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f1e6.png";
     e.currentTarget.onerror = null;
-  };
-
-  const handleExpand = (e: React.SyntheticEvent<HTMLDivElement>) => {
-    // const currentRotation = e.currentTarget.style.transform;
-    // const currentRotationValue = parseInt(currentRotation.slice(7), 10);
-    // if (currentRotationValue === 90) {
-    //   e.currentTarget.style.transform = "rotate(0deg)";
-    // } else {
-    //   e.currentTarget.style.transform = "rotate(90deg)";
-    // }
-  };
-
-  const handleAddPage = () => {
-    console.log("add page");
   };
 
   const getEmojiUrl = (unified: string) => {
@@ -138,13 +124,10 @@ const FavoritePagesList = () => {
           >
             <div className={`${styles.page_info}`}>
               <label
-                htmlFor={`page_tab_display_${item.id}`}
+                htmlFor={`page_tab_display_${item.id}_fav`}
                 className={`${styles.dropdown}`}
               >
-                <div
-                  className={`${styles.collapse_handle}`}
-                  onClick={handleExpand}
-                >
+                <div className={`${styles.collapse_handle}`}>
                   <RightExpanIcon />
                 </div>
               </label>
@@ -162,18 +145,14 @@ const FavoritePagesList = () => {
               >
                 {item.title}
               </div>
-              <div className={`${styles.page_settings}`}>
-                <div className={`${styles.add_icon}`} onClick={handleAddPage}>
-                  <PlusThickIcon />
-                </div>
-              </div>
+              <div className={`${styles.page_settings}`}></div>
             </div>
             <input
               type="checkbox"
-              className={`${styles.toggle_checkbox}`}
-              id={`page_tab_display_${item.id}`}
+              className={`${styles.toggle_checkbox_fav}`}
+              id={`page_tab_display_${item.id}_fav`}
             />
-            <div className={`${styles.tab_dropdown}`}>
+            <div className={`${styles.tab_dropdown_fav}`}>
               <PageDropdown
                 workspaceId={workspaceInfo?.id!}
                 pageReference={item.reference}

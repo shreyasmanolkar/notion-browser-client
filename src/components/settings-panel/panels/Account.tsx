@@ -49,7 +49,6 @@ const Account = () => {
     const userData = { userId: userInfo?.id! };
 
     mutateDeleteUser(userData);
-    // console.log("deleted succesfully");
     // TODO redirect to registe page
   };
 
