@@ -9,17 +9,24 @@ import UpdatePanel from "../update-panel";
 import SettingsPanel from "../settings-panel";
 import styles from "./optionsPanel.module.scss";
 import CreatePagePanel from "../create-Page-panel/CreatePagePanel";
+import SearchPanel from "../../features/search";
 
 const OptionsPanel = () => {
   const { theme } = useContext(ThemeContext);
   const [openUpdatePanel, setOpenUpdatePanel] = useState(false);
   const [openSettingsPanel, setOpenSettingsPanel] = useState(false);
   const [openCreatePage, setOpenCreatePage] = useState(false);
+  const [openSearchPanel, setOpenSearchPanel] = useState(false);
 
   return (
     <>
       <div className={`${styles.options_panel} ${styles[theme]}`}>
-        <div className={`${styles.tabs}`}>
+        <div
+          className={`${styles.tabs}`}
+          onClick={() => {
+            setOpenSearchPanel(true);
+          }}
+        >
           <div className={`${styles.icon}`}>
             <SearchIcon />
           </div>
@@ -76,6 +83,10 @@ const OptionsPanel = () => {
       <CreatePagePanel
         open={openCreatePage}
         onClose={() => setOpenCreatePage(false)}
+      />
+      <SearchPanel
+        open={openSearchPanel}
+        onClose={() => setOpenSearchPanel(false)}
       />
     </>
   );
