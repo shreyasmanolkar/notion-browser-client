@@ -208,6 +208,7 @@
 
         .icon {
           cursor: pointer;
+          fill: $dark-color-tertiary;
 
           &:hover {
             background-color: #dfdfdf;
@@ -317,6 +318,8 @@
         }
 
         .icon {
+          fill: $color-tertiary;
+
           &:hover {
             background-color: $dark-background-quaternary;
           }
