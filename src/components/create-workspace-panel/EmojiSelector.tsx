@@ -26,6 +26,7 @@ const EmojiSelector: React.FC<EmojiSelectorProps> = ({
 
     setEmojiCode(data.unified);
     setEmoji(emojiImage);
+    closePicker();
   };
 
   if (!openPicker) return null;

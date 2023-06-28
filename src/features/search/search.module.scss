@@ -1,0 +1,215 @@
+@use "../../styles/abstracts/colors" as *;
+
+.search_panel_background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 0, 0, 0.5);
+
+  .search_panel {
+    width: 655px;
+    max-height: 750px;
+    position: absolute;
+    top: 100px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: $background-secondary;
+    display: flex;
+    flex-direction: column;
+
+    .search_bar_section {
+      display: flex;
+      height: 45px;
+      align-items: center;
+      border-bottom: 1px solid $color-tertiary;
+
+      .icon {
+        width: 5%;
+        padding-left: 10px;
+        fill: $color-primary;
+      }
+
+      input {
+        width: 92%;
+        background-color: inherit;
+        border-radius: 0 5px 0 0;
+        height: 100%;
+        font-size: 18px;
+        padding-left: 5px;
+        color: $dark-color-tertiary;
+        border: none;
+        outline: none;
+
+        &::placeholder {
+          color: $color-primary;
+        }
+
+        &::-webkit-search-cancel-button {
+          appearance: none;
+        }
+      }
+
+      .cancel {
+        width: 3%;
+        fill: $dark-color-primary;
+        cursor: pointer;
+      }
+    }
+
+    .search_options {
+      padding: 8px 0;
+      display: flex;
+      height: 55px;
+      overflow-x: scroll;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 8px $scroll-track;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $scroll-thumb;
+        outline: 1px solid $scroll-thumb;
+      }
+
+      .tab {
+        border: 1px solid $color-primary;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        height: 25px;
+        border-radius: 25px;
+        margin-left: 8px;
+
+        .icon {
+          padding-left: 8px;
+          fill: $color-primary;
+        }
+
+        .wrap_container {
+          p {
+            font-size: 14px;
+            width: max-content;
+            user-select: none;
+            color: $color-primary;
+          }
+        }
+
+        .down_icon {
+          padding: 0 8px 0 2px;
+          fill: $color-primary;
+        }
+
+        &:hover {
+          background-color: $background-hover;
+        }
+      }
+
+      .active {
+        border: 1px solid $primary;
+        background-color: #f8fbfe;
+
+        .icon {
+          fill: $primary;
+        }
+
+        .wrap_container {
+          p {
+            color: $primary;
+          }
+        }
+
+        .down_icon {
+          fill: $primary;
+        }
+      }
+
+      .invalid {
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+.dark {
+  .search_panel {
+    background-color: $dark-background-quinary;
+
+    .search_bar_section {
+      border-bottom: 1px solid $dark-color-tertiary;
+
+      .icon {
+        fill: $color-primary;
+      }
+
+      input {
+        color: $color-secondary;
+      }
+
+      .cancel {
+        fill: $color-primary;
+      }
+    }
+
+    .search_options {
+      &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 8px $dark-scroll-track;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $dark-scroll-thumb;
+        outline: 1px solid #3f3e39;
+      }
+
+      .tab {
+        border: 1px solid $color-primary;
+
+        .icon {
+          fill: $color-primary;
+        }
+
+        .wrap_container {
+          p {
+            color: $color-primary;
+          }
+        }
+
+        .down_icon {
+          fill: $color-primary;
+        }
+
+        &:hover {
+          background-color: $dark-background-hover;
+        }
+      }
+
+      .active {
+        border: 1px solid $primary;
+        background-color: #242b32;
+
+        .icon {
+          fill: $primary;
+        }
+
+        .wrap_container {
+          p {
+            color: $primary;
+          }
+        }
+
+        .down_icon {
+          fill: $primary;
+        }
+      }
+    }
+  }
+}

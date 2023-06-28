@@ -4,12 +4,15 @@ import { useThemeDetector } from "../../../hooks/useThemeDetector";
 import styles from "./account.module.scss";
 import { useUserData } from "../../../services/useUserData";
 import { useAppSelector } from "../../../app/hooks";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../../slice/userSlice";
 
 const Notification = () => {
   const { theme, setTheme } = useContext(ThemeContext);
   const userInfo = useAppSelector((state) => state.user.userInfo);
   const [mode, setMode] = useState("");
   const { mutate: mutateIsDarkMode } = useUserData.useUpdateIsDarkModeData();
+  const dispatch = useDispatch();
 
   const isDarkMode = useThemeDetector();
 
@@ -42,7 +45,20 @@ const Notification = () => {
 
       setMode("dark");
       setTheme("dark");
-      mutateIsDarkMode(userData);
+      mutateIsDarkMode(userData, {
+        onSuccess: async (data) => {
+          if (data) {
+            const updatedIsDarkMode = data.isDarkMode;
+
+            const updatedUser = {
+              ...userInfo!,
+              isDarkMode: updatedIsDarkMode,
+            };
+
+            dispatch(setUser(updatedUser));
+          }
+        },
+      });
     } else {
       const userData = {
         isDarkMode: false,
@@ -51,7 +67,20 @@ const Notification = () => {
 
       setMode("light");
       setTheme("light");
-      mutateIsDarkMode(userData);
+      mutateIsDarkMode(userData, {
+        onSuccess: async (data) => {
+          if (data) {
+            const updatedIsDarkMode = data.isDarkMode;
+
+            const updatedUser = {
+              ...userInfo!,
+              isDarkMode: updatedIsDarkMode,
+            };
+
+            dispatch(setUser(updatedUser));
+          }
+        },
+      });
     }
   };
 
