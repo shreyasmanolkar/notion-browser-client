@@ -8,6 +8,7 @@ import { setUser } from "../../slice/userSlice";
 import { AxiosError } from "axios";
 import { setWorkspace } from "../../slice/workspaceSlice";
 import { ThemeContext } from "../../context/ThemeContext";
+import { setPage } from "../../slice/pageSlice";
 import styles from "./loginPanel.module.scss";
 
 const LoginPanel = () => {
@@ -61,8 +62,14 @@ const LoginPanel = () => {
             url: `/workspaces/${workspaceId}`,
           });
 
+          const pageId = workspace.data.pages[0].id;
+          const page = await request({
+            url: `/pages/${pageId}`,
+          });
+
           dispatch(setUser({ ...user.data }));
           dispatch(setWorkspace({ ...workspace.data }));
+          dispatch(setPage({ ...page.data }));
 
           setEmail("");
           setPassword("");

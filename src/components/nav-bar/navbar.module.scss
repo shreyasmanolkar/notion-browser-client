@@ -1,0 +1,104 @@
+@use "../../styles/abstracts/colors" as *;
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $background-secondary;
+  color: white;
+  height: 45px;
+
+  .path {
+    .on_menu_icon {
+      font-size: 2em;
+      padding: 10px;
+      position: fixed;
+      cursor: pointer;
+    }
+
+    h3 {
+      margin-left: 40px;
+    }
+  }
+
+  .main_options {
+    display: flex;
+    margin-right: 16px;
+    align-items: center;
+
+    .edited_at {
+      font-size: 14px;
+      margin-right: 16px;
+      color: $color-primary;
+    }
+
+    .share {
+      p {
+        cursor: not-allowed;
+        margin: 4px 8px;
+        padding: 8px 4px;
+        color: $dark-color-tertiary;
+        font-size: 14px;
+        border-radius: 2px;
+
+        &:hover {
+          background-color: $color-secondary;
+        }
+      }
+    }
+
+    .comments {
+      font-size: 2em;
+      padding: 8px 0;
+      cursor: pointer;
+    }
+
+    .history {
+      font-size: 2em;
+      padding: 8px 0;
+      cursor: pointer;
+    }
+
+    .icon {
+      align-self: center;
+      margin-left: 8px;
+      // margin: 0 8px;
+      padding: 4px;
+      fill: $dark-color-secondary;
+      border-radius: 2px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $color-secondary;
+      }
+    }
+  }
+}
+
+.dark {
+  background-color: $dark-background-secondary;
+
+  .main_options {
+    .edited_at {
+      color: $dark-color-primary;
+    }
+
+    .share {
+      p {
+        color: $color-secondary;
+
+        &:hover {
+          background-color: $dark-background-hover-two;
+        }
+      }
+    }
+
+    .icon {
+      fill: $color-secondary;
+
+      &:hover {
+        background-color: $dark-background-hover-two;
+      }
+    }
+  }
+}

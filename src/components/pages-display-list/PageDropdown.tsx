@@ -7,6 +7,9 @@ import { ReactComponent as PlusThickIcon } from "../../assets/icons/plus-thick.s
 import twemoji from "twemoji";
 import { ThemeContext } from "../../context/ThemeContext";
 import CreatePagePanel from "../create-Page-panel/CreatePagePanel";
+import { request } from "../../lib/axios";
+import { useDispatch } from "react-redux";
+import { setPage } from "../../slice/pageSlice";
 
 type PageDropdownProps = {
   workspaceId: string;
@@ -25,6 +28,7 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
       workspaceId,
       pageReference
     );
+  const dispatch = useDispatch();
 
   const handleBrokenImage = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src =
@@ -56,6 +60,14 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
     return emojiImage;
   };
 
+  const handleOnPageTabClick = async (id: string) => {
+    const page = await request({
+      url: `/pages/${id}`,
+    });
+
+    dispatch(setPage({ ...page.data }));
+  };
+
   return (
     <>
       {isLoading ? (
@@ -82,7 +94,10 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
                         <RightExpanIcon />
                       </div>
                     </label>
-                    <div className={`${styles.page_emoji}`}>
+                    <div
+                      className={`${styles.page_emoji}`}
+                      onClick={() => handleOnPageTabClick(item.id)}
+                    >
                       <img
                         src={getEmojiUrl(item.icon)}
                         onError={(e) => handleBrokenImage(e)}
@@ -90,7 +105,12 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
                         draggable="false"
                       />
                     </div>
-                    <div className={`${styles.page_title}`}>{item.title}</div>
+                    <div
+                      className={`${styles.page_title}`}
+                      onClick={() => handleOnPageTabClick(item.id)}
+                    >
+                      {item.title}
+                    </div>
                     <div className={`${styles.page_settings}`}>
                       <div
                         className={`${styles.add_icon}`}
