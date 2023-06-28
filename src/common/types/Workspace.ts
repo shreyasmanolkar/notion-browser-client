@@ -4,6 +4,7 @@ export type PageType = {
   path: string | null;
   icon: string;
   title: string;
+  createdAt: Date;
 };
 
 export type WorkspaceType = {

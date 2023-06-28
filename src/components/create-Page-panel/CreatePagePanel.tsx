@@ -12,13 +12,13 @@ import { ReactComponent as AddCoverIcon } from "../../assets/icons/add-cover.svg
 import { useAppSelector } from "../../app/hooks";
 import EmojiSelector from "./EmojiSelector";
 import twemoji from "twemoji";
-import styles from "./createPagePanel.module.scss";
 import { usePageData } from "../../services/usePageData";
 import { request } from "../../lib/axios";
 import { useDispatch } from "react-redux";
 import { setWorkspace } from "../../slice/workspaceSlice";
 import { useQueryClient } from "react-query";
 import { setUser } from "../../slice/userSlice";
+import styles from "./createPagePanel.module.scss";
 
 type CreatePageProps = {
   open: boolean;
