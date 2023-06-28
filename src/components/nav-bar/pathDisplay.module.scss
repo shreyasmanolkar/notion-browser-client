@@ -1,0 +1,57 @@
+@use "../../styles/abstracts/colors" as *;
+
+.path_container {
+  display: flex;
+  margin-left: 8px;
+  align-items: center;
+
+  // .container {
+  //   display: flex;
+  //   align-items: center;
+
+  // }
+
+  .path_tab {
+    display: flex;
+    padding: 2px 8px;
+    margin: 0 2px;
+    border-radius: 5px;
+    color: $dark-background-primary;
+    cursor: pointer;
+    font-size: 14px;
+
+    img {
+      margin-right: 8px;
+      width: 16px;
+    }
+
+    &:hover {
+      background-color: $background-hover;
+    }
+  }
+
+  .separator {
+    font-size: 14px;
+    color: $dark-color-primary;
+
+    &:last-child {
+      display: none;
+    }
+  }
+}
+
+.dark {
+  .path_tab {
+    color: $color-secondary;
+
+    &:hover {
+      background-color: $dark-background-hover;
+    }
+  }
+
+  .separator {
+    color: $color-primary;
+  }
+  // .container {
+  // }
+}

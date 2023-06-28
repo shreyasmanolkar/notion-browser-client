@@ -5,19 +5,16 @@
   align-items: center;
   justify-content: space-between;
   background-color: $background-secondary;
-  color: white;
   height: 45px;
 
   .path {
+    display: flex;
+
     .on_menu_icon {
+      color: $color-primary;
       font-size: 2em;
       padding: 10px;
-      position: fixed;
       cursor: pointer;
-    }
-
-    h3 {
-      margin-left: 40px;
     }
   }
 

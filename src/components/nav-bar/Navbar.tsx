@@ -10,68 +10,17 @@ import { ReactComponent as StarOutlineIcon } from "../../assets/icons/star-outli
 import { ReactComponent as FillStarIcon } from "../../assets/icons/fill-star.svg";
 import { ReactComponent as TopDotsIcon } from "../../assets/icons/top-dots.svg";
 import { ThemeContext } from "../../context/ThemeContext";
+import PathDisplay from "./PathDisplay";
 
 const Navbar = () => {
   const { theme } = useContext(ThemeContext);
   const { leftOpen, toggleSidebar } = useContext(SidebarLogicContext);
   const pageInfo = useAppSelector((state) => state.page.pageInfo);
-  const workspaceInfo = useAppSelector(
-    (state) => state.workspace.workspaceInfo
-  );
   const [currentTime, setCurrentTime] = useState(moment());
   const [favorite, setFavorite] = useState(false);
 
   const handleStarClick = () => {
     setFavorite(!favorite);
-  };
-
-  const handlePathDisplay = (id: string) => {
-    const pagePaths = [];
-
-    const pages = workspaceInfo?.pages;
-
-    let currentPage = pages?.find((page) => page.id === id);
-
-    if (currentPage) {
-      const pagePath = {
-        id: currentPage.id,
-        title: currentPage.title,
-        icon: currentPage.icon,
-      };
-
-      pagePaths.unshift(pagePath);
-    }
-
-    while (currentPage && currentPage.path !== null) {
-      const parentPageReference: string | undefined = currentPage.path!;
-
-      if (parentPageReference) {
-        const parentPage = pages!.find(
-          (page) =>
-            page.reference ===
-            parentPageReference.slice(1, parentPageReference!.length - 1)
-        );
-
-        if (parentPage) {
-          const pagePath = {
-            id: parentPage.id,
-            title: parentPage.title,
-            icon: parentPage.icon,
-          };
-
-          pagePaths.unshift(pagePath);
-          currentPage = parentPage;
-        } else {
-          break;
-        }
-      } else {
-        break;
-      }
-    }
-
-    console.log("pp", JSON.stringify(pagePaths, null, 2));
-    // return pagePaths;
-    return "ok";
   };
 
   const formatedTime = (createdAt: Date) => {
@@ -95,9 +44,7 @@ const Navbar = () => {
             &equiv;
           </div>
         )}
-        {pageInfo ? <h3>{pageInfo.title}</h3> : <h3>Page Title</h3>}
-        {handlePathDisplay(pageInfo?.id!)}
-        {/* {console.log(handlePathDisplay(pageInfo?.id!))} */}
+        <PathDisplay id={pageInfo?.id!} />
       </div>
       <div id="options" className={`${styles.main_options}`}>
         <div className={`${styles.edited_at}`}>
