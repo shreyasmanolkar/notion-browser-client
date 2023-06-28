@@ -9,16 +9,14 @@ export const ThemeProvider: React.FC<{ children: any }> = ({ children }) => {
 
   useEffect(() => {
     const storedTheme = userInfo?.isDarkMode ? "dark" : "light";
-    console.log("st", storedTheme);
     setTheme(storedTheme);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     const theme = userInfo?.isDarkMode ? "dark" : "light";
     setTheme(theme);
   }, [userInfo?.isDarkMode]);
-
-  console.log("theme", theme);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
