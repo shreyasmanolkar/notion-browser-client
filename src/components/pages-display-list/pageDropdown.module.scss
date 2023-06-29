@@ -88,6 +88,10 @@
       width: 100%;
     }
   }
+
+  .active {
+    background-color: $background-hover;
+  }
 }
 
 .dark {
@@ -115,5 +119,9 @@
     &:hover {
       background-color: $dark-background-hover;
     }
+  }
+
+  .active {
+    background-color: $dark-background-hover;
   }
 }
