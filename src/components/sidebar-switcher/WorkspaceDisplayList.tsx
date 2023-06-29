@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { setWorkspace } from "../../slice/workspaceSlice";
 import { request } from "../../lib/axios";
 import styles from "./workspaceDisplayList.module.scss";
+import { setPage } from "../../slice/pageSlice";
 
 const WorkspaceDisplayList = () => {
   const { theme } = useContext(ThemeContext);
@@ -41,7 +42,13 @@ const WorkspaceDisplayList = () => {
       url: `/workspaces/${workspaceId}`,
     });
 
+    const pageId = workspace.data.pages[0].id;
+    const page = await request({
+      url: `/pages/${pageId}`,
+    });
+
     dispatch(setWorkspace({ ...workspace.data }));
+    dispatch(setPage({ ...page.data }));
   };
 
   const getEmojiUrl = (unified: string) => {

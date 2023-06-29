@@ -9,6 +9,7 @@ import { request } from "../../lib/axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../slice/userSlice";
 import { setWorkspace } from "../../slice/workspaceSlice";
+import { setPage } from "../../slice/pageSlice";
 
 const CreateWorkspacePanel = () => {
   const { theme } = useContext(ThemeContext);
@@ -61,8 +62,14 @@ const CreateWorkspacePanel = () => {
             url: `/workspaces/${workspaceId}`,
           });
 
+          const pageId = workspace.data.pages[0].id;
+          const page = await request({
+            url: `/pages/${pageId}`,
+          });
+
           dispatch(setUser({ ...user.data }));
           dispatch(setWorkspace({ ...workspace.data }));
+          dispatch(setPage({ ...page.data }));
 
           setName("");
         }

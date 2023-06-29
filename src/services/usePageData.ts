@@ -24,6 +24,20 @@ type createPageDataType = {
   workspaceId: string;
 };
 
+type addToFavorite = {
+  pageId: string;
+};
+
+export type updatePageSettingsData = {
+  pageId: string;
+  settings: {
+    font: string;
+    smallText: boolean;
+    fullWidth: boolean;
+    lock: boolean;
+  };
+};
+
 export class usePageData {
   static createPage = async (data: createPageDataType) => {
     const response = await request({
@@ -35,8 +49,63 @@ export class usePageData {
     return response.data;
   };
 
+  static addToFavorites = async (data: addToFavorite) => {
+    const response = await request({
+      url: `/pages/${data.pageId}/favorites`,
+      method: "post",
+    });
+
+    return response.data;
+  };
+
+  static removeFromFavorites = async (data: addToFavorite) => {
+    const response = await request({
+      url: `/pages/${data.pageId}/favorites`,
+      method: "delete",
+    });
+
+    return response.data;
+  };
+
+  static updatePageSettings = async (data: updatePageSettingsData) => {
+    const response = await request({
+      url: `/pages/${data.pageId}/settings`,
+      method: "patch",
+      data,
+    });
+
+    return response.data;
+  };
+
   static useCreatePageData = () => {
     return useMutation(usePageData.createPage, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useAddToFavorites = () => {
+    return useMutation(usePageData.addToFavorites, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useRemoveFromFavorites = () => {
+    return useMutation(usePageData.removeFromFavorites, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useUpdatePageSettings = () => {
+    return useMutation(usePageData.updatePageSettings, {
       onSuccess: (data) => {
         return data;
       },

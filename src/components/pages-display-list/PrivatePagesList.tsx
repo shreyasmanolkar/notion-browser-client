@@ -7,6 +7,9 @@ import { useAppSelector } from "../../app/hooks";
 import PageDropdown from "./PageDropdown";
 import styles from "./privatePageList.module.scss";
 import CreatePagePanel from "../create-Page-panel/CreatePagePanel";
+import { request } from "../../lib/axios";
+import { useDispatch } from "react-redux";
+import { setPage } from "../../slice/pageSlice";
 
 const PrivatePagesList = () => {
   const { theme } = useContext(ThemeContext);
@@ -15,6 +18,7 @@ const PrivatePagesList = () => {
   const workspaceInfo = useAppSelector(
     (state) => state.workspace.workspaceInfo
   );
+  const dispatch = useDispatch();
 
   const initialPages = workspaceInfo?.pages;
 
@@ -59,8 +63,14 @@ const PrivatePagesList = () => {
     setPagesMetaData(_pagesMetaData);
   };
 
-  const handleOnPageTabClick = (id: string) => {
+  const handleOnPageTabClick = async (id: string) => {
     setActivePage(id);
+
+    const page = await request({
+      url: `/pages/${id}`,
+    });
+
+    dispatch(setPage({ ...page.data }));
   };
 
   useEffect(() => {
@@ -121,7 +131,10 @@ const PrivatePagesList = () => {
                   <RightExpanIcon />
                 </div>
               </label>
-              <div className={`${styles.page_emoji}`}>
+              <div
+                className={`${styles.page_emoji}`}
+                onClick={() => handleOnPageTabClick(item.id)}
+              >
                 <img
                   src={getEmojiUrl(item.icon)}
                   onError={(e) => handleBrokenImage(e)}

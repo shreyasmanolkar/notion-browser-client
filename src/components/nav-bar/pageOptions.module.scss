@@ -1,0 +1,364 @@
+@use "../../styles/abstracts/colors" as *;
+
+.page_options_background {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  cursor: auto;
+
+  .page_options {
+    position: fixed;
+    right: 10px;
+    width: 230px;
+    height: 730px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 4px 4px;
+    display: flex;
+    flex-direction: column;
+    background-color: $background-secondary;
+
+    .style_container {
+      padding-bottom: 8px;
+      border-bottom: 1px solid $color-tertiary;
+
+      .style {
+        margin: 0;
+        padding: 8px 0 8px 10px;
+        font-size: 12px;
+        color: $color-primary;
+      }
+
+      .fonts {
+        display: flex;
+        justify-content: center;
+        padding: 0 8px 0 4px;
+
+        .default {
+          border-radius: 5px;
+          width: 30%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 8px 0;
+          cursor: pointer;
+
+          h2 {
+            margin: 0;
+            font-family: sans-serif;
+            font-size: 32px;
+            font-weight: normal;
+            color: $dark-color-tertiary;
+          }
+
+          p {
+            margin: 0;
+            font-size: 12px;
+            color: $color-primary;
+          }
+
+          &:hover {
+            background-color: $background-hover;
+          }
+        }
+
+        .serif {
+          border-radius: 5px;
+          width: 30%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+
+          h2 {
+            margin: 0;
+            font-family: serif;
+            font-size: 32px;
+            font-weight: normal;
+            color: $dark-color-tertiary;
+          }
+
+          p {
+            margin: 0;
+            font-size: 12px;
+            color: $color-primary;
+          }
+
+          &:hover {
+            background-color: $background-hover;
+          }
+        }
+
+        .mono {
+          border-radius: 5px;
+          width: 30%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+
+          h2 {
+            margin: 0;
+            font-family: monospace;
+            font-size: 32px;
+            font-weight: normal;
+            color: $dark-color-tertiary;
+          }
+
+          p {
+            margin: 0;
+            font-size: 12px;
+            color: $color-primary;
+          }
+
+          &:hover {
+            background-color: $background-hover;
+          }
+        }
+
+        .active {
+          h2 {
+            color: $primary;
+          }
+        }
+      }
+    }
+
+    .text {
+      padding: 8px 4px;
+      border-bottom: 1px solid $color-tertiary;
+
+      .value_control {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 0;
+        border-radius: 2px;
+        cursor: pointer;
+
+        .key {
+          p {
+            margin: 0;
+            font-size: 14px;
+            padding-left: 8px;
+            color: $dark-color-tertiary;
+          }
+        }
+
+        .control {
+          margin-right: 8px;
+
+          .switch {
+            position: relative;
+            display: inline-block;
+            width: 30px;
+            height: 18px;
+
+            input {
+              opacity: 0;
+              width: 0;
+              height: 0;
+            }
+
+            .slider_round {
+              position: absolute;
+              cursor: pointer;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-color: #dfdfdf;
+              border-radius: 10px;
+              -webkit-transition: 0.4s;
+              transition: 0.4s;
+
+              &:before {
+                position: absolute;
+                content: "";
+                height: 12px;
+                width: 12px;
+                left: 4px;
+                bottom: 3px;
+                background-color: white;
+                border-radius: 50%;
+              }
+            }
+
+            input:checked + .slider_round {
+              background-color: $primary;
+            }
+
+            input:focus + .slider_round {
+              box-shadow: 0 0 1px $primary;
+            }
+
+            input:checked + .slider_round::before {
+              -webkit-transform: translateX(26px);
+              -ms-transform: translateX(26px);
+              transform: translateX(10px);
+            }
+          }
+        }
+
+        &:hover {
+          background-color: $background-hover;
+        }
+      }
+    }
+
+    .wiki {
+      padding: 4px;
+      border-bottom: 1px solid $color-tertiary;
+
+      .tab {
+        display: flex;
+        align-items: flex-start;
+        padding: 8px;
+        border-radius: 5px;
+        cursor: pointer;
+
+        .icon {
+          width: 12%;
+          fill: $dark-color-secondary;
+        }
+
+        .title {
+          width: 70%;
+
+          p {
+            margin: 0;
+            font-size: 14px;
+            color: $dark-background-hover;
+
+            &:nth-child(2) {
+              color: $dark-color-primary;
+            }
+          }
+        }
+
+        .new_button {
+          align-self: center;
+          padding: 2px;
+          border-radius: 2px;
+
+          p {
+            font-size: 14px;
+            margin: 0;
+            color: $primary;
+            background-color: #e9f2fc;
+          }
+        }
+
+        &:hover {
+          background-color: $background-hover;
+        }
+      }
+
+      .not_allowed {
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+.dark {
+  .page_options {
+    background-color: $dark-background-primary;
+
+    .style_container {
+      border-bottom: 1px solid $dark-color-tertiary;
+
+      .fonts {
+        .default {
+          h2 {
+            color: $color-secondary;
+          }
+
+          &:hover {
+            background-color: $dark-background-hover;
+          }
+        }
+
+        .serif {
+          h2 {
+            color: $color-secondary;
+          }
+
+          &:hover {
+            background-color: $dark-background-hover;
+          }
+        }
+
+        .mono {
+          h2 {
+            color: $color-secondary;
+          }
+
+          &:hover {
+            background-color: $dark-background-hover;
+          }
+        }
+
+        .active {
+          h2 {
+            color: $primary;
+          }
+        }
+      }
+    }
+
+    .text {
+      border-bottom: 1px solid $dark-color-tertiary;
+
+      .value_control {
+        .key {
+          p {
+            color: $color-tertiary;
+          }
+        }
+
+        .control {
+          .switch {
+            .slider_round {
+              background-color: $dark-background-hover-three;
+            }
+          }
+        }
+
+        &:hover {
+          background-color: $dark-background-hover;
+        }
+      }
+    }
+
+    .wiki {
+      border-bottom: 1px solid $dark-color-tertiary;
+
+      .tab {
+        .icon {
+          fill: $color-secondary;
+        }
+
+        .title {
+          p {
+            color: $color-tertiary;
+          }
+        }
+
+        .new_button {
+          p {
+            background-color: #2e4154;
+          }
+        }
+
+        &:hover {
+          background-color: $dark-background-hover;
+        }
+      }
+    }
+  }
+}

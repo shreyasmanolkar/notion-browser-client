@@ -8,6 +8,7 @@ import { setWorkspace } from "../../../slice/workspaceSlice";
 import { request } from "../../../lib/axios";
 import { setUser } from "../../../slice/userSlice";
 import EmojiSelector from "./EmojiSelector";
+import { setPage } from "../../../slice/pageSlice";
 
 interface WorkspaceDataType {
   workspaceId: string;
@@ -149,6 +150,12 @@ const Settings = () => {
             url: `/workspaces/${alternateWorkspaceId.workspaceId}`,
           });
 
+          const pageId = workspace.data.pages[0].id;
+          const page = await request({
+            url: `/pages/${pageId}`,
+          });
+
+          dispatch(setPage({ ...page.data }));
           dispatch(setWorkspace({ ...workspace.data }));
 
           const user = await request({ url: `/users/${userId}` });

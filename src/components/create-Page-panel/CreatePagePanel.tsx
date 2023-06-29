@@ -5,8 +5,8 @@ import { ReactComponent as PeekModeIcon } from "../../assets/icons/peek-mode.svg
 import { ReactComponent as CommentIcon } from "../../assets/icons/comment.svg";
 import { ReactComponent as TopUpdateIcon } from "../../assets/icons/top-update.svg";
 import { ReactComponent as StarOutlineIcon } from "../../assets/icons/star-outline.svg";
-import { ReactComponent as TopDotsIcon } from "../../assets/icons/top-dots.svg";
 import { ReactComponent as FillStarIcon } from "../../assets/icons/fill-star.svg";
+import { ReactComponent as TopDotsIcon } from "../../assets/icons/top-dots.svg";
 import { ReactComponent as AddIconIcon } from "../../assets/icons/add-icon.svg";
 import { ReactComponent as AddCoverIcon } from "../../assets/icons/add-cover.svg";
 import { useAppSelector } from "../../app/hooks";
@@ -19,6 +19,7 @@ import { setWorkspace } from "../../slice/workspaceSlice";
 import { useQueryClient } from "react-query";
 import { setUser } from "../../slice/userSlice";
 import styles from "./createPagePanel.module.scss";
+import { setPage } from "../../slice/pageSlice";
 
 type CreatePageProps = {
   open: boolean;
@@ -133,6 +134,9 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
           const workspace = await request({
             url: `/workspaces/${workspaceId}`,
           });
+          const page = await request({
+            url: `/pages/${data.id}`,
+          });
 
           if (pageMetaData) {
             queryClient.invalidateQueries([
@@ -143,6 +147,7 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
 
           dispatch(setUser({ ...user.data }));
           dispatch(setWorkspace({ ...workspace.data }));
+          dispatch(setPage({ ...page.data }));
           // TODO: redirect to page
 
           setTitle("");
