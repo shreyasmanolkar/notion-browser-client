@@ -20,6 +20,7 @@ import { useQueryClient } from "react-query";
 import { setUser } from "../../slice/userSlice";
 import styles from "./createPagePanel.module.scss";
 import { setPage } from "../../slice/pageSlice";
+import CreatePageOptions from "./CreatePageOptions";
 
 type CreatePageProps = {
   open: boolean;
@@ -36,6 +37,7 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
   const [favorite, setFavorite] = useState(false);
   const [title, setTitle] = useState<string>("");
   const [openPicker, setOpenPicker] = useState(false);
+  const [openPageOptions, setOpenPageOptions] = useState<boolean>(false);
   const [emoji, setEmoji] = useState<string>("");
   const [emojiCode, setEmojiCode] = useState<string>("1f30e");
   const [displayEmoji, setDisplayEmoji] = useState(false);
@@ -220,8 +222,12 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
               <div className={`${styles.icon}`} onClick={handleStarClick}>
                 {favorite ? <FillStarIcon /> : <StarOutlineIcon />}
               </div>
-              <div className={`${styles.icon}`}>
-                {/* TODO: add page options */}
+              <div
+                className={`${styles.icon}`}
+                onClick={() => {
+                  setOpenPageOptions(!openPageOptions);
+                }}
+              >
                 <TopDotsIcon />
               </div>
             </div>
@@ -291,6 +297,12 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
         closePicker={() => setOpenPicker(false)}
         setEmoji={setEmoji}
         setEmojiCode={setEmojiCode}
+      />
+      <CreatePageOptions
+        open={openPageOptions}
+        onClose={() => setOpenPageOptions(false)}
+        favorite={favorite!}
+        onFavoriteClick={() => setFavorite(!favorite)}
       />
     </>
   );
