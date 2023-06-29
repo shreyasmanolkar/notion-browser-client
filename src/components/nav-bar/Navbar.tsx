@@ -154,6 +154,8 @@ const Navbar = () => {
       <PageOptions
         open={openPageOptions}
         onClose={() => setOpenPageOptions(false)}
+        favorite={favorite!}
+        onFavoriteClick={() => setFavorite(!favorite)}
       />
     </>
   );

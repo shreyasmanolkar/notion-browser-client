@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { ChangeEvent, useContext, useEffect, useState } from "react";
-import styles from "./pageOptions.module.scss";
+import styles from "./createPageOptions.module.scss";
 import { ReactComponent as LoopIcon } from "../../assets/icons/loop.svg";
 import { ReactComponent as MoveToIcon } from "../../assets/icons/move-to.svg";
 import { ReactComponent as CustomizeIcon } from "../../assets/icons/customize.svg";
@@ -25,18 +25,15 @@ import { useAppSelector } from "../../app/hooks";
 import { PageType } from "../../common/types/Page";
 import { useDispatch } from "react-redux";
 import { setPage } from "../../slice/pageSlice";
-import { request } from "../../lib/axios";
-import { setWorkspace } from "../../slice/workspaceSlice";
-import { useQueryClient } from "react-query";
 
-type PageOptionsProps = {
+type CreatePageOptionsProps = {
   open: boolean;
   onClose: () => void;
   favorite: boolean;
   onFavoriteClick: () => void;
 };
 
-const PageOptions: React.FC<PageOptionsProps> = ({
+const CreatePageOptions: React.FC<CreatePageOptionsProps> = ({
   open,
   onClose,
   favorite,
@@ -44,9 +41,6 @@ const PageOptions: React.FC<PageOptionsProps> = ({
 }) => {
   const { theme } = useContext(ThemeContext);
   const pageInfo = useAppSelector((state) => state.page.pageInfo);
-  const workspaceInfo = useAppSelector(
-    (state) => state.workspace.workspaceInfo
-  );
   const selectedFont = pageInfo?.pageSettings.font;
   const [activeFont, setActiveFont] = useState(selectedFont);
   const isSmallText = pageInfo?.pageSettings.smallText;
@@ -55,9 +49,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({
   const [fullWidthChecked, setFullWidthChecked] = useState(isFullWidth);
   const { mutate: mutateUpdatePageSettings } =
     usePageData.useUpdatePageSettings();
-  const { mutate: mutateDeletePage } = usePageData.useDeletePageData();
   const dispatch = useDispatch();
-  const queryClient = useQueryClient();
 
   const handleFontChange = (font: string) => {
     setActiveFont(font);
@@ -175,75 +167,6 @@ const PageOptions: React.FC<PageOptionsProps> = ({
       },
     });
   }, [activeFont]);
-
-  const handleDelete = async () => {
-    const pages = workspaceInfo?.pages;
-    const pageData = { pageId: pageInfo?.id! };
-
-    if (pages?.length! === 1) {
-      window.alert("The last page cannot be deleted");
-      return;
-    }
-
-    const currentPageReference = pageInfo?.reference;
-
-    const childPages = pages?.filter(
-      (page) => page.path === `,${currentPageReference}.`
-    );
-
-    if (childPages?.length !== 0) {
-      window.alert(
-        "This page can't be deleted because it contains child pages."
-      );
-      return;
-    }
-
-    const filteredPages = pages?.filter((page) => page.id !== pageData.pageId);
-
-    if (filteredPages && filteredPages.length > 0) {
-      const alternatePageId = filteredPages[0];
-
-      mutateDeletePage(pageData, {
-        onSuccess: async () => {
-          const page = await request({
-            url: `/pages/${alternatePageId.id}`,
-          });
-
-          const workspace = await request({
-            url: `/workspaces/${workspaceInfo?.id}`,
-          });
-
-          if (pageInfo?.path !== null) {
-            const parentReference = pageInfo?.path.slice(
-              1,
-              pageInfo.path.length - 1
-            );
-
-            queryClient.invalidateQueries(["child-pages", parentReference]);
-          }
-
-          dispatch(setPage({ ...page.data }));
-          dispatch(setWorkspace({ ...workspace.data }));
-
-          const savedState = localStorage.getItem("pagesListState");
-          const parsedSavedState: {
-            id: string;
-            reference: string;
-            path: string | null;
-            icon: string;
-            title: string;
-            createdAt: Date;
-          }[] = JSON.parse(savedState!);
-
-          const updatedPages = parsedSavedState.filter(
-            (page) => page.id !== pageData.pageId
-          );
-
-          localStorage.setItem("pagesListState", JSON.stringify(updatedPages));
-        },
-      });
-    }
-  };
 
   if (!open) return null;
 
@@ -426,7 +349,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({
                 <p>Show deleted pages</p>
               </div>
             </div>
-            <div className={`${styles.tab}`} onClick={handleDelete}>
+            <div className={`${styles.tab} ${styles.not_allowed}`}>
               <div className={`${styles.icon}`}>
                 <DeleteIcon />
               </div>
@@ -459,4 +382,4 @@ const PageOptions: React.FC<PageOptionsProps> = ({
   );
 };
 
-export default PageOptions;
+export default CreatePageOptions;
