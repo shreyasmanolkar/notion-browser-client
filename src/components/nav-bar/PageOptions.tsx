@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import styles from "./pageOptions.module.scss";
 import { ReactComponent as LoopIcon } from "../../assets/icons/loop.svg";
 import { ReactComponent as MoveToIcon } from "../../assets/icons/move-to.svg";
@@ -15,6 +16,14 @@ import { ReactComponent as DeleteIcon } from "../../assets/icons/delete.svg";
 import { ReactComponent as ImportIcon } from "../../assets/icons/import.svg";
 import { ReactComponent as ExportIcon } from "../../assets/icons/export.svg";
 import { ThemeContext } from "../../context/ThemeContext";
+import {
+  updatePageSettingsData,
+  usePageData,
+} from "../../services/usePageData";
+import { useAppSelector } from "../../app/hooks";
+import { PageType } from "../../common/types/Page";
+import { useDispatch } from "react-redux";
+import { setPage } from "../../slice/pageSlice";
 
 type PageOptionsProps = {
   open: boolean;
@@ -23,6 +32,133 @@ type PageOptionsProps = {
 
 const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
   const { theme } = useContext(ThemeContext);
+  const pageInfo = useAppSelector((state) => state.page.pageInfo);
+  const selectedFont = pageInfo?.pageSettings.font;
+  const [activeFont, setActiveFont] = useState(selectedFont);
+  const isSmallText = pageInfo?.pageSettings.smallText;
+  const [smallTextChecked, setSmallTextChecked] = useState(isSmallText);
+  const isFullWidth = pageInfo?.pageSettings.fullWidth;
+  const [fullWidthChecked, setFullWidthChecked] = useState(isFullWidth);
+  const { mutate: mutateUpdatePageSettings } =
+    usePageData.useUpdatePageSettings();
+  const dispatch = useDispatch();
+
+  const handleFontChange = (font: string) => {
+    setActiveFont(font);
+  };
+
+  const handleSmallTextCheckboxChange = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setSmallTextChecked(event.target.checked);
+  };
+
+  const handleFullWidthCheckboxChange = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setFullWidthChecked(event.target.checked);
+  };
+
+  useEffect(() => {
+    setSmallTextChecked(isSmallText);
+  }, [isSmallText]);
+
+  useEffect(() => {
+    setActiveFont(selectedFont);
+  }, [selectedFont]);
+
+  useEffect(() => {
+    setFullWidthChecked(isFullWidth);
+  }, [isFullWidth]);
+
+  useEffect(() => {
+    const pageSettingsData: updatePageSettingsData = {
+      pageId: pageInfo?.id!,
+      settings: {
+        ...pageInfo?.pageSettings!,
+      },
+    };
+
+    if (smallTextChecked) {
+      pageSettingsData.settings.smallText = smallTextChecked;
+    } else {
+      pageSettingsData.settings.smallText = smallTextChecked!;
+    }
+
+    mutateUpdatePageSettings(pageSettingsData, {
+      onSuccess: async () => {
+        const updatedPage: PageType = {
+          ...pageInfo!,
+          pageSettings: {
+            ...pageInfo?.pageSettings!,
+            smallText: smallTextChecked!,
+          },
+        };
+
+        dispatch(setPage(updatedPage));
+      },
+    });
+  }, [smallTextChecked]);
+
+  useEffect(() => {
+    const pageSettingsData: updatePageSettingsData = {
+      pageId: pageInfo?.id!,
+      settings: {
+        ...pageInfo?.pageSettings!,
+      },
+    };
+
+    if (fullWidthChecked) {
+      pageSettingsData.settings.fullWidth = fullWidthChecked;
+    } else {
+      pageSettingsData.settings.fullWidth = fullWidthChecked!;
+    }
+
+    mutateUpdatePageSettings(pageSettingsData, {
+      onSuccess: async () => {
+        const updatedPage: PageType = {
+          ...pageInfo!,
+          pageSettings: {
+            ...pageInfo?.pageSettings!,
+            fullWidth: fullWidthChecked!,
+          },
+        };
+
+        dispatch(setPage(updatedPage));
+      },
+    });
+  }, [fullWidthChecked]);
+
+  useEffect(() => {
+    const pageSettingsData: updatePageSettingsData = {
+      pageId: pageInfo?.id!,
+      settings: {
+        ...pageInfo?.pageSettings!,
+      },
+    };
+
+    if (activeFont === "san-serif") {
+      pageSettingsData.settings.font = activeFont;
+    } else if (activeFont === "serif") {
+      pageSettingsData.settings.font = activeFont;
+    } else if (activeFont === "mono") {
+      pageSettingsData.settings.font = activeFont;
+    }
+
+    mutateUpdatePageSettings(pageSettingsData, {
+      onSuccess: async () => {
+        const updatedPage: PageType = {
+          ...pageInfo!,
+          pageSettings: {
+            ...pageInfo?.pageSettings!,
+            font: activeFont!,
+          },
+        };
+
+        dispatch(setPage(updatedPage));
+      },
+    });
+  }, [activeFont]);
 
   if (!open) return null;
 
@@ -41,15 +177,30 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
           <div className={`${styles.style_container}`}>
             <p className={`${styles.style}`}>Style</p>
             <div className={`${styles.fonts}`}>
-              <div className={`${styles.default} ${styles.active}`}>
+              <div
+                className={`${styles.default}  ${
+                  activeFont === "san-serif" ? styles.active : ""
+                }`}
+                onClick={() => handleFontChange("san-serif")}
+              >
                 <h2>Ag</h2>
                 <p>Default</p>
               </div>
-              <div className={`${styles.serif}`}>
+              <div
+                className={`${styles.serif} ${
+                  activeFont === "serif" ? styles.active : ""
+                }`}
+                onClick={() => handleFontChange("serif")}
+              >
                 <h2>Ag</h2>
                 <p>Serif</p>
               </div>
-              <div className={`${styles.mono}`}>
+              <div
+                className={`${styles.mono} ${
+                  activeFont === "mono" ? styles.active : ""
+                }`}
+                onClick={() => handleFontChange("mono")}
+              >
                 <h2>Ag</h2>
                 <p>Mono</p>
               </div>
@@ -62,7 +213,11 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
               </div>
               <div className={`${styles.control}`}>
                 <label className={`${styles.switch}`}>
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={smallTextChecked}
+                    onChange={handleSmallTextCheckboxChange}
+                  />
                   <span className={`${styles.slider_round}`}></span>
                 </label>
               </div>
@@ -73,7 +228,11 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
               </div>
               <div className={`${styles.control}`}>
                 <label className={`${styles.switch}`}>
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={fullWidthChecked}
+                    onChange={handleFullWidthCheckboxChange}
+                  />
                   <span className={`${styles.slider_round}`}></span>
                 </label>
               </div>

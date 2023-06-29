@@ -26,15 +26,12 @@ const Navbar = () => {
   const userInfo = useAppSelector((state) => state.user.userInfo);
   const [currentTime, setCurrentTime] = useState(moment());
   const isFavorite = pageInfo?.favorite.includes(userInfo!.id);
-  console.log("isfav", isFavorite);
   const [favorite, setFavorite] = useState(isFavorite);
   const [openPageOptions, setOpenPageOptions] = useState<boolean>(false);
   const { mutate: mutateAddToFavorites } = usePageData.useAddToFavorites();
   const { mutate: mutateRemoveFromFavorites } =
     usePageData.useRemoveFromFavorites();
   const dispatch = useDispatch();
-
-  // console.log("fav", favorite);
 
   const handleStarClick = () => {
     setFavorite(!favorite);
@@ -147,10 +144,9 @@ const Navbar = () => {
           <div
             className={`${styles.icon}`}
             onClick={() => {
-              setOpenPageOptions(true);
+              setOpenPageOptions(!openPageOptions);
             }}
           >
-            {/* TODO: add page options */}
             <TopDotsIcon />
           </div>
         </div>

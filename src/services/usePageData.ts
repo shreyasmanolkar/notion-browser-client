@@ -28,6 +28,16 @@ type addToFavorite = {
   pageId: string;
 };
 
+export type updatePageSettingsData = {
+  pageId: string;
+  settings: {
+    font: string;
+    smallText: boolean;
+    fullWidth: boolean;
+    lock: boolean;
+  };
+};
+
 export class usePageData {
   static createPage = async (data: createPageDataType) => {
     const response = await request({
@@ -57,6 +67,16 @@ export class usePageData {
     return response.data;
   };
 
+  static updatePageSettings = async (data: updatePageSettingsData) => {
+    const response = await request({
+      url: `/pages/${data.pageId}/settings`,
+      method: "patch",
+      data,
+    });
+
+    return response.data;
+  };
+
   static useCreatePageData = () => {
     return useMutation(usePageData.createPage, {
       onSuccess: (data) => {
@@ -77,6 +97,15 @@ export class usePageData {
 
   static useRemoveFromFavorites = () => {
     return useMutation(usePageData.removeFromFavorites, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useUpdatePageSettings = () => {
+    return useMutation(usePageData.updatePageSettings, {
       onSuccess: (data) => {
         return data;
       },
