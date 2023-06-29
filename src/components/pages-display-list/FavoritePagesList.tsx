@@ -148,7 +148,10 @@ const FavoritePagesList = () => {
                   <RightExpanIcon />
                 </div>
               </label>
-              <div className={`${styles.page_emoji}`}>
+              <div
+                className={`${styles.page_emoji}`}
+                onClick={() => handleOnPageTabClick(item.id)}
+              >
                 <img
                   src={getEmojiUrl(item.icon)}
                   onError={(e) => handleBrokenImage(e)}
