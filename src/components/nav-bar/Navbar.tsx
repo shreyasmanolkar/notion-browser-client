@@ -11,6 +11,7 @@ import { ReactComponent as FillStarIcon } from "../../assets/icons/fill-star.svg
 import { ReactComponent as TopDotsIcon } from "../../assets/icons/top-dots.svg";
 import { ThemeContext } from "../../context/ThemeContext";
 import PathDisplay from "./PathDisplay";
+import PageOptions from "./PageOptions";
 
 const Navbar = () => {
   const { theme } = useContext(ThemeContext);
@@ -18,6 +19,7 @@ const Navbar = () => {
   const pageInfo = useAppSelector((state) => state.page.pageInfo);
   const [currentTime, setCurrentTime] = useState(moment());
   const [favorite, setFavorite] = useState(false);
+  const [openPageOptions, setOpenPageOptions] = useState<boolean>(false);
 
   const handleStarClick = () => {
     setFavorite(!favorite);
@@ -37,54 +39,69 @@ const Navbar = () => {
   }, []);
 
   return (
-    <div className={`${styles.header} ${styles[theme]}`}>
-      <div id="menu_icon" className={`${styles.path}`} data-testid="menu-icon">
-        {!leftOpen && (
-          <div className={`${styles.on_menu_icon}`} onClick={toggleSidebar}>
-            &equiv;
-          </div>
-        )}
-        <PathDisplay id={pageInfo?.id!} />
-      </div>
-      <div id="options" className={`${styles.main_options}`}>
-        <div className={`${styles.edited_at}`}>
-          <p>
-            Edited{" "}
-            {pageInfo?.updatedAt
-              ? formatedTime(pageInfo.updatedAt)
-              : formatedTime(pageInfo?.createdAt!)}
-          </p>
-        </div>
-        <div className={`${styles.share}`}>
-          <p>Share</p>
-        </div>
+    <>
+      <div className={`${styles.header} ${styles[theme]}`}>
         <div
-          id="comment"
-          className={`${styles.comments}`}
-          onClick={toggleSidebar}
+          id="menu_icon"
+          className={`${styles.path}`}
+          data-testid="menu-icon"
         >
-          <div className={`${styles.icon}`}>
-            <CommentIcon />
+          {!leftOpen && (
+            <div className={`${styles.on_menu_icon}`} onClick={toggleSidebar}>
+              &equiv;
+            </div>
+          )}
+          <PathDisplay id={pageInfo?.id!} />
+        </div>
+        <div id="options" className={`${styles.main_options}`}>
+          <div className={`${styles.edited_at}`}>
+            <p>
+              Edited{" "}
+              {pageInfo?.updatedAt
+                ? formatedTime(pageInfo.updatedAt)
+                : formatedTime(pageInfo?.createdAt!)}
+            </p>
           </div>
-        </div>
-        <div
-          id="history"
-          className={`${styles.history}`}
-          onClick={toggleSidebar}
-        >
-          <div className={`${styles.icon}`}>
-            <TopUpdateIcon />
+          <div className={`${styles.share}`}>
+            <p>Share</p>
           </div>
-        </div>
-        <div className={`${styles.icon}`} onClick={handleStarClick}>
-          {favorite ? <FillStarIcon /> : <StarOutlineIcon />}
-        </div>
-        <div className={`${styles.icon}`}>
-          {/* TODO: add page options */}
-          <TopDotsIcon />
+          <div
+            id="comment"
+            className={`${styles.comments}`}
+            onClick={toggleSidebar}
+          >
+            <div className={`${styles.icon}`}>
+              <CommentIcon />
+            </div>
+          </div>
+          <div
+            id="history"
+            className={`${styles.history}`}
+            onClick={toggleSidebar}
+          >
+            <div className={`${styles.icon}`}>
+              <TopUpdateIcon />
+            </div>
+          </div>
+          <div className={`${styles.icon}`} onClick={handleStarClick}>
+            {favorite ? <FillStarIcon /> : <StarOutlineIcon />}
+          </div>
+          <div
+            className={`${styles.icon}`}
+            onClick={() => {
+              setOpenPageOptions(true);
+            }}
+          >
+            {/* TODO: add page options */}
+            <TopDotsIcon />
+          </div>
         </div>
       </div>
-    </div>
+      <PageOptions
+        open={openPageOptions}
+        onClose={() => setOpenPageOptions(false)}
+      />
+    </>
   );
 };
 
