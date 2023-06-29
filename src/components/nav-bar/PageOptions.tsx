@@ -6,6 +6,7 @@ import { ReactComponent as MoveToIcon } from "../../assets/icons/move-to.svg";
 import { ReactComponent as CustomizeIcon } from "../../assets/icons/customize.svg";
 import { ReactComponent as LockIcon } from "../../assets/icons/lock.svg";
 import { ReactComponent as StarIcon } from "../../assets/icons/star.svg";
+import { ReactComponent as RemoveStarIcon } from "../../assets/icons/remove-star.svg";
 import { ReactComponent as LinkIcon } from "../../assets/icons/link.svg";
 import { ReactComponent as DuplicateIcon } from "../../assets/icons/duplicate.svg";
 import { ReactComponent as UndoIcon } from "../../assets/icons/undo.svg";
@@ -31,9 +32,16 @@ import { useQueryClient } from "react-query";
 type PageOptionsProps = {
   open: boolean;
   onClose: () => void;
+  favorite: boolean;
+  onFavoriteClick: () => void;
 };
 
-const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
+const PageOptions: React.FC<PageOptionsProps> = ({
+  open,
+  onClose,
+  favorite,
+  onFavoriteClick,
+}) => {
   const { theme } = useContext(ThemeContext);
   const pageInfo = useAppSelector((state) => state.page.pageInfo);
   const workspaceInfo = useAppSelector(
@@ -356,12 +364,16 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
             </div>
           </div>
           <div className={`${styles.wiki}`}>
-            <div className={`${styles.tab} ${styles.not_allowed}`}>
+            <div className={`${styles.tab}`} onClick={onFavoriteClick}>
               <div className={`${styles.icon}`}>
-                <StarIcon />
+                {favorite ? <RemoveStarIcon /> : <StarIcon />}
               </div>
               <div className={`${styles.title}`}>
-                <p>Add to Favorites</p>
+                {favorite ? (
+                  <p>Remove from Favorites</p>
+                ) : (
+                  <p>Add to Favorites</p>
+                )}
               </div>
             </div>
             <div className={`${styles.tab} ${styles.not_allowed}`}>
