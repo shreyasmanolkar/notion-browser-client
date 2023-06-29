@@ -11,6 +11,7 @@ import { setWorkspace } from "../../slice/workspaceSlice";
 import { AxiosError } from "axios";
 import { ThemeContext } from "../../context/ThemeContext";
 import styles from "./registerPanel.module.scss";
+import { setPage } from "../../slice/pageSlice";
 
 const RegisterPanel = () => {
   const { theme } = useContext(ThemeContext);
@@ -84,8 +85,14 @@ const RegisterPanel = () => {
             url: `/workspaces/${workspaceId}`,
           });
 
+          const pageId = workspace.data.pages[0].id;
+          const page = await request({
+            url: `/pages/${pageId}`,
+          });
+
           dispatch(setUser({ ...user.data }));
           dispatch(setWorkspace({ ...workspace.data }));
+          dispatch(setPage({ ...page.data }));
 
           setName("");
           setEmail("");

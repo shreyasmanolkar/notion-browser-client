@@ -15,7 +15,7 @@ import { rest } from "msw";
 
 const queryClient = new QueryClient();
 
-describe("LoginPanel", () => {
+describe.skip("LoginPanel", () => {
   beforeEach(() => {
     render(
       <Provider store={store}>

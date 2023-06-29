@@ -4,46 +4,46 @@
 .main {
   width: 100%;
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    background-color: gray;
+  // .header {
+  //   display: flex;
+  //   justify-content: space-between;
+  //   background-color: gray;
 
-    .path {
-      .on_menu_icon {
-        font-size: 2em;
-        padding: 10px;
-        position: fixed;
-        cursor: pointer;
-      }
+  //   .path {
+  //     .on_menu_icon {
+  //       font-size: 2em;
+  //       padding: 10px;
+  //       position: fixed;
+  //       cursor: pointer;
+  //     }
 
-      h3 {
-        margin-left: 40px;
-      }
-    }
+  //     h3 {
+  //       margin-left: 40px;
+  //     }
+  //   }
 
-    .main_options {
-      display: flex;
+  //   .main_options {
+  //     display: flex;
 
-      p {
-        margin-right: 10px;
-      }
+  //     p {
+  //       margin-right: 10px;
+  //     }
 
-      .comments {
-        font-size: 2em;
-        padding: 8px 0;
-        margin: 0 10px 0 0;
-        cursor: pointer;
-      }
+  //     .comments {
+  //       font-size: 2em;
+  //       padding: 8px 0;
+  //       margin: 0 10px 0 0;
+  //       cursor: pointer;
+  //     }
 
-      .history {
-        font-size: 2em;
-        padding: 8px 0;
-        margin: 0 10px 0 0;
-        cursor: pointer;
-      }
-    }
-  }
+  //     .history {
+  //       font-size: 2em;
+  //       padding: 8px 0;
+  //       margin: 0 10px 0 0;
+  //       cursor: pointer;
+  //     }
+  //   }
+  // }
 
   .content {
     overflow-y: auto;
