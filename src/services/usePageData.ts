@@ -38,6 +38,10 @@ export type updatePageSettingsData = {
   };
 };
 
+type deletePageDataType = {
+  pageId: string;
+};
+
 export class usePageData {
   static createPage = async (data: createPageDataType) => {
     const response = await request({
@@ -77,6 +81,16 @@ export class usePageData {
     return response.data;
   };
 
+  static deletePage = async (data: deletePageDataType) => {
+    const response = await request({
+      url: `/pages/${data.pageId}`,
+      method: "delete",
+      data,
+    });
+
+    return response.data;
+  };
+
   static useCreatePageData = () => {
     return useMutation(usePageData.createPage, {
       onSuccess: (data) => {
@@ -106,6 +120,15 @@ export class usePageData {
 
   static useUpdatePageSettings = () => {
     return useMutation(usePageData.updatePageSettings, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useDeletePageData = () => {
+    return useMutation(usePageData.deletePage, {
       onSuccess: (data) => {
         return data;
       },

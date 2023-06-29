@@ -12,7 +12,6 @@ function App() {
       {/* <h1>Notion-Clone</h1> */}
       {/* <Register /> */}
       {/* <LogIn /> */}
-      {/* <LoginPanel /> */}
       {/* <NotFound /> */}
       <Workspace />
       {/* <CreateWorkspacePanel /> */}

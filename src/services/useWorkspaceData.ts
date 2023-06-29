@@ -2,6 +2,12 @@ import { useMutation, useQuery } from "react-query";
 import { request } from "../lib/axios";
 import { AxiosError } from "axios";
 import { WorkspaceType } from "../common/types/User";
+import { PageType } from "../common/types/Workspace";
+
+type updateWorkspacePagesType = {
+  workspaceId: string;
+  pages: PageType[];
+};
 
 type updateWorkspaceNameType = {
   name: string;
@@ -25,6 +31,16 @@ type FetchChildPagesDataType = {
 };
 
 export class useWorkspaceData {
+  static updateWorkspacePages = async (data: updateWorkspacePagesType) => {
+    const response = await request({
+      url: `/workspaces/${data.workspaceId}`,
+      method: "patch",
+      data,
+    });
+
+    return response.data;
+  };
+
   static updateWorkspaceName = async (data: updateWorkspaceNameType) => {
     const response = await request({
       url: `/workspaces/${data.workspaceId}`,
@@ -75,6 +91,15 @@ export class useWorkspaceData {
 
   static useUpdateWorkspaceNameData = () => {
     return useMutation(useWorkspaceData.updateWorkspaceName, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useUpdateWorkspacePagesData = () => {
+    return useMutation(useWorkspaceData.updateWorkspacePages, {
       onSuccess: (data) => {
         return data;
       },
