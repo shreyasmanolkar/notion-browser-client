@@ -7,6 +7,9 @@ import { useAppSelector } from "../../app/hooks";
 import PageDropdown from "./PageDropdown";
 import { PageType } from "../../common/types/Workspace";
 import styles from "./privatePageList.module.scss";
+import { request } from "../../lib/axios";
+import { useDispatch } from "react-redux";
+import { setPage } from "../../slice/pageSlice";
 
 const FavoritePagesList = () => {
   const { theme } = useContext(ThemeContext);
@@ -16,6 +19,7 @@ const FavoritePagesList = () => {
     (state) => state.workspace.workspaceInfo
   );
   const userInfo = useAppSelector((state) => state.user.userInfo);
+  const pageInfo = useAppSelector((state) => state.page.pageInfo);
 
   const userWorkspace = userInfo?.workspaces.find(
     (workspace) => workspace.workspaceId === workspaceInfo?.id
@@ -34,7 +38,10 @@ const FavoritePagesList = () => {
 
   const [pagesMetaData, setPagesMetaData] = useState(favoritePages);
 
-  const [activePage, setActivePage] = useState<string>();
+  const pageId = pageInfo?.id;
+  const dispatch = useDispatch();
+
+  const [activePage, setActivePage] = useState(pageId);
 
   const handleBrokenImage = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src =
@@ -63,8 +70,14 @@ const FavoritePagesList = () => {
     setPagesMetaData(_pagesMetaData);
   };
 
-  const handleOnPageTabClick = (id: string) => {
+  const handleOnPageTabClick = async (id: string) => {
     setActivePage(id);
+
+    const page = await request({
+      url: `/pages/${id}`,
+    });
+
+    dispatch(setPage({ ...page.data }));
   };
 
   useEffect(() => {
@@ -106,6 +119,10 @@ const FavoritePagesList = () => {
     }
   }, []);
 
+  useEffect(() => {
+    setActivePage(pageInfo?.id);
+  }, [pageInfo]);
+
   return (
     <>
       <div className={`${styles.display_container} ${styles[theme]}`}>
@@ -131,7 +148,10 @@ const FavoritePagesList = () => {
                   <RightExpanIcon />
                 </div>
               </label>
-              <div className={`${styles.page_emoji}`}>
+              <div
+                className={`${styles.page_emoji}`}
+                onClick={() => handleOnPageTabClick(item.id)}
+              >
                 <img
                   src={getEmojiUrl(item.icon)}
                   onError={(e) => handleBrokenImage(e)}

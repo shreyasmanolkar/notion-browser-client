@@ -18,6 +18,7 @@ const PrivatePagesList = () => {
   const workspaceInfo = useAppSelector(
     (state) => state.workspace.workspaceInfo
   );
+  const pageInfo = useAppSelector((state) => state.page.pageInfo);
   const dispatch = useDispatch();
 
   const initialPages = workspaceInfo?.pages;
@@ -26,8 +27,9 @@ const PrivatePagesList = () => {
 
   const [pagesMetaData, setPagesMetaData] = useState(rootPages);
 
-  const firstPage = `${rootPages![0].id}`;
-  const [activePage, setActivePage] = useState(firstPage);
+  const pageId = pageInfo?.id;
+
+  const [activePage, setActivePage] = useState(pageId);
   const [openCreatePage, setOpenCreatePage] = useState(false);
   const [parentPageId, setParentPageId] = useState("");
 
@@ -105,6 +107,10 @@ const PrivatePagesList = () => {
       setActivePage(JSON.parse(savedState!));
     }
   }, []);
+
+  useEffect(() => {
+    setActivePage(pageInfo?.id);
+  }, [pageInfo]);
 
   return (
     <>

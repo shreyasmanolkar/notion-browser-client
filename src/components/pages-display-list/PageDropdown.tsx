@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useWorkspaceData } from "../../services/useWorkspaceData";
 import styles from "./pageDropdown.module.scss";
 import { PageType } from "../../slice/workspaceSlice";
@@ -10,6 +10,7 @@ import CreatePagePanel from "../create-Page-panel/CreatePagePanel";
 import { request } from "../../lib/axios";
 import { useDispatch } from "react-redux";
 import { setPage } from "../../slice/pageSlice";
+import { useAppSelector } from "../../app/hooks";
 
 type PageDropdownProps = {
   workspaceId: string;
@@ -23,6 +24,9 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
   const { theme } = useContext(ThemeContext);
   const [openCreatePage, setOpenCreatePage] = useState(false);
   const [parentPageId, setParentPageId] = useState("");
+  const pageInfo = useAppSelector((state) => state.page.pageInfo);
+  const pageId = pageInfo?.id;
+  const [activePage, setActivePage] = useState(pageId);
   const { data: childPagesOrNull, isLoading } =
     useWorkspaceData.useFetchChildPagesByworkspaceIdAndPageReference(
       workspaceId,
@@ -36,18 +40,9 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
     e.currentTarget.onerror = null;
   };
 
-  const handleExpand = (e: React.SyntheticEvent<HTMLDivElement>) => {
-    // const currentRotation = e.currentTarget.style.transform;
-    // const currentRotationValue = parseInt(currentRotation.slice(7), 10);
-    // if (currentRotationValue === 90) {
-    //   e.currentTarget.style.transform = "rotate(0deg)";
-    // } else {
-    //   e.currentTarget.style.transform = "rotate(90deg)";
-    // }
-  };
+  const handleExpand = (e: React.SyntheticEvent<HTMLDivElement>) => {};
 
   const handleAddPage = (id: string) => {
-    // console.log("add page");
     setOpenCreatePage(true);
     setParentPageId(id);
   };
@@ -68,6 +63,10 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
     dispatch(setPage({ ...page.data }));
   };
 
+  useEffect(() => {
+    setActivePage(pageInfo?.id);
+  }, [pageInfo]);
+
   return (
     <>
       {isLoading ? (
@@ -81,7 +80,12 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
           ) : (
             <div className={`${styles.child_pages}`}>
               {childPagesOrNull.map((item: PageType, index: number) => (
-                <div className={`${styles.page_tab}`} key={index}>
+                <div
+                  className={`${styles.page_tab} ${
+                    activePage === `${item.id}` ? styles.active : ""
+                  }`}
+                  key={index}
+                >
                   <div className={`${styles.page_info}`}>
                     <label
                       htmlFor={`page_tab_display_${item.id}`}
