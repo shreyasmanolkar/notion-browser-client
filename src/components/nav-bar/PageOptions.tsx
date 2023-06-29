@@ -80,7 +80,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
             </div>
           </div>
           <div className={`${styles.wiki}`}>
-            <div className={`${styles.tab}`}>
+            <div className={`${styles.tab} ${styles.not_allowed}`}>
               <div className={`${styles.icon}`}>
                 <LoopIcon />
               </div>
@@ -92,7 +92,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
                 <p>new</p>
               </div>
             </div>
-            <div className={`${styles.tab}`}>
+            <div className={`${styles.tab} ${styles.not_allowed}`}>
               <div className={`${styles.icon}`}>
                 <MoveToIcon />
               </div>
@@ -102,7 +102,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
             </div>
           </div>
           <div className={`${styles.wiki}`}>
-            <div className={`${styles.tab}`}>
+            <div className={`${styles.tab} ${styles.not_allowed}`}>
               <div className={`${styles.icon}`}>
                 <CustomizeIcon />
               </div>
@@ -120,7 +120,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
             </div>
           </div>
           <div className={`${styles.wiki}`}>
-            <div className={`${styles.tab}`}>
+            <div className={`${styles.tab} ${styles.not_allowed}`}>
               <div className={`${styles.icon}`}>
                 <StarIcon />
               </div>
@@ -128,7 +128,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
                 <p>Add to Favorites</p>
               </div>
             </div>
-            <div className={`${styles.tab}`}>
+            <div className={`${styles.tab} ${styles.not_allowed}`}>
               <div className={`${styles.icon}`}>
                 <LinkIcon />
               </div>
@@ -136,7 +136,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
                 <p>Copy link</p>
               </div>
             </div>
-            <div className={`${styles.tab}`}>
+            <div className={`${styles.tab} ${styles.not_allowed}`}>
               <div className={`${styles.icon}`}>
                 <DuplicateIcon />
               </div>
@@ -146,7 +146,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
             </div>
           </div>
           <div className={`${styles.wiki}`}>
-            <div className={`${styles.tab}`}>
+            <div className={`${styles.tab} ${styles.not_allowed}`}>
               <div className={`${styles.icon}`}>
                 <UndoIcon />
               </div>
@@ -154,7 +154,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
                 <p>Undo</p>
               </div>
             </div>
-            <div className={`${styles.tab}`}>
+            <div className={`${styles.tab} ${styles.not_allowed}`}>
               <div className={`${styles.icon}`}>
                 <PageHistortyIcon />
               </div>
@@ -162,7 +162,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
                 <p>Page history</p>
               </div>
             </div>
-            <div className={`${styles.tab}`}>
+            <div className={`${styles.tab} ${styles.not_allowed}`}>
               <div className={`${styles.icon}`}>
                 <PageAnalyticsIcon />
               </div>
@@ -170,7 +170,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
                 <p>Page analytics</p>
               </div>
             </div>
-            <div className={`${styles.tab}`}>
+            <div className={`${styles.tab} ${styles.not_allowed}`}>
               <div className={`${styles.icon}`}>
                 <ShowDeletedPagesIcon />
               </div>
@@ -188,7 +188,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
             </div>
           </div>
           <div className={`${styles.wiki}`}>
-            <div className={`${styles.tab}`}>
+            <div className={`${styles.tab} ${styles.not_allowed}`}>
               <div className={`${styles.icon}`}>
                 <ImportIcon />
               </div>
@@ -196,7 +196,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({ open, onClose }) => {
                 <p>Import</p>
               </div>
             </div>
-            <div className={`${styles.tab}`}>
+            <div className={`${styles.tab} ${styles.not_allowed}`}>
               <div className={`${styles.icon}`}>
                 <ExportIcon />
               </div>

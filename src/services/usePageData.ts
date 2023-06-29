@@ -24,6 +24,10 @@ type createPageDataType = {
   workspaceId: string;
 };
 
+type addToFavorite = {
+  pageId: string;
+};
+
 export class usePageData {
   static createPage = async (data: createPageDataType) => {
     const response = await request({
@@ -35,8 +39,44 @@ export class usePageData {
     return response.data;
   };
 
+  static addToFavorites = async (data: addToFavorite) => {
+    const response = await request({
+      url: `/pages/${data.pageId}/favorites`,
+      method: "post",
+    });
+
+    return response.data;
+  };
+
+  static removeFromFavorites = async (data: addToFavorite) => {
+    const response = await request({
+      url: `/pages/${data.pageId}/favorites`,
+      method: "delete",
+    });
+
+    return response.data;
+  };
+
   static useCreatePageData = () => {
     return useMutation(usePageData.createPage, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useAddToFavorites = () => {
+    return useMutation(usePageData.addToFavorites, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useRemoveFromFavorites = () => {
+    return useMutation(usePageData.removeFromFavorites, {
       onSuccess: (data) => {
         return data;
       },

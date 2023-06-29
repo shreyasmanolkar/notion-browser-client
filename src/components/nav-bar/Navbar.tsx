@@ -12,14 +12,29 @@ import { ReactComponent as TopDotsIcon } from "../../assets/icons/top-dots.svg";
 import { ThemeContext } from "../../context/ThemeContext";
 import PathDisplay from "./PathDisplay";
 import PageOptions from "./PageOptions";
+import { usePageData } from "../../services/usePageData";
+import { useDispatch } from "react-redux";
+import { PageType } from "../../common/types/Page";
+import { setPage } from "../../slice/pageSlice";
+import { setUser } from "../../slice/userSlice";
+import { request } from "../../lib/axios";
 
 const Navbar = () => {
   const { theme } = useContext(ThemeContext);
   const { leftOpen, toggleSidebar } = useContext(SidebarLogicContext);
   const pageInfo = useAppSelector((state) => state.page.pageInfo);
+  const userInfo = useAppSelector((state) => state.user.userInfo);
   const [currentTime, setCurrentTime] = useState(moment());
-  const [favorite, setFavorite] = useState(false);
+  const isFavorite = pageInfo?.favorite.includes(userInfo!.id);
+  console.log("isfav", isFavorite);
+  const [favorite, setFavorite] = useState(isFavorite);
   const [openPageOptions, setOpenPageOptions] = useState<boolean>(false);
+  const { mutate: mutateAddToFavorites } = usePageData.useAddToFavorites();
+  const { mutate: mutateRemoveFromFavorites } =
+    usePageData.useRemoveFromFavorites();
+  const dispatch = useDispatch();
+
+  // console.log("fav", favorite);
 
   const handleStarClick = () => {
     setFavorite(!favorite);
@@ -29,6 +44,49 @@ const Navbar = () => {
     const time = getFormattedTimeDifference(createdAt, currentTime);
     return time;
   };
+
+  useEffect(() => {
+    setFavorite(isFavorite);
+  }, [isFavorite]);
+
+  useEffect(() => {
+    const pageData = {
+      pageId: pageInfo?.id!,
+    };
+
+    if (favorite) {
+      mutateAddToFavorites(pageData, {
+        onSuccess: async () => {
+          const updatedPage: PageType = {
+            ...pageInfo!,
+            favorite: [...pageInfo!.favorite, userInfo!.id],
+          };
+
+          const user = await request({ url: `/users/${userInfo?.id}` });
+
+          dispatch(setPage(updatedPage));
+          dispatch(setUser({ ...user.data }));
+        },
+      });
+    } else {
+      mutateRemoveFromFavorites(pageData, {
+        onSuccess: async () => {
+          const updatedPage: PageType = {
+            ...pageInfo!,
+            favorite: pageInfo!.favorite.filter(
+              (userId) => userId !== userInfo?.id
+            ),
+          };
+
+          const user = await request({ url: `/users/${userInfo?.id}` });
+
+          dispatch(setPage(updatedPage));
+          dispatch(setUser({ ...user.data }));
+        },
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [favorite]);
 
   useEffect(() => {
     const interval = setInterval(() => {
