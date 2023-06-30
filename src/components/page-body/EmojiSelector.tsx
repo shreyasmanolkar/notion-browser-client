@@ -11,6 +11,7 @@ import { setPage } from "../../slice/pageSlice";
 import { request } from "../../lib/axios";
 import { setWorkspace } from "../../slice/workspaceSlice";
 import { PageType } from "../../common/types/Workspace";
+import { useQueryClient } from "react-query";
 
 type EmojiSelectorProps = {
   openPicker: boolean;
@@ -32,6 +33,7 @@ const EmojiSelector: React.FC<EmojiSelectorProps> = ({
     (state) => state.workspace.workspaceInfo
   );
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   const emojiSelected = async (data: { unified: string }) => {
     const emojiImage = twemoji.parse(
@@ -57,6 +59,15 @@ const EmojiSelector: React.FC<EmojiSelectorProps> = ({
         });
         dispatch(setPage(updatedPage));
         dispatch(setWorkspace({ ...workspace.data }));
+
+        if (pageInfo?.path !== null) {
+          const parentReference = pageInfo?.path.slice(
+            1,
+            pageInfo.path.length - 1
+          );
+
+          queryClient.invalidateQueries(["child-pages", parentReference]);
+        }
 
         const savedState = localStorage.getItem("pagesListState");
         const parsedSavedState: PageType[] = JSON.parse(savedState!);
