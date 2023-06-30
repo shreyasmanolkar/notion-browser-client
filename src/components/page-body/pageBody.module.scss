@@ -1,0 +1,18 @@
+@use "../../styles/abstracts/colors" as *;
+
+.content {
+  overflow-y: auto;
+  height: calc(100vh);
+
+  .cover {
+    background-color: rgb(40, 125, 175);
+    height: 275px;
+  }
+
+  .page_content {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(39, 39, 39);
+    padding-bottom: 500px;
+  }
+}
