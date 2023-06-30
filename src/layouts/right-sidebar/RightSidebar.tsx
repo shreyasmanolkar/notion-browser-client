@@ -1,8 +1,12 @@
 import { useContext } from "react";
 import styles from "./rightSidebar.module.scss";
 import { SidebarLogicContext } from "../../context/SidebarContext";
+import Comment from "./Comment";
+import History from "./History";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const RightSidebar = () => {
+  const { theme } = useContext(ThemeContext);
   const { rightOpen, rightPanelContent, toggleSidebar } =
     useContext(SidebarLogicContext);
 
@@ -10,7 +14,7 @@ const RightSidebar = () => {
     <div
       id="right"
       data-testid="right-sidebar"
-      className={`${styles.right} ${
+      className={`${styles.right} ${styles[theme]} ${
         rightOpen ? styles.right_open : styles.right_closed
       }`}
     >
@@ -21,7 +25,7 @@ const RightSidebar = () => {
           </div>
         </div>
         <div className={`${styles.content}`}>
-          {rightPanelContent === "comment" ? <p>Comment</p> : <p>History</p>}
+          {rightPanelContent === "comment" ? <Comment /> : <History />}
         </div>
       </div>
     </div>

@@ -1,0 +1,92 @@
+@use "../../styles/abstracts/colors" as *;
+
+.container {
+  height: 100%;
+  width: 100%;
+  margin-right: 70px;
+  background-color: $background-primary;
+
+  .header {
+    height: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    border-bottom: 1px solid $color-tertiary;
+
+    p {
+      font-size: 14px;
+      color: $dark-background-hover;
+    }
+
+    .button {
+      display: flex;
+      align-items: center;
+      border-radius: 2px;
+      cursor: not-allowed;
+
+      p {
+        margin: 0;
+        font-size: 14px;
+        padding: 4px 4px;
+        color: $color-primary;
+      }
+
+      .icon {
+        padding-right: 8px;
+        fill: $color-primary;
+      }
+
+      &:hover {
+        background-color: $background-hover;
+      }
+    }
+  }
+
+  .body {
+    height: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .content {
+      width: 60%;
+
+      .icon {
+        display: flex;
+        justify-content: center;
+        fill: $color-primary;
+      }
+
+      p {
+        text-align: center;
+        margin: 0;
+        font-size: 14px;
+        font-weight: bold;
+
+        &:last-child {
+          margin-top: 10px;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+}
+
+.dark {
+  background-color: $dark-background-primary;
+
+  .header {
+    border-bottom: 1px solid $dark-color-tertiary;
+
+    p {
+      color: $background-hover;
+    }
+
+    .button {
+      &:hover {
+        background-color: $dark-background-hover;
+      }
+    }
+  }
+}
