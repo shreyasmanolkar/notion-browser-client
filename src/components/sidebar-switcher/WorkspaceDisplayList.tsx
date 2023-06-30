@@ -6,8 +6,9 @@ import { useAppSelector } from "../../app/hooks";
 import { useDispatch } from "react-redux";
 import { setWorkspace } from "../../slice/workspaceSlice";
 import { request } from "../../lib/axios";
-import styles from "./workspaceDisplayList.module.scss";
 import { setPage } from "../../slice/pageSlice";
+import styles from "./workspaceDisplayList.module.scss";
+import { useWorkspaceData } from "../../services/useWorkspaceData";
 
 const WorkspaceDisplayList = () => {
   const { theme } = useContext(ThemeContext);
@@ -17,6 +18,8 @@ const WorkspaceDisplayList = () => {
   const workspaceInfo = useAppSelector(
     (state) => state.workspace.workspaceInfo
   );
+  const { mutate: mutateUpdateWorkspacePages } =
+    useWorkspaceData.useUpdateWorkspacePagesData();
 
   const initialWorkspaces = userInfo?.workspaces;
 
@@ -38,17 +41,34 @@ const WorkspaceDisplayList = () => {
   };
 
   const handleOnClick = async (workspaceId: string) => {
-    const workspace = await request({
-      url: `/workspaces/${workspaceId}`,
-    });
+    const initialPages = workspaceInfo?.pages;
 
-    const pageId = workspace.data.pages[0].id;
-    const page = await request({
-      url: `/pages/${pageId}`,
-    });
+    const branchPages = initialPages?.filter((page) => page.path !== null);
+    const savedState = localStorage.getItem("pagesListState");
+    const parsedRootPages = JSON.parse(savedState!);
 
-    dispatch(setWorkspace({ ...workspace.data }));
-    dispatch(setPage({ ...page.data }));
+    const workspaceData = {
+      workspaceId: workspaceInfo?.id!,
+      pages: [...parsedRootPages!, ...branchPages!],
+    };
+
+    mutateUpdateWorkspacePages(workspaceData, {
+      onSuccess: async (data) => {
+        if (data) {
+          const workspace = await request({
+            url: `/workspaces/${workspaceId}`,
+          });
+
+          const pageId = workspace.data.pages[0].id;
+          const page = await request({
+            url: `/pages/${pageId}`,
+          });
+
+          dispatch(setWorkspace({ ...workspace.data }));
+          dispatch(setPage({ ...page.data }));
+        }
+      },
+    });
   };
 
   const getEmojiUrl = (unified: string) => {

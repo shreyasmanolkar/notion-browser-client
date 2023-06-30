@@ -3,7 +3,6 @@ import Picker from "@emoji-mart/react";
 import twemoji from "twemoji";
 import styles from "./emojiSelector.module.scss";
 import { ThemeContext } from "../../context/ThemeContext";
-
 import { usePageData } from "../../services/usePageData";
 import { useAppSelector } from "../../app/hooks";
 import { useDispatch } from "react-redux";
