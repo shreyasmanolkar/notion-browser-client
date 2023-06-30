@@ -17,13 +17,13 @@
     color: #80807c;
     width: 400px;
     height: 100vh;
-    background-color: rgb(51, 51, 51);
 
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       height: 45px;
+      background-color: $background-primary;
 
       .icon {
         font-size: 2em;
@@ -37,6 +37,14 @@
       height: 100vh;
       justify-content: center;
       align-items: center;
+    }
+  }
+}
+
+.dark {
+  .sidebar {
+    .header {
+      background-color: $dark-background-primary;
     }
   }
 }
