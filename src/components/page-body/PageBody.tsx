@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./pageBody.module.scss";
 import twemoji from "twemoji";
 import { useAppSelector } from "../../app/hooks";
@@ -23,6 +23,10 @@ const PageBody = () => {
 
     return emojiImage;
   };
+
+  useEffect(() => {
+    setEmojiCode(null);
+  }, [emojiCode]);
 
   return (
     <>
