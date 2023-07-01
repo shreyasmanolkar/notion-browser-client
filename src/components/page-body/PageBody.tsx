@@ -13,6 +13,7 @@ import { setWorkspace } from "../../slice/workspaceSlice";
 import { setPage } from "../../slice/pageSlice";
 import { useQueryClient } from "react-query";
 import { PageType } from "../../common/types/Workspace";
+import { ReactComponent as AddCoverIcon } from "../../assets/icons/add-cover.svg";
 
 const PageBody = () => {
   const { theme } = useContext(ThemeContext);
@@ -22,6 +23,7 @@ const PageBody = () => {
   const [emoji, setEmoji] = useState<string>("");
   const [emojiCode, setEmojiCode] = useState<string | null>(null);
   const [title, setTitle] = useState<string>(pageInfo?.title!);
+  const [cover, setCover] = useState<boolean>(false);
   const { mutate: mutateUpdatePageTitle } =
     usePageData.useUpdatePageTitleData();
   const workspaceInfo = useAppSelector(
@@ -46,6 +48,10 @@ const PageBody = () => {
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setTitle(e.target.value);
+  };
+
+  const handleAddCover = () => {
+    setCover(true);
   };
 
   useEffect(() => {
@@ -117,7 +123,26 @@ const PageBody = () => {
   return (
     <>
       <div className={`${styles.content} ${styles[theme]}`}>
-        <div className={`${styles.cover}`}></div>
+        {cover ? (
+          <div className={`${styles.cover}`}>
+            <div className={`${styles.image_wrapper}`}>
+              <img
+                src="https://images.unsplash.com/photo-1685555845405-1503f76a5462?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="cover"
+              />
+            </div>
+          </div>
+        ) : (
+          <div className={`${styles.no_cover}`}></div>
+        )}
+        {cover ? (
+          <div className={`${styles.image_footer}`}>
+            <div className={`${styles.image_option}`}>Change cover</div>
+            <div className={`${styles.image_option}`}>Reposition</div>
+          </div>
+        ) : (
+          ""
+        )}
         <div
           className={`${styles.page_content} ${
             pageInfo?.pageSettings.fullWidth ? "" : styles.full_width
@@ -138,6 +163,16 @@ const PageBody = () => {
               alt="dp"
               draggable="false"
             />
+          </div>
+          <div className={`${styles.page_header_options}`}>
+            {!cover ? (
+              <div className={`${styles.add_button}`} onClick={handleAddCover}>
+                <AddCoverIcon />
+                <p>Add cover</p>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           <form>
             <input
