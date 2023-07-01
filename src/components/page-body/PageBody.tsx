@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./pageBody.module.scss";
 import twemoji from "twemoji";
 import { useAppSelector } from "../../app/hooks";
 import EmojiSelector from "./EmojiSelector";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const PageBody = () => {
+  const { theme } = useContext(ThemeContext);
   const [openPicker, setOpenPicker] = useState(false);
   const pageInfo = useAppSelector((state) => state.page.pageInfo);
   const [emoji, setEmoji] = useState<string>("");
   const [emojiCode, setEmojiCode] = useState<string | null>(null);
+  const [title, setTitle] = useState<string>(pageInfo?.title!);
 
   const handleBrokenImage = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src =
@@ -24,15 +27,29 @@ const PageBody = () => {
     return emojiImage;
   };
 
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setTitle(e.target.value);
+  };
+
   useEffect(() => {
     setEmojiCode(null);
   }, [emojiCode]);
 
+  useEffect(() => {
+    setTitle(pageInfo?.title!);
+  }, [pageInfo?.title]);
+
   return (
     <>
-      <div className={`${styles.content}`}>
+      <div className={`${styles.content} ${styles[theme]}`}>
         <div className={`${styles.cover}`}></div>
-        <div className={`${styles.page_content}`}>
+        <div
+          className={`${styles.page_content} ${
+            pageInfo?.pageSettings.fullWidth ? styles.full_width : ""
+          }
+          ${pageInfo?.pageSettings.smallText ? styles.small_text : ""}
+          `}
+        >
           <div
             className={`${styles.emoji_display}`}
             onClick={() => {
@@ -46,6 +63,18 @@ const PageBody = () => {
               draggable="false"
             />
           </div>
+          <form>
+            <input
+              id="title"
+              type="text"
+              value={title}
+              placeholder="Untitled"
+              onChange={handleTitleChange}
+              maxLength={36}
+              autoComplete="off"
+              spellCheck="false"
+            />
+          </form>
         </div>
       </div>
       <EmojiSelector

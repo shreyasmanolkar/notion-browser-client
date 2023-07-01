@@ -10,10 +10,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
 
   .emoji_selector {
-    margin-top: 0;
-    margin-left: -400px;
+    margin-top: 225px;
+    margin-left: -1200px;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
