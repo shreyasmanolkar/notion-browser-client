@@ -4,9 +4,11 @@ import twemoji from "twemoji";
 import { useAppSelector } from "../../app/hooks";
 import EmojiSelector from "./EmojiSelector";
 import { ThemeContext } from "../../context/ThemeContext";
+import { SidebarLogicContext } from "../../context/SidebarContext";
 
 const PageBody = () => {
   const { theme } = useContext(ThemeContext);
+  const { leftOpen } = useContext(SidebarLogicContext);
   const [openPicker, setOpenPicker] = useState(false);
   const pageInfo = useAppSelector((state) => state.page.pageInfo);
   const [emoji, setEmoji] = useState<string>("");
@@ -45,7 +47,7 @@ const PageBody = () => {
         <div className={`${styles.cover}`}></div>
         <div
           className={`${styles.page_content} ${
-            pageInfo?.pageSettings.fullWidth ? styles.full_width : ""
+            pageInfo?.pageSettings.fullWidth ? "" : styles.full_width
           }
           ${pageInfo?.pageSettings.smallText ? styles.small_text : ""}
           `}
@@ -82,6 +84,8 @@ const PageBody = () => {
         closePicker={() => setOpenPicker(false)}
         setEmoji={setEmoji}
         setEmojiCode={setEmojiCode}
+        leftOpen={leftOpen}
+        fullWidth={pageInfo?.pageSettings.fullWidth!}
       />
     </>
   );
