@@ -28,6 +28,7 @@ type FetchWorkspaceById = (workspaceId: string) => Promise<WorkspaceType>;
 type FetchChildPagesDataType = {
   workspaceId: string;
   pageReference: string;
+  pageId: string;
 };
 
 export class useWorkspaceData {
@@ -132,9 +133,21 @@ export class useWorkspaceData {
 
   static useFetchChildPagesByworkspaceIdAndPageReference = (
     workspaceId: string,
-    pageReference: string
+    pageReference: string,
+    pageId: string
   ) =>
-    useQuery(["child-pages", pageReference], () =>
-      useWorkspaceData.fetchChildPages({ workspaceId, pageReference })
+    useQuery(
+      ["child-pages", pageId],
+      () =>
+        useWorkspaceData.fetchChildPages({
+          workspaceId,
+          pageReference,
+          pageId,
+        }),
+      {
+        staleTime: 5000,
+        refetchOnMount: true,
+        refetchOnWindowFocus: "always",
+      }
     );
 }

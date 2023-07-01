@@ -10,6 +10,9 @@ import CreatePagePanel from "../create-Page-panel/CreatePagePanel";
 import { request } from "../../lib/axios";
 import { useDispatch } from "react-redux";
 import { setPage } from "../../slice/pageSlice";
+import { checkSameIcons } from "../../utils/checkSameIcons";
+import { PageType } from "../../common/types/Workspace";
+import { checkSameTitles } from "../../utils/checkSameTitles";
 
 const PrivatePagesList = () => {
   const { theme } = useContext(ThemeContext);
@@ -32,6 +35,32 @@ const PrivatePagesList = () => {
   const [activePage, setActivePage] = useState(pageId);
   const [openCreatePage, setOpenCreatePage] = useState(false);
   const [parentPageId, setParentPageId] = useState("");
+
+  const updatePageIcons = (
+    array1: PageType[],
+    array2: PageType[]
+  ): PageType[] => {
+    return array1.map((page1) => {
+      const page2 = array2.find((page) => page.id === page1.id);
+      if (page2 && page1.icon !== page2.icon) {
+        return { ...page1, icon: page2.icon };
+      }
+      return page1;
+    });
+  };
+
+  const updatePageTitles = (
+    array1: PageType[],
+    array2: PageType[]
+  ): PageType[] => {
+    return array1.map((page1) => {
+      const page2 = array2.find((page) => page.id === page1.id);
+      if (page2 && page1.title !== page2.title) {
+        return { ...page1, title: page2.title };
+      }
+      return page1;
+    });
+  };
 
   const handleBrokenImage = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src =
@@ -77,8 +106,37 @@ const PrivatePagesList = () => {
 
   useEffect(() => {
     if (pagesMetaData?.length === rootPages?.length) {
+      const isIconEqual = checkSameIcons(pagesMetaData, rootPages);
+      const isTitleEqual = checkSameTitles(pagesMetaData, rootPages);
+
       if (pagesMetaData !== rootPages) {
-        localStorage.setItem("pagesListState", JSON.stringify(pagesMetaData));
+        if (isIconEqual) {
+          localStorage.setItem("pagesListState", JSON.stringify(pagesMetaData));
+        }
+
+        if (isTitleEqual) {
+          localStorage.setItem("pagesListState", JSON.stringify(pagesMetaData));
+        }
+
+        if (!isIconEqual) {
+          const updatedPageList = updatePageIcons(pagesMetaData!, rootPages!);
+
+          localStorage.setItem(
+            "pagesListState",
+            JSON.stringify(updatedPageList)
+          );
+          setPagesMetaData(updatedPageList);
+        }
+
+        if (!isTitleEqual) {
+          const updatedPageList = updatePageTitles(pagesMetaData!, rootPages!);
+
+          localStorage.setItem(
+            "pagesListState",
+            JSON.stringify(updatedPageList)
+          );
+          setPagesMetaData(updatedPageList);
+        }
       }
     } else if (pagesMetaData?.length !== rootPages?.length) {
       localStorage.setItem("pagesListState", JSON.stringify(rootPages));
@@ -172,6 +230,7 @@ const PrivatePagesList = () => {
               <PageDropdown
                 workspaceId={workspaceInfo?.id!}
                 pageReference={item.reference}
+                pageId={item.id}
               />
             </div>
           </div>

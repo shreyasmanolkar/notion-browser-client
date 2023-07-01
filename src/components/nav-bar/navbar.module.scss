@@ -99,3 +99,16 @@
     }
   }
 }
+
+@media screen and (max-width: 800px) {
+  .header {
+    height: 60px;
+    align-items: center;
+
+    .main_options {
+      .edited_at {
+        display: none;
+      }
+    }
+  }
+}

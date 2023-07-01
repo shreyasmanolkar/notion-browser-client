@@ -28,6 +28,16 @@ type addToFavorite = {
   pageId: string;
 };
 
+type updatePageIconType = {
+  icon: string;
+  pageId: string;
+};
+
+type updatePageTitleType = {
+  title: string;
+  pageId: string;
+};
+
 export type updatePageSettingsData = {
   pageId: string;
   settings: {
@@ -91,6 +101,26 @@ export class usePageData {
     return response.data;
   };
 
+  static updatePageIcon = async (data: updatePageIconType) => {
+    const response = await request({
+      url: `/pages/${data.pageId}/icon`,
+      method: "patch",
+      data,
+    });
+
+    return response.data;
+  };
+
+  static updatePageTitle = async (data: updatePageTitleType) => {
+    const response = await request({
+      url: `/pages/${data.pageId}/title`,
+      method: "patch",
+      data,
+    });
+
+    return response.data;
+  };
+
   static useCreatePageData = () => {
     return useMutation(usePageData.createPage, {
       onSuccess: (data) => {
@@ -129,6 +159,24 @@ export class usePageData {
 
   static useDeletePageData = () => {
     return useMutation(usePageData.deletePage, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useUpdatePageIconData = () => {
+    return useMutation(usePageData.updatePageIcon, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useUpdatePageTitleData = () => {
+    return useMutation(usePageData.updatePageTitle, {
       onSuccess: (data) => {
         return data;
       },

@@ -176,6 +176,7 @@ const FavoritePagesList = () => {
               <PageDropdown
                 workspaceId={workspaceInfo?.id!}
                 pageReference={item.reference}
+                pageId={item.id}
               />
             </div>
           </div>
