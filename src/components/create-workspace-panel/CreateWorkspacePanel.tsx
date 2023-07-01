@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../slice/userSlice";
 import { setWorkspace } from "../../slice/workspaceSlice";
 import { setPage } from "../../slice/pageSlice";
+import { useWorkspaceData } from "../../services/useWorkspaceData";
 
 const CreateWorkspacePanel = () => {
   const { theme } = useContext(ThemeContext);
@@ -24,6 +25,11 @@ const CreateWorkspacePanel = () => {
   const { mutate } = useUserData.useCreateWorkspaceData();
   const userInfo = useAppSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
+  const { mutate: mutateUpdateWorkspacePages } =
+    useWorkspaceData.useUpdateWorkspacePagesData();
+  const workspaceInfo = useAppSelector(
+    (state) => state.workspace.workspaceInfo
+  );
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
@@ -50,6 +56,19 @@ const CreateWorkspacePanel = () => {
       name,
       icon,
     };
+
+    const initialPages = workspaceInfo?.pages;
+
+    const branchPages = initialPages?.filter((page) => page.path !== null);
+    const savedState = localStorage.getItem("pagesListState");
+    const parsedRootPages = JSON.parse(savedState!);
+
+    const workspaceData = {
+      workspaceId: workspaceInfo?.id!,
+      pages: [...parsedRootPages!, ...branchPages!],
+    };
+
+    mutateUpdateWorkspacePages(workspaceData);
 
     mutate(createWorkspaceData, {
       onSuccess: async (data) => {

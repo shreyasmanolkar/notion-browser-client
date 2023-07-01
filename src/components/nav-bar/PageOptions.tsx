@@ -214,12 +214,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({
           });
 
           if (pageInfo?.path !== null) {
-            const parentReference = pageInfo?.path.slice(
-              1,
-              pageInfo.path.length - 1
-            );
-
-            queryClient.invalidateQueries(["child-pages", parentReference]);
+            queryClient.invalidateQueries(["child-pages", pageInfo?.id]);
           }
 
           dispatch(setPage({ ...page.data }));

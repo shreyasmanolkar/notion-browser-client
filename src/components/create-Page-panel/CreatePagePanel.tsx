@@ -141,10 +141,7 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
           });
 
           if (pageMetaData) {
-            queryClient.invalidateQueries([
-              "child-pages",
-              pageMetaData.reference,
-            ]);
+            queryClient.invalidateQueries(["child-pages", pageMetaData.id]);
           }
 
           dispatch(setUser({ ...user.data }));
