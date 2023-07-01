@@ -64,12 +64,7 @@ const EmojiSelector: React.FC<EmojiSelectorProps> = ({
         dispatch(setWorkspace({ ...workspace.data }));
 
         if (pageInfo?.path !== null) {
-          const parentReference = pageInfo?.path.slice(
-            1,
-            pageInfo.path.length - 1
-          );
-
-          queryClient.invalidateQueries(["child-pages", parentReference]);
+          queryClient.invalidateQueries(["child-pages", pageInfo?.id]);
         }
 
         const savedState = localStorage.getItem("pagesListState");

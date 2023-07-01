@@ -33,6 +33,11 @@ type updatePageIconType = {
   pageId: string;
 };
 
+type updatePageTitleType = {
+  title: string;
+  pageId: string;
+};
+
 export type updatePageSettingsData = {
   pageId: string;
   settings: {
@@ -106,6 +111,16 @@ export class usePageData {
     return response.data;
   };
 
+  static updatePageTitle = async (data: updatePageTitleType) => {
+    const response = await request({
+      url: `/pages/${data.pageId}/title`,
+      method: "patch",
+      data,
+    });
+
+    return response.data;
+  };
+
   static useCreatePageData = () => {
     return useMutation(usePageData.createPage, {
       onSuccess: (data) => {
@@ -153,6 +168,15 @@ export class usePageData {
 
   static useUpdatePageIconData = () => {
     return useMutation(usePageData.updatePageIcon, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useUpdatePageTitleData = () => {
+    return useMutation(usePageData.updatePageTitle, {
       onSuccess: (data) => {
         return data;
       },

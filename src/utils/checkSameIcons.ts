@@ -1,6 +1,6 @@
 export function checkSameIcons(array1: any, array2: any) {
   if (array1.length !== array2.length) {
-    return false; // Different array lengths, icons cannot be the same
+    return false;
   }
 
   const icons1 = array1.map((item: { icon: any }) => item.icon).sort();
@@ -8,9 +8,9 @@ export function checkSameIcons(array1: any, array2: any) {
 
   for (let i = 0; i < icons1.length; i++) {
     if (icons1[i] !== icons2[i]) {
-      return false; // Different "icon" values found
+      return false;
     }
   }
 
-  return true; // All "icon" values are the same
+  return true;
 }

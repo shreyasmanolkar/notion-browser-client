@@ -15,22 +15,24 @@ import { useAppSelector } from "../../app/hooks";
 type PageDropdownProps = {
   workspaceId: string;
   pageReference: string;
+  pageId: string;
 };
 
 const PageDropdown: React.FC<PageDropdownProps> = ({
   workspaceId,
   pageReference,
+  pageId,
 }) => {
   const { theme } = useContext(ThemeContext);
   const [openCreatePage, setOpenCreatePage] = useState(false);
   const [parentPageId, setParentPageId] = useState("");
   const pageInfo = useAppSelector((state) => state.page.pageInfo);
-  const pageId = pageInfo?.id;
   const [activePage, setActivePage] = useState(pageId);
   const { data: childPagesOrNull, isLoading } =
     useWorkspaceData.useFetchChildPagesByworkspaceIdAndPageReference(
       workspaceId,
-      pageReference
+      pageReference,
+      pageId
     );
   const dispatch = useDispatch();
 
@@ -64,7 +66,7 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
   };
 
   useEffect(() => {
-    setActivePage(pageInfo?.id);
+    setActivePage(pageInfo?.id!);
   }, [pageInfo]);
 
   return (
@@ -133,6 +135,7 @@ const PageDropdown: React.FC<PageDropdownProps> = ({
                     <PageDropdown
                       workspaceId={workspaceId}
                       pageReference={item.reference}
+                      pageId={item.id}
                     />
                   </div>
                 </div>
