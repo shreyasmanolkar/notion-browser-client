@@ -123,6 +123,7 @@ const PageBody = () => {
             pageInfo?.pageSettings.fullWidth ? "" : styles.full_width
           }
           ${pageInfo?.pageSettings.smallText ? styles.small_text : ""}
+          ${styles[pageInfo?.pageSettings.font!]}
           `}
         >
           <div

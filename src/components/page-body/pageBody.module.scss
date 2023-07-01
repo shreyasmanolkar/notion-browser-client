@@ -68,6 +68,22 @@
       }
     }
   }
+
+  .serif {
+    form {
+      input {
+        font-family: serif;
+      }
+    }
+  }
+
+  .mono {
+    form {
+      input {
+        font-family: monospace;
+      }
+    }
+  }
 }
 
 .dark {
