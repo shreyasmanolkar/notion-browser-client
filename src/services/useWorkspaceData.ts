@@ -143,9 +143,9 @@ export class useWorkspaceData {
           workspaceId,
           pageReference,
           pageId,
-        })
-      // {
-      // enabled: true,
-      // }
+        }),
+      {
+        staleTime: Infinity,
+      }
     );
 }
