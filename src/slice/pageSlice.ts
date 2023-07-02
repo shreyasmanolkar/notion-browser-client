@@ -9,6 +9,7 @@ export type PageSettingsType = {
 
 export type CoverPictureType = {
   url: string;
+  verticalPosition: number;
 };
 
 export type ContentType = {
