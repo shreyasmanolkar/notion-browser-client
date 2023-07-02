@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import twemoji from "twemoji";
 import { ReactComponent as RightExpanIcon } from "../../assets/icons/right-expand.svg";
-// import { ReactComponent as PlusThickIcon } from "../../assets/icons/plus-thick.svg";
 import { ThemeContext } from "../../context/ThemeContext";
 import { useAppSelector } from "../../app/hooks";
 import PageDropdown from "./PageDropdown";
@@ -25,7 +24,9 @@ const FavoritePagesList = () => {
     (workspace) => workspace.workspaceId === workspaceInfo?.id
   );
 
-  const favoriteIds = userWorkspace?.favorites;
+  const [favoriteIds, setFavoriteIds] = useState<string[] | []>(
+    userWorkspace?.favorites!
+  );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const favoritePages: PageType[] = [];
@@ -101,15 +102,17 @@ const FavoritePagesList = () => {
     const savedState = localStorage.getItem("favoritePagesListState");
 
     if (savedState !== "undefined") {
-      setPagesMetaData(JSON.parse(savedState!));
+      const parsedState = JSON.parse(savedState!);
+
+      if (parsedState?.length! > 0) {
+        setPagesMetaData(JSON.parse(savedState!));
+      }
     }
   }, []);
 
   useEffect(() => {
-    if (activePage !== favoritePages![0].id) {
-      localStorage.setItem("activePage", JSON.stringify(activePage));
-    }
-  }, [activePage, favoritePages]);
+    localStorage.setItem("activePage", JSON.stringify(activePage));
+  }, [activePage]);
 
   useEffect(() => {
     const savedState = localStorage.getItem("activePage");
@@ -123,15 +126,23 @@ const FavoritePagesList = () => {
     setActivePage(pageInfo?.id);
   }, [pageInfo]);
 
+  useEffect(() => {
+    const userWorkspace = userInfo?.workspaces.find(
+      (workspace) => workspace.workspaceId === workspaceInfo?.id
+    );
+
+    setFavoriteIds(userWorkspace?.favorites!);
+  }, [userInfo?.workspaces, workspaceInfo?.id]);
+
   return (
     <>
       <div className={`${styles.display_container} ${styles[theme]}`}>
         <div className={`${styles.title}`}>Favorites</div>
         {pagesMetaData?.map((item, index) => (
           <div
-            className={`${styles.page_tab} ${
-              activePage === `${item.id}` ? styles.active : ""
-            }`}
+            className={`${styles.page_tab} 
+            ${activePage === `${item.id}` ? styles.active : ""}
+            `}
             key={index}
             draggable="true"
             onDragStart={(e) => (dragItem.current = index)}

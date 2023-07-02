@@ -143,11 +143,9 @@ export class useWorkspaceData {
           workspaceId,
           pageReference,
           pageId,
-        }),
-      {
-        staleTime: 5000,
-        refetchOnMount: true,
-        refetchOnWindowFocus: "always",
-      }
+        })
+      // {
+      // enabled: true,
+      // }
     );
 }
