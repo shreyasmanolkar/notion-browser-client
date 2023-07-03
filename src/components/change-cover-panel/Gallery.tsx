@@ -21,7 +21,6 @@ const Gallery = () => {
   const dispatch = useDispatch();
 
   const handleImageSelect = (img: string) => {
-    console.log("selected image: ", img);
     const pageData = {
       pageId: pageInfo!.id,
       url: img,
@@ -101,6 +100,24 @@ const Gallery = () => {
       </div>
       <div className={`${styles.category}`}>
         <div className={`${styles.title}`}>
+          <a href="https://www.artisera.com/pages/fine-art" target="blank">
+            THE INDIAN EDITION
+          </a>
+        </div>
+        <div className={`${styles.collection}`}>
+          {indianEdition.map((item, index) => (
+            <div
+              className={`${styles.display}`}
+              key={index}
+              onClick={() => handleImageSelect(item)}
+            >
+              <img src={item} alt={`bharat-${index}`} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={`${styles.category}`}>
+        <div className={`${styles.title}`}>
           <a href="https://www.metmuseum.org/art/the-collection" target="blank">
             THE MET MUSEUM - PATTERNS
           </a>
@@ -170,24 +187,6 @@ const Gallery = () => {
               onClick={() => handleImageSelect(item)}
             >
               <img src={item} alt={`met-${index}`} />
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className={`${styles.category}`}>
-        <div className={`${styles.title}`}>
-          <a href="https://www.artisera.com/pages/fine-art" target="blank">
-            THE INDIAN EDITION
-          </a>
-        </div>
-        <div className={`${styles.collection}`}>
-          {indianEdition.map((item, index) => (
-            <div
-              className={`${styles.display}`}
-              key={index}
-              onClick={() => handleImageSelect(item)}
-            >
-              <img src={item} alt={`bharat-${index}`} />
             </div>
           ))}
         </div>
