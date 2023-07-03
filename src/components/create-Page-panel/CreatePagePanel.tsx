@@ -79,7 +79,8 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
   const handleCreatePage = () => {
     const icon = emojiCode;
     const coverPicture = {
-      url: "http://sample-url-img.com",
+      url: "",
+      verticalPosition: 0,
     };
     // TODO content
     const content = {
