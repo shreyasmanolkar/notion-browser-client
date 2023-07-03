@@ -118,6 +118,7 @@ const PageBody = () => {
       updatedVerticalPosition,
       maxVerticalPosition
     );
+    updatedVerticalPosition = Math.min(updatedVerticalPosition, 0);
 
     setVerticalPosition(updatedVerticalPosition);
     setStartPosition({ x: e.clientX, y: e.clientY });
@@ -190,9 +191,39 @@ const PageBody = () => {
   }, [handleTitleChange]);
 
   useEffect(() => {
+    const saveVerticalPosition = debounce((verticalPosition: number) => {
+      if (pageInfo?.coverPicture.verticalPosition !== verticalPosition) {
+        const pageData = {
+          pageId: pageInfo!.id,
+          url: pageInfo?.coverPicture.url!,
+          verticalPosition,
+        };
+
+        mutateUpdatePageCover(pageData, {
+          onSuccess: async () => {
+            const updatedPage: PageState = {
+              ...pageInfo!,
+              coverPicture: {
+                ...pageInfo!.coverPicture,
+                verticalPosition: verticalPosition,
+              },
+            };
+
+            dispatch(setPage(updatedPage));
+          },
+        });
+      }
+    }, 5000);
+
     if (verticalPosition !== 0) {
       localStorage.setItem("imagePosition", JSON.stringify(verticalPosition));
+      saveVerticalPosition(verticalPosition);
     }
+
+    return () => {
+      saveVerticalPosition.cancel();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [verticalPosition]);
 
   useEffect(() => {
@@ -241,7 +272,7 @@ const PageBody = () => {
               className={`${styles.image_option}`}
               onClick={handleReposition}
             >
-              {repositionEnabled ? "Cancle" : "Reposition"}
+              {repositionEnabled ? "Save" : "Reposition"}
             </div>
           </div>
         ) : (
