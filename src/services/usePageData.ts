@@ -48,6 +48,12 @@ export type updatePageSettingsData = {
   };
 };
 
+export type updatePageCoverData = {
+  pageId: string;
+  url: string;
+  verticalPosition: number;
+};
+
 type deletePageDataType = {
   pageId: string;
 };
@@ -84,6 +90,16 @@ export class usePageData {
   static updatePageSettings = async (data: updatePageSettingsData) => {
     const response = await request({
       url: `/pages/${data.pageId}/settings`,
+      method: "patch",
+      data,
+    });
+
+    return response.data;
+  };
+
+  static updatePageCover = async (data: updatePageCoverData) => {
+    const response = await request({
+      url: `/pages/${data.pageId}/cover`,
       method: "patch",
       data,
     });
@@ -150,6 +166,15 @@ export class usePageData {
 
   static useUpdatePageSettings = () => {
     return useMutation(usePageData.updatePageSettings, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useUpdatePageCover = () => {
+    return useMutation(usePageData.updatePageCover, {
       onSuccess: (data) => {
         return data;
       },

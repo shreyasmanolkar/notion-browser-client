@@ -12,6 +12,10 @@ import { useContext } from "react";
 const Gallery = () => {
   const { theme } = useContext(ThemeContext);
 
+  const handleImageSelect = (img: string) => {
+    console.log("selected image: ", img);
+  };
+
   return (
     <div className={`${styles.container} ${styles[theme]}`}>
       <div className={`${styles.category}`}>
@@ -22,7 +26,11 @@ const Gallery = () => {
         </div>
         <div className={`${styles.collection}`}>
           {colorAndGradients.map((item, index) => (
-            <div className={`${styles.display}`} key={index}>
+            <div
+              className={`${styles.display}`}
+              key={index}
+              onClick={() => handleImageSelect(item)}
+            >
               <img src={item} alt={`color-${index}`} />
             </div>
           ))}
@@ -36,7 +44,11 @@ const Gallery = () => {
         </div>
         <div className={`${styles.collection}`}>
           {jamesWebbTelescope.map((item, index) => (
-            <div className={`${styles.display}`} key={index}>
+            <div
+              className={`${styles.display}`}
+              key={index}
+              onClick={() => handleImageSelect(item)}
+            >
               <img src={item} alt={`jwt-${index}`} />
             </div>
           ))}
@@ -50,7 +62,11 @@ const Gallery = () => {
         </div>
         <div className={`${styles.collection}`}>
           {nasaArchive.map((item, index) => (
-            <div className={`${styles.display}`} key={index}>
+            <div
+              className={`${styles.display}`}
+              key={index}
+              onClick={() => handleImageSelect(item)}
+            >
               <img src={item} alt={`nasa-${index}`} />
             </div>
           ))}
@@ -64,7 +80,11 @@ const Gallery = () => {
         </div>
         <div className={`${styles.collection}`}>
           {patterns.map((item, index) => (
-            <div className={`${styles.display}`} key={index}>
+            <div
+              className={`${styles.display}`}
+              key={index}
+              onClick={() => handleImageSelect(item)}
+            >
               <img src={item} alt={`pattern-${index}`} />
             </div>
           ))}
@@ -81,7 +101,11 @@ const Gallery = () => {
         </div>
         <div className={`${styles.collection}`}>
           {rijskMuseum.map((item, index) => (
-            <div className={`${styles.display}`} key={index}>
+            <div
+              className={`${styles.display}`}
+              key={index}
+              onClick={() => handleImageSelect(item)}
+            >
               <img src={item} alt={`rijks-${index}`} />
             </div>
           ))}
@@ -95,7 +119,11 @@ const Gallery = () => {
         </div>
         <div className={`${styles.collection}`}>
           {japanesePrint.map((item, index) => (
-            <div className={`${styles.display}`} key={index}>
+            <div
+              className={`${styles.display}`}
+              key={index}
+              onClick={() => handleImageSelect(item)}
+            >
               <img src={item} alt={`japan-${index}`} />
             </div>
           ))}
@@ -109,7 +137,11 @@ const Gallery = () => {
         </div>
         <div className={`${styles.collection}`}>
           {metMuseum.map((item, index) => (
-            <div className={`${styles.display}`} key={index}>
+            <div
+              className={`${styles.display}`}
+              key={index}
+              onClick={() => handleImageSelect(item)}
+            >
               <img src={item} alt={`met-${index}`} />
             </div>
           ))}
