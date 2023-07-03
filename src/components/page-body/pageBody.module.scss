@@ -4,9 +4,76 @@
   overflow-y: auto;
   height: calc(100vh);
 
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 8px $scroll-track;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $scroll-thumb;
+    outline: 1px solid $scroll-thumb;
+  }
+
   .cover {
-    background-color: rgb(40, 125, 175);
-    height: 275px;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    z-index: -1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+  }
+
+  .dragging {
+    cursor: move;
+  }
+
+  .image_footer {
+    position: relative;
+    background-color: $background-secondary;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 100px;
+
+    .image_option {
+      position: absolute;
+      top: -30px;
+      font-size: 12px;
+      padding: 4px 8px;
+      background-color: $background-secondary;
+      color: $dark-color-primary;
+
+      cursor: pointer;
+
+      &:first-child {
+        right: 173px;
+        border-radius: 4px 0 0 4px;
+        border-right: 1px solid $color-primary;
+      }
+
+      &:last-child {
+        right: 100px;
+        width: 57px;
+        text-align: center;
+        border-radius: 0 4px 4px 0;
+      }
+
+      &:hover {
+        background-color: $background-hover;
+      }
+    }
+  }
+
+  .no_cover {
+    height: 150px;
+    background-color: $dark-background-secondary;
   }
 
   .page_content {
@@ -28,8 +95,30 @@
       }
     }
 
+    .page_header_options {
+      padding-top: 44px;
+      display: flex;
+      margin-left: 90px;
+      color: $dark-color-primary;
+
+      .add_button {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        border-radius: 2px;
+        height: 20px;
+        padding: 2px 8px;
+        fill: $dark-color-primary;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $color-secondary;
+        }
+      }
+    }
+
     form {
-      padding: 70px 0 0 75px;
+      padding: 10px 0 0 75px;
 
       input {
         width: 90%;
@@ -56,8 +145,12 @@
       }
     }
 
+    .page_header_options {
+      margin-left: 480px;
+    }
+
     form {
-      padding: 70px 0 0 475px;
+      padding: 10px 0 0 475px;
     }
   }
 
@@ -68,11 +161,59 @@
       }
     }
   }
+
+  .serif {
+    form {
+      input {
+        font-family: serif;
+      }
+    }
+  }
+
+  .mono {
+    form {
+      input {
+        font-family: monospace;
+      }
+    }
+  }
 }
 
 .dark {
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 100px $dark-scroll-track;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $dark-scroll-thumb;
+    outline: 1px solid #3f3e39;
+  }
+
+  .image_footer {
+    background-color: $dark-background-primary;
+
+    .image_option {
+      background-color: $dark-background-tertiary;
+      color: $color-primary;
+
+      &:hover {
+        background-color: $dark-background-hover;
+      }
+    }
+  }
+
   .page_content {
     background-color: $dark-background-secondary;
+
+    .page_header_options {
+      .add_button {
+        fill: $color-primary;
+
+        &:hover {
+          background-color: $dark-background-hover-two;
+        }
+      }
+    }
 
     form {
       input {

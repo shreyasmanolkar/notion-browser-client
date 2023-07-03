@@ -1,0 +1,145 @@
+@use "../../styles/abstracts/colors" as *;
+
+.change_cover_background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  .change_cover {
+    position: fixed;
+    top: 34%;
+    right: 14px;
+    width: 540px;
+    height: 490px;
+    // max-height: 490px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: $background-primary;
+    display: flex;
+    flex-direction: column;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid $color-primary;
+      height: 8%;
+      width: 100%;
+
+      .left_header {
+        display: flex;
+        padding: 0 10px;
+
+        .tab {
+          user-select: none;
+          cursor: pointer;
+          margin-right: 4px;
+          padding-bottom: 4px;
+
+          p {
+            margin: 4px 0;
+            border-radius: 5px;
+            padding: 4px;
+            color: $dark-color-tertiary;
+            font-size: 14px;
+          }
+
+          .unsplash {
+            display: flex;
+            fill: $dark-color-tertiary;
+          }
+
+          &:hover {
+            p {
+              background-color: $background-hover;
+            }
+          }
+        }
+
+        .active {
+          border-bottom: 2px solid $dark-color-tertiary;
+        }
+      }
+
+      .right_header {
+        .tab {
+          user-select: none;
+          cursor: pointer;
+          padding-bottom: 4px;
+
+          p {
+            margin: 4px 0;
+            border-radius: 5px;
+            padding: 4px;
+            color: $dark-color-tertiary;
+            font-size: 14px;
+          }
+
+          &:hover {
+            p {
+              background-color: $background-hover;
+            }
+          }
+        }
+      }
+    }
+
+    .body {
+      height: 92%;
+    }
+  }
+}
+
+.dark {
+  .change_cover {
+    background-color: $dark-background-tertiary;
+
+    .header {
+      .left_header {
+        .tab {
+          p {
+            color: $color-tertiary;
+          }
+
+          .unsplash {
+            fill: $color-tertiary;
+          }
+
+          &:hover {
+            p {
+              background-color: $dark-background-hover-two;
+            }
+          }
+        }
+
+        .active {
+          border-bottom: 2px solid $color-tertiary;
+        }
+      }
+
+      .right_header {
+        .tab {
+          p {
+            color: $color-tertiary;
+          }
+
+          &:hover {
+            p {
+              background-color: $dark-background-hover-two;
+            }
+          }
+        }
+
+        .active {
+          border-bottom: 2px solid $color-tertiary;
+        }
+      }
+    }
+  }
+}

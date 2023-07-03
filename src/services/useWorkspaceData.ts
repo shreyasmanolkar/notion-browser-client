@@ -145,9 +145,7 @@ export class useWorkspaceData {
           pageId,
         }),
       {
-        staleTime: 5000,
-        refetchOnMount: true,
-        refetchOnWindowFocus: "always",
+        staleTime: Infinity,
       }
     );
 }

@@ -19,6 +19,15 @@ import { setPage } from "../../slice/pageSlice";
 import { setUser } from "../../slice/userSlice";
 import { request } from "../../lib/axios";
 
+type FavoritePageType = {
+  id: string;
+  reference: string;
+  path: string | null;
+  icon: string;
+  title: string;
+  createdAt: Date;
+};
+
 const Navbar = () => {
   const { theme } = useContext(ThemeContext);
   const { leftOpen, toggleSidebar } = useContext(SidebarLogicContext);
@@ -79,6 +88,23 @@ const Navbar = () => {
 
           dispatch(setPage(updatedPage));
           dispatch(setUser({ ...user.data }));
+
+          const savedState = localStorage.getItem("favoritePagesListState");
+          const parsedSavedState: FavoritePageType[] =
+            savedState === undefined ? JSON.parse(savedState!) : [];
+
+          const updatedSavedState =
+            parsedSavedState &&
+            parsedSavedState.filter((page) => page.id !== pageInfo?.id);
+
+          if (updatedSavedState && updatedSavedState.length === 0) {
+            localStorage.setItem("favoritePagesListState", JSON.stringify([]));
+          } else {
+            localStorage.setItem(
+              "favoritePagesListState",
+              JSON.stringify(updatedSavedState)
+            );
+          }
         },
       });
     }

@@ -36,6 +36,15 @@ type PageOptionsProps = {
   onFavoriteClick: () => void;
 };
 
+type FavoritePageType = {
+  id: string;
+  reference: string;
+  path: string | null;
+  icon: string;
+  title: string;
+  createdAt: Date;
+};
+
 const PageOptions: React.FC<PageOptionsProps> = ({
   open,
   onClose,
@@ -214,7 +223,7 @@ const PageOptions: React.FC<PageOptionsProps> = ({
           });
 
           if (pageInfo?.path !== null) {
-            queryClient.invalidateQueries(["child-pages", pageInfo?.id]);
+            queryClient.invalidateQueries(["child-pages", page.data.id]);
           }
 
           dispatch(setPage({ ...page.data }));
@@ -235,6 +244,29 @@ const PageOptions: React.FC<PageOptionsProps> = ({
           );
 
           localStorage.setItem("pagesListState", JSON.stringify(updatedPages));
+
+          const savedFavoriteState = localStorage.getItem(
+            "favoritePagesListState"
+          );
+          const parsedSavedFavoriteState: FavoritePageType[] =
+            savedFavoriteState === undefined
+              ? JSON.parse(savedFavoriteState!)
+              : [];
+
+          const updatedSavedState =
+            parsedSavedFavoriteState &&
+            parsedSavedFavoriteState.filter(
+              (page) => page.id !== pageData.pageId
+            );
+
+          if (updatedSavedState && updatedSavedState.length === 0) {
+            localStorage.setItem("favoritePagesListState", JSON.stringify([]));
+          } else {
+            localStorage.setItem(
+              "favoritePagesListState",
+              JSON.stringify(updatedSavedState)
+            );
+          }
         },
       });
     }
