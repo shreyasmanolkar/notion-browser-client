@@ -1,0 +1,83 @@
+@use "../../styles/abstracts/colors" as *;
+
+.container {
+  padding: 0 14px 14px 14px;
+  height: 92%;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 8px $scroll-track;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $scroll-thumb;
+    outline: 1px solid $scroll-thumb;
+  }
+
+  .category {
+    .title {
+      margin: 16px 0;
+
+      a {
+        width: fit-content;
+        padding: 2px 4px;
+        border-radius: 5px;
+        font-size: 12px;
+        color: $dark-color-primary;
+        cursor: pointer;
+        text-decoration: none;
+
+        &:hover {
+          background-color: $background-hover;
+        }
+      }
+    }
+
+    .collection {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      .display {
+        img {
+          border-radius: 5px;
+          width: 120px;
+          height: 65px;
+          object-fit: cover;
+          cursor: pointer;
+
+          &:hover {
+            filter: brightness(75%);
+          }
+        }
+      }
+    }
+  }
+}
+
+.dark {
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 8px $dark-scroll-track;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $dark-scroll-thumb;
+    outline: 1px solid #3f3e39;
+  }
+
+  .category {
+    .title {
+      a {
+        color: $color-primary;
+
+        &:hover {
+          background-color: $dark-background-hover-two;
+        }
+      }
+    }
+  }
+}

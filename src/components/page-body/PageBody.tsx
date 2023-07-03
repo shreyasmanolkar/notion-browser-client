@@ -14,6 +14,7 @@ import { setPage } from "../../slice/pageSlice";
 import { useQueryClient } from "react-query";
 import { PageType } from "../../common/types/Workspace";
 import { ReactComponent as AddCoverIcon } from "../../assets/icons/add-cover.svg";
+import ChangeCover from "../change-cover-panel";
 
 const PageBody = () => {
   const { theme } = useContext(ThemeContext);
@@ -29,6 +30,7 @@ const PageBody = () => {
   const [verticalPosition, setVerticalPosition] = useState(0);
   const [repositionEnabled, setRepositionEnabled] = useState(false);
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
+  const [openChangeCover, setOpenChangeCover] = useState<boolean>(false);
   const { mutate: mutateUpdatePageTitle } =
     usePageData.useUpdatePageTitleData();
   const workspaceInfo = useAppSelector(
@@ -206,7 +208,14 @@ const PageBody = () => {
         )}
         {cover ? (
           <div className={`${styles.image_footer}`}>
-            <div className={`${styles.image_option}`}>Change cover</div>
+            <div
+              className={`${styles.image_option}`}
+              onClick={() => {
+                setOpenChangeCover(true);
+              }}
+            >
+              Change cover
+            </div>
             <div
               className={`${styles.image_option}`}
               onClick={handleReposition}
@@ -269,6 +278,10 @@ const PageBody = () => {
         setEmojiCode={setEmojiCode}
         leftOpen={leftOpen}
         fullWidth={pageInfo?.pageSettings.fullWidth!}
+      />
+      <ChangeCover
+        open={openChangeCover}
+        onClose={() => setOpenChangeCover(false)}
       />
     </>
   );

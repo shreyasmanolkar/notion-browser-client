@@ -4,6 +4,19 @@
   overflow-y: auto;
   height: calc(100vh);
 
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 8px $scroll-track;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $scroll-thumb;
+    outline: 1px solid $scroll-thumb;
+  }
+
   .cover {
     width: 100%;
     height: 280px;
@@ -167,6 +180,15 @@
 }
 
 .dark {
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 100px $dark-scroll-track;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $dark-scroll-thumb;
+    outline: 1px solid #3f3e39;
+  }
+
   .image_footer {
     background-color: $dark-background-primary;
 
