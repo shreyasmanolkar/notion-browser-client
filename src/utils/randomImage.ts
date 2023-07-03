@@ -5,6 +5,7 @@ import { metMuseum } from "../data/metMuseum";
 import { nasaArchive } from "../data/nasaArchive";
 import { patterns } from "../data/patterns";
 import { rijskMuseum } from "../data/rijksMuseum";
+import { indianEdition } from "../data/indianEdition";
 
 const coverPhotosArchieve = [
   ...colorAndGradients,
@@ -14,6 +15,7 @@ const coverPhotosArchieve = [
   ...nasaArchive,
   ...patterns,
   ...rijskMuseum,
+  ...indianEdition,
 ];
 
 export const getRandomPhoto = (): string => {

@@ -5,15 +5,42 @@ import { patterns } from "../../data/patterns";
 import { rijskMuseum } from "../../data/rijksMuseum";
 import { japanesePrint } from "../../data/japanesePrint";
 import { metMuseum } from "../../data/metMuseum";
-import styles from "./gallery.module.scss";
 import { ThemeContext } from "../../context/ThemeContext";
 import { useContext } from "react";
+import styles from "./gallery.module.scss";
+import { useAppSelector } from "../../app/hooks";
+import { usePageData } from "../../services/usePageData";
+import { useDispatch } from "react-redux";
+import { PageState, setPage } from "../../slice/pageSlice";
+import { indianEdition } from "../../data/indianEdition";
 
 const Gallery = () => {
   const { theme } = useContext(ThemeContext);
+  const pageInfo = useAppSelector((state) => state.page.pageInfo);
+  const { mutate: mutateUpdatePageCover } = usePageData.useUpdatePageCover();
+  const dispatch = useDispatch();
 
   const handleImageSelect = (img: string) => {
     console.log("selected image: ", img);
+    const pageData = {
+      pageId: pageInfo!.id,
+      url: img,
+      verticalPosition: 0,
+    };
+
+    mutateUpdatePageCover(pageData, {
+      onSuccess: async () => {
+        const updatedPage: PageState = {
+          ...pageInfo!,
+          coverPicture: {
+            ...pageInfo!.coverPicture,
+            url: img,
+          },
+        };
+
+        dispatch(setPage(updatedPage));
+      },
+    });
   };
 
   return (
@@ -143,6 +170,24 @@ const Gallery = () => {
               onClick={() => handleImageSelect(item)}
             >
               <img src={item} alt={`met-${index}`} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={`${styles.category}`}>
+        <div className={`${styles.title}`}>
+          <a href="https://www.artisera.com/pages/fine-art" target="blank">
+            THE INDIAN EDITION
+          </a>
+        </div>
+        <div className={`${styles.collection}`}>
+          {indianEdition.map((item, index) => (
+            <div
+              className={`${styles.display}`}
+              key={index}
+              onClick={() => handleImageSelect(item)}
+            >
+              <img src={item} alt={`bharat-${index}`} />
             </div>
           ))}
         </div>
