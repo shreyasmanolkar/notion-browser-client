@@ -52,6 +52,7 @@ const CoverLink = () => {
           value={coverLink}
           placeholder="Paste an image link..."
           onChange={handleCoverLinkChange}
+          autoFocus
         />
         <button type="submit">Submit</button>
       </form>
