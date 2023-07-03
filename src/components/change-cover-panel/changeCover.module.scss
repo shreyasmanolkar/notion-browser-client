@@ -16,13 +16,26 @@
     top: 34%;
     right: 14px;
     width: 540px;
-    height: 490px;
-    // max-height: 490px;
+    overflow-y: auto;
+    max-height: 490px;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background-color: $background-primary;
     display: flex;
     flex-direction: column;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 8px $scroll-track;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $scroll-thumb;
+      outline: 1px solid $scroll-thumb;
+    }
 
     .header {
       display: flex;
@@ -99,6 +112,15 @@
 .dark {
   .change_cover {
     background-color: $dark-background-tertiary;
+
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 8px $dark-scroll-track;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $dark-scroll-thumb;
+      outline: 1px solid #3f3e39;
+    }
 
     .header {
       .left_header {

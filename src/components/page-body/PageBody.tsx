@@ -10,11 +10,12 @@ import { usePageData } from "../../services/usePageData";
 import { request } from "../../lib/axios";
 import { useDispatch } from "react-redux";
 import { setWorkspace } from "../../slice/workspaceSlice";
-import { setPage } from "../../slice/pageSlice";
+import { PageState, setPage } from "../../slice/pageSlice";
 import { useQueryClient } from "react-query";
 import { PageType } from "../../common/types/Workspace";
 import { ReactComponent as AddCoverIcon } from "../../assets/icons/add-cover.svg";
 import ChangeCover from "../change-cover-panel";
+import { getRandomPhoto } from "../../utils/randomImage";
 
 const PageBody = () => {
   const { theme } = useContext(ThemeContext);
@@ -24,8 +25,6 @@ const PageBody = () => {
   const [emoji, setEmoji] = useState<string>("");
   const [emojiCode, setEmojiCode] = useState<string | null>(null);
   const [title, setTitle] = useState<string>(pageInfo?.title!);
-  // set cover
-  const [cover, setCover] = useState<boolean>(true);
   const [dragging, setDragging] = useState(false);
   const [verticalPosition, setVerticalPosition] = useState(0);
   const [repositionEnabled, setRepositionEnabled] = useState(false);
@@ -39,6 +38,7 @@ const PageBody = () => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
   const containerRef = useRef(null);
+  const { mutate: mutateUpdatePageCover } = usePageData.useUpdatePageCover();
 
   const handleBrokenImage = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src =
@@ -59,7 +59,27 @@ const PageBody = () => {
   };
 
   const handleAddCover = () => {
-    setCover(true);
+    const randomCover = getRandomPhoto();
+
+    const pageData = {
+      pageId: pageInfo!.id,
+      url: randomCover,
+      verticalPosition: 0,
+    };
+
+    mutateUpdatePageCover(pageData, {
+      onSuccess: async () => {
+        const updatedPage: PageState = {
+          ...pageInfo!,
+          coverPicture: {
+            ...pageInfo!.coverPicture,
+            url: randomCover,
+          },
+        };
+
+        dispatch(setPage(updatedPage));
+      },
+    });
   };
 
   const handleReposition = () => {
@@ -98,6 +118,7 @@ const PageBody = () => {
       updatedVerticalPosition,
       maxVerticalPosition
     );
+    updatedVerticalPosition = Math.min(updatedVerticalPosition, 0);
 
     setVerticalPosition(updatedVerticalPosition);
     setStartPosition({ x: e.clientX, y: e.clientY });
@@ -170,9 +191,39 @@ const PageBody = () => {
   }, [handleTitleChange]);
 
   useEffect(() => {
+    const saveVerticalPosition = debounce((verticalPosition: number) => {
+      if (pageInfo?.coverPicture.verticalPosition !== verticalPosition) {
+        const pageData = {
+          pageId: pageInfo!.id,
+          url: pageInfo?.coverPicture.url!,
+          verticalPosition,
+        };
+
+        mutateUpdatePageCover(pageData, {
+          onSuccess: async () => {
+            const updatedPage: PageState = {
+              ...pageInfo!,
+              coverPicture: {
+                ...pageInfo!.coverPicture,
+                verticalPosition: verticalPosition,
+              },
+            };
+
+            dispatch(setPage(updatedPage));
+          },
+        });
+      }
+    }, 5000);
+
     if (verticalPosition !== 0) {
       localStorage.setItem("imagePosition", JSON.stringify(verticalPosition));
+      saveVerticalPosition(verticalPosition);
     }
+
+    return () => {
+      saveVerticalPosition.cancel();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [verticalPosition]);
 
   useEffect(() => {
@@ -185,7 +236,7 @@ const PageBody = () => {
   return (
     <>
       <div className={`${styles.content} ${styles[theme]}`}>
-        {cover ? (
+        {pageInfo?.coverPicture.url !== "" ? (
           <div
             className={`${styles.cover} ${dragging ? styles.dragging : ""}`}
             ref={containerRef}
@@ -198,15 +249,16 @@ const PageBody = () => {
               style={{ transform: `translateY(${verticalPosition}px)` }}
             >
               <img
-                src="https://images.unsplash.com/photo-1685555845405-1503f76a5462?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src={pageInfo?.coverPicture.url}
                 alt="cover"
+                draggable={false}
               />
             </div>
           </div>
         ) : (
           <div className={`${styles.no_cover}`}></div>
         )}
-        {cover ? (
+        {pageInfo?.coverPicture.url !== "" ? (
           <div className={`${styles.image_footer}`}>
             <div
               className={`${styles.image_option}`}
@@ -220,7 +272,7 @@ const PageBody = () => {
               className={`${styles.image_option}`}
               onClick={handleReposition}
             >
-              {repositionEnabled ? "Cancle" : "Reposition"}
+              {repositionEnabled ? "Save" : "Reposition"}
             </div>
           </div>
         ) : (
@@ -248,7 +300,7 @@ const PageBody = () => {
             />
           </div>
           <div className={`${styles.page_header_options}`}>
-            {!cover ? (
+            {pageInfo?.coverPicture.url === "" ? (
               <div className={`${styles.add_button}`} onClick={handleAddCover}>
                 <AddCoverIcon />
                 <p>Add cover</p>
