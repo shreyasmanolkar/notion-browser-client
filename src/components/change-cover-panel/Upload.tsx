@@ -1,12 +1,50 @@
 import React, { useContext } from "react";
 import styles from "./upload.module.scss";
 import { ThemeContext } from "../../context/ThemeContext";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../config/firebase";
+import { v4 } from "uuid";
+import { useAppSelector } from "../../app/hooks";
+import { PageState, setPage } from "../../slice/pageSlice";
+import { usePageData } from "../../services/usePageData";
+import { useDispatch } from "react-redux";
 
 const Upload = () => {
   const { theme } = useContext(ThemeContext);
+  const pageInfo = useAppSelector((state) => state.page.pageInfo);
+  const { mutate: mutateUpdatePageCover } = usePageData.useUpdatePageCover();
+  const dispatch = useDispatch();
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    console.log("file", e.target.files?.[0]);
+    const selectedImage = e.target.files?.[0];
+
+    if (selectedImage === null) return;
+
+    const imageRef = ref(storage, `images/${selectedImage?.name + v4()}`);
+
+    uploadBytes(imageRef, selectedImage!).then((snapshort) => {
+      getDownloadURL(snapshort.ref).then((url) => {
+        const pageData = {
+          pageId: pageInfo!.id,
+          url,
+          verticalPosition: 0,
+        };
+
+        mutateUpdatePageCover(pageData, {
+          onSuccess: async () => {
+            const updatedPage: PageState = {
+              ...pageInfo!,
+              coverPicture: {
+                ...pageInfo!.coverPicture,
+                url,
+              },
+            };
+
+            dispatch(setPage(updatedPage));
+          },
+        });
+      });
+    });
   };
 
   return (
