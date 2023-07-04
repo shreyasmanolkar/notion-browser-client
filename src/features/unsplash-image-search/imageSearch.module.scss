@@ -1,0 +1,76 @@
+@use "../../styles/abstracts/colors" as *;
+
+.container {
+  padding: 14px;
+  height: 92%;
+
+  input {
+    width: 98%;
+    height: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: $background-tertiary;
+    border: 2px solid $background-primary;
+
+    &:focus {
+      outline: none;
+      border: 2px solid $primary;
+      box-shadow: 0 0 5px $primary;
+    }
+  }
+
+  p {
+    margin: 16px 0 0 0;
+    font-size: 12px;
+    color: $dark-color-primary;
+    text-align: center;
+  }
+
+  .result_display {
+    padding-top: 16px;
+
+    .collection {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      .display {
+        img {
+          border-radius: 5px;
+          width: 120px;
+          height: 65px;
+          object-fit: cover;
+          cursor: pointer;
+
+          &:hover {
+            filter: brightness(75%);
+          }
+        }
+
+        p {
+          margin: 0;
+          text-align: left;
+          width: 120px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+
+          a {
+            color: $dark-color-primary;
+          }
+        }
+      }
+    }
+  }
+}
+
+.dark {
+  color: $background-secondary;
+
+  input {
+    background-color: #313131;
+    color: $background-secondary;
+    border: 2px solid $dark-background-tertiary;
+  }
+}
