@@ -73,7 +73,7 @@
 
   .no_cover {
     height: 150px;
-    background-color: $dark-background-secondary;
+    background-color: $background-secondary;
   }
 
   .page_content {
@@ -200,6 +200,11 @@
         background-color: $dark-background-hover;
       }
     }
+  }
+
+  .no_cover {
+    height: 150px;
+    background-color: $dark-background-secondary;
   }
 
   .page_content {

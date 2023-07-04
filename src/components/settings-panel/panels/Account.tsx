@@ -6,6 +6,7 @@ import { useUserData } from "../../../services/useUserData";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../slice/userSlice";
 import styles from "./account.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const Account = () => {
   const { theme } = useContext(ThemeContext);
@@ -14,6 +15,7 @@ const Account = () => {
   const { mutate: mutateUpdateName } = useUserData.useUpdateUserNameData();
   const { mutate: mutateDeleteUser } = useUserData.useDeleteUserData();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setName(e.target.value);
@@ -49,7 +51,7 @@ const Account = () => {
     const userData = { userId: userInfo?.id! };
 
     mutateDeleteUser(userData);
-    // TODO redirect to registe page
+    navigate("/register");
   };
 
   useEffect(() => {

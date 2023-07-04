@@ -13,6 +13,7 @@ import { setPage } from "../../slice/pageSlice";
 import { checkSameIcons } from "../../utils/checkSameIcons";
 import { PageType } from "../../common/types/Workspace";
 import { checkSameTitles } from "../../utils/checkSameTitles";
+import { NavLink } from "react-router-dom";
 
 const PrivatePagesList = () => {
   const { theme } = useContext(ThemeContext);
@@ -195,23 +196,28 @@ const PrivatePagesList = () => {
                   <RightExpanIcon />
                 </div>
               </label>
-              <div
-                className={`${styles.page_emoji}`}
-                onClick={() => handleOnPageTabClick(item.id)}
+              <NavLink
+                to={`${item.reference}`}
+                className={`${styles.nav_link}`}
               >
-                <img
-                  src={getEmojiUrl(item.icon)}
-                  onError={(e) => handleBrokenImage(e)}
-                  alt=""
-                  draggable="false"
-                />
-              </div>
-              <div
-                className={`${styles.page_title}`}
-                onClick={() => handleOnPageTabClick(item.id)}
-              >
-                {item.title}
-              </div>
+                <div
+                  className={`${styles.page_emoji}`}
+                  onClick={() => handleOnPageTabClick(item.id)}
+                >
+                  <img
+                    src={getEmojiUrl(item.icon)}
+                    onError={(e) => handleBrokenImage(e)}
+                    alt=""
+                    draggable="false"
+                  />
+                </div>
+                <div
+                  className={`${styles.page_title}`}
+                  onClick={() => handleOnPageTabClick(item.id)}
+                >
+                  {item.title}
+                </div>
+              </NavLink>
               <div className={`${styles.page_settings}`}>
                 <div
                   className={`${styles.add_icon}`}

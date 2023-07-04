@@ -9,6 +9,7 @@ import styles from "./privatePageList.module.scss";
 import { request } from "../../lib/axios";
 import { useDispatch } from "react-redux";
 import { setPage } from "../../slice/pageSlice";
+import { NavLink } from "react-router-dom";
 
 const FavoritePagesList = () => {
   const { theme } = useContext(ThemeContext);
@@ -159,23 +160,28 @@ const FavoritePagesList = () => {
                   <RightExpanIcon />
                 </div>
               </label>
-              <div
-                className={`${styles.page_emoji}`}
-                onClick={() => handleOnPageTabClick(item.id)}
+              <NavLink
+                to={`${item.reference}`}
+                className={`${styles.nav_link}`}
               >
-                <img
-                  src={getEmojiUrl(item.icon)}
-                  onError={(e) => handleBrokenImage(e)}
-                  alt=""
-                  draggable="false"
-                />
-              </div>
-              <div
-                className={`${styles.page_title}`}
-                onClick={() => handleOnPageTabClick(item.id)}
-              >
-                {item.title}
-              </div>
+                <div
+                  className={`${styles.page_emoji}`}
+                  onClick={() => handleOnPageTabClick(item.id)}
+                >
+                  <img
+                    src={getEmojiUrl(item.icon)}
+                    onError={(e) => handleBrokenImage(e)}
+                    alt=""
+                    draggable="false"
+                  />
+                </div>
+                <div
+                  className={`${styles.page_title}`}
+                  onClick={() => handleOnPageTabClick(item.id)}
+                >
+                  {item.title}
+                </div>
+              </NavLink>
               <div className={`${styles.page_settings}`}></div>
             </div>
             <input

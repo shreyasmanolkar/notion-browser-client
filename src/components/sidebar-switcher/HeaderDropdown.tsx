@@ -6,13 +6,12 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../slice/userSlice";
 import CreateWorkspace from "./CreateWorkspace";
 import styles from "./headerDropdown.module.scss";
+import { useNavigate } from "react-router-dom";
 
 type HeaderDropdownProps = {
   openHeader: boolean;
   onCloseHeader: () => void;
 };
-
-// TODO: add create workspace and logout functionalities
 
 const HeaderDropdown: React.FC<HeaderDropdownProps> = ({
   openHeader,
@@ -21,10 +20,11 @@ const HeaderDropdown: React.FC<HeaderDropdownProps> = ({
   const { theme } = useContext(ThemeContext);
   const [openCreateWorkspace, setOpenCreateWorkspace] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
-    // TODO: navigate to register page
+    navigate("/login");
   };
 
   if (!openHeader) return null;

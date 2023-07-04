@@ -16,6 +16,7 @@ import { PageType } from "../../common/types/Workspace";
 import { ReactComponent as AddCoverIcon } from "../../assets/icons/add-cover.svg";
 import ChangeCover from "../change-cover-panel";
 import { getRandomPhoto } from "../../utils/randomImage";
+import { useNavigate, useParams } from "react-router-dom";
 
 const PageBody = () => {
   const { theme } = useContext(ThemeContext);
@@ -39,6 +40,8 @@ const PageBody = () => {
   const queryClient = useQueryClient();
   const containerRef = useRef(null);
   const { mutate: mutateUpdatePageCover } = usePageData.useUpdatePageCover();
+  let { pageReference } = useParams();
+  const navigate = useNavigate();
 
   const handleBrokenImage = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.src =
@@ -232,6 +235,16 @@ const PageBody = () => {
       setVerticalPosition(parseInt(JSON.parse(savedPosition)));
     }
   }, []);
+
+  useEffect(() => {
+    const validPath = workspaceInfo?.pages.filter(
+      (page) => page.reference === pageReference
+    );
+
+    if (validPath?.length === 0) {
+      navigate(`/${pageInfo?.reference}`);
+    }
+  }, [navigate, pageInfo?.reference, pageReference, workspaceInfo?.pages]);
 
   return (
     <>

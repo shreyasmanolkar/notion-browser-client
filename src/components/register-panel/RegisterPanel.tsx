@@ -12,6 +12,7 @@ import { AxiosError } from "axios";
 import { ThemeContext } from "../../context/ThemeContext";
 import styles from "./registerPanel.module.scss";
 import { setPage } from "../../slice/pageSlice";
+import { Link } from "react-router-dom";
 
 const RegisterPanel = () => {
   const { theme } = useContext(ThemeContext);
@@ -152,7 +153,7 @@ const RegisterPanel = () => {
         <br />
       </form>
       {error && <p className={`${styles.error}`}>{error}</p>}
-      <p>Already have an account?</p> <a href="/">Login</a>
+      <p>Already have an account?</p> <Link to="/login">Login</Link>
     </div>
   );
 };
