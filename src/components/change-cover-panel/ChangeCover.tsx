@@ -6,6 +6,10 @@ import Gallery from "./Gallery";
 import Upload from "./Upload";
 import CoverLink from "./CoverLink";
 import Unsplash from "./Unsplash";
+import { useAppSelector } from "../../app/hooks";
+import { useDispatch } from "react-redux";
+import { usePageData } from "../../services/usePageData";
+import { PageState, setPage } from "../../slice/pageSlice";
 
 type ChangeCoverProps = {
   open: boolean;
@@ -15,8 +19,34 @@ type ChangeCoverProps = {
 const ChangeCover: React.FC<ChangeCoverProps> = ({ open, onClose }) => {
   const { theme } = useContext(ThemeContext);
   const [activeTab, setActiveTab] = useState("gallery");
+  const pageInfo = useAppSelector((state) => state.page.pageInfo);
+  const { mutate: mutateUpdatePageCover } = usePageData.useUpdatePageCover();
+  const dispatch = useDispatch();
 
   if (!open) return null;
+
+  const handleRemove = () => {
+    const pageData = {
+      pageId: pageInfo!.id,
+      url: "",
+      verticalPosition: 0,
+    };
+
+    mutateUpdatePageCover(pageData, {
+      onSuccess: async () => {
+        const updatedPage: PageState = {
+          ...pageInfo!,
+          coverPicture: {
+            ...pageInfo!.coverPicture,
+            url: "",
+            verticalPosition: 0,
+          },
+        };
+
+        dispatch(setPage(updatedPage));
+      },
+    });
+  };
 
   return (
     <>
@@ -69,7 +99,7 @@ const ChangeCover: React.FC<ChangeCoverProps> = ({ open, onClose }) => {
               </div>
             </div>
             <div className={`${styles.right_header}`}>
-              <div className={`${styles.tab} `}>
+              <div className={`${styles.tab} `} onClick={handleRemove}>
                 <p>Remove</p>
               </div>
             </div>

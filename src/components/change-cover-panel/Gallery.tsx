@@ -7,12 +7,12 @@ import { japanesePrint } from "../../data/japanesePrint";
 import { metMuseum } from "../../data/metMuseum";
 import { ThemeContext } from "../../context/ThemeContext";
 import { useContext } from "react";
-import styles from "./gallery.module.scss";
 import { useAppSelector } from "../../app/hooks";
 import { usePageData } from "../../services/usePageData";
 import { useDispatch } from "react-redux";
 import { PageState, setPage } from "../../slice/pageSlice";
 import { indianEdition } from "../../data/indianEdition";
+import styles from "./gallery.module.scss";
 
 const Gallery = () => {
   const { theme } = useContext(ThemeContext);
