@@ -10,6 +10,7 @@ import { setWorkspace } from "../../slice/workspaceSlice";
 import { ThemeContext } from "../../context/ThemeContext";
 import { setPage } from "../../slice/pageSlice";
 import styles from "./loginPanel.module.scss";
+import { Link } from "react-router-dom";
 
 const LoginPanel = () => {
   const { theme } = useContext(ThemeContext);
@@ -117,7 +118,7 @@ const LoginPanel = () => {
         <br />
       </form>
       {error && <p className={`${styles.error}`}>{error}</p>}
-      <a href="/">Create New Account</a>
+      <Link to="/register">Create New Account</Link>
     </div>
   );
 };

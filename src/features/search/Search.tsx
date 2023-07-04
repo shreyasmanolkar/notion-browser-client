@@ -159,7 +159,10 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ open, onClose }) => {
             </div>
           </div>
           {/* search result */}
-          <SearchDisplay data={search(workspaceInfo?.pages!)} />
+          <SearchDisplay
+            data={search(workspaceInfo?.pages!)}
+            onClose={onClose}
+          />
         </div>
       </div>
       <SortPanel

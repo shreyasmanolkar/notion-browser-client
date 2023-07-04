@@ -11,6 +11,7 @@ import { setUser } from "../../slice/userSlice";
 import { setWorkspace } from "../../slice/workspaceSlice";
 import { setPage } from "../../slice/pageSlice";
 import { useWorkspaceData } from "../../services/useWorkspaceData";
+import { useNavigate } from "react-router-dom";
 
 const CreateWorkspacePanel = () => {
   const { theme } = useContext(ThemeContext);
@@ -30,6 +31,7 @@ const CreateWorkspacePanel = () => {
   const workspaceInfo = useAppSelector(
     (state) => state.workspace.workspaceInfo
   );
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
@@ -89,6 +91,7 @@ const CreateWorkspacePanel = () => {
           dispatch(setUser({ ...user.data }));
           dispatch(setWorkspace({ ...workspace.data }));
           dispatch(setPage({ ...page.data }));
+          navigate(`/${page.data.reference}`);
 
           setName("");
         }

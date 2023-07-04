@@ -9,6 +9,7 @@ import { request } from "../../lib/axios";
 import { setPage } from "../../slice/pageSlice";
 import styles from "./workspaceDisplayList.module.scss";
 import { useWorkspaceData } from "../../services/useWorkspaceData";
+import { useNavigate } from "react-router-dom";
 
 const WorkspaceDisplayList = () => {
   const { theme } = useContext(ThemeContext);
@@ -26,6 +27,7 @@ const WorkspaceDisplayList = () => {
   const [workspacesMetaData, setWorkspacesMetaData] =
     useState(initialWorkspaces);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSort = () => {
     let _workspaceMetaData = [...workspacesMetaData!];
@@ -66,6 +68,8 @@ const WorkspaceDisplayList = () => {
 
           dispatch(setWorkspace({ ...workspace.data }));
           dispatch(setPage({ ...page.data }));
+
+          navigate(`/${page.data.reference}`);
         }
       },
     });
