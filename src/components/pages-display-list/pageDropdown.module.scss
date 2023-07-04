@@ -34,23 +34,30 @@
         }
       }
 
-      .page_emoji {
-        margin-left: 4px;
-        cursor: pointer;
+      .nav_link {
+        text-decoration: none;
+        color: $color-primary;
+        width: 100%;
+        display: flex;
 
-        img {
-          width: 18px;
+        .page_emoji {
+          margin-left: 4px;
+          cursor: pointer;
+
+          img {
+            width: 18px;
+          }
         }
-      }
 
-      .page_title {
-        margin-left: 6px;
-        font-size: 14px;
-        width: 65%;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        cursor: pointer;
+        .page_title {
+          margin-left: 6px;
+          font-size: 14px;
+          width: 65%;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          cursor: pointer;
+        }
       }
 
       .page_settings {

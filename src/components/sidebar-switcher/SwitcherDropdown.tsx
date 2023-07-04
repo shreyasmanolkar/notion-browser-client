@@ -8,6 +8,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { useDispatch } from "react-redux";
 import { logout } from "../../slice/userSlice";
 import AddAccount from "./AddAccount";
+import { useNavigate } from "react-router-dom";
 
 type SwitcherDropdownProps = {
   open: boolean;
@@ -23,10 +24,11 @@ const SwitcherDropdown: React.FC<SwitcherDropdownProps> = ({
   const [openAddAccount, setOpenAddAccount] = useState<boolean>(false);
   const userInfo = useAppSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
-    // TODO: navigate to register page
+    navigate("/login");
   };
 
   const handleGetMac = () => {

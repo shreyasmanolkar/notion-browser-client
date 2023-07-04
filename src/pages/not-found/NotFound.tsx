@@ -3,9 +3,11 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { ReactComponent as NotionLogo } from "../../assets/icons/notion-logo.svg";
 import { ReactComponent as EyesIcon } from "../../assets/icons/eyes.svg";
 import styles from "./not-found.module.scss";
+import { useNavigate } from "react-router-dom";
 
 const NotFound = () => {
   const { theme } = useContext(ThemeContext);
+  const navigate = useNavigate();
 
   return (
     <div className={`${styles.container} ${styles[theme]}`}>
@@ -16,7 +18,7 @@ const NotFound = () => {
       <div className={`${styles.not_found_panel}`}>
         <EyesIcon data-testid="eyes-icon" className={`${styles.eyes}`} />
         <p>This content does not exist</p>
-        <button>Back to my content</button>
+        <button onClick={() => navigate(-1)}>Back to my content</button>
       </div>
     </div>
   );
