@@ -1,6 +1,6 @@
 import { BubbleMenu, Editor } from "@tiptap/react";
 import { NodeTypeDropDown } from "./NodeTypeDropDown";
-// import { ColorTypeDropDown } from "./ColorTypeDropDown";
+import { ColorTypeDropDown } from "./ColorTypeDropDown";
 import { generalButtons } from "./buttons";
 import styles from "./bubbleMenu.module.scss";
 import React, { useMemo } from "react";
@@ -37,7 +37,7 @@ export const CustomBubbleMenu: React.FC<CustomBubbleMenuProps> = React.memo(
       >
         <NodeTypeDropDown editor={editor} />
         {memoizedButtons}
-        {/* <ColorTypeDropDown editor={editor} /> */}
+        <ColorTypeDropDown editor={editor} />
       </BubbleMenu>
     );
   }

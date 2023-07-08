@@ -1,0 +1,129 @@
+.color_menu {
+  background-color: #252525;
+  position: absolute;
+  top: -10px;
+  padding: 0 12px;
+  z-index: 9999;
+
+  .color_dropdown_button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    .info {
+      display: flex;
+      align-items: center;
+
+      .default {
+        padding: 2px 4px;
+        color: white;
+      }
+
+      .gray {
+        padding: 2px 4px;
+        color: gray;
+      }
+
+      .brown {
+        padding: 2px 4px;
+        color: brown;
+      }
+
+      .orange {
+        padding: 2px 4px;
+        color: orange;
+      }
+
+      .yellow {
+        padding: 2px 4px;
+        color: yellow;
+      }
+
+      .green {
+        padding: 2px 4px;
+        color: green;
+      }
+
+      .blue {
+        padding: 2px 4px;
+        color: blue;
+      }
+
+      .purple {
+        padding: 2px 4px;
+        color: purple;
+      }
+
+      .pink {
+        padding: 2px 4px;
+        color: pink;
+      }
+
+      .red {
+        padding: 2px 4px;
+        color: red;
+      }
+
+      .background_red {
+        padding: 2px 4px;
+        background-color: red;
+        color: white;
+      }
+
+      .background_gray {
+        padding: 2px 4px;
+        background-color: gray;
+        color: white;
+      }
+
+      .background_brown {
+        padding: 2px 4px;
+        background-color: brown;
+        color: white;
+      }
+
+      .background_orange {
+        padding: 2px 4px;
+        background-color: orange;
+        color: white;
+      }
+
+      .background_yellow {
+        padding: 2px 4px;
+        background-color: yellow;
+        color: white;
+      }
+
+      .background_green {
+        padding: 2px 4px;
+        background-color: green;
+        color: white;
+      }
+
+      .background_blue {
+        padding: 2px 4px;
+        background-color: blue;
+        color: white;
+      }
+
+      .background_purple {
+        padding: 2px 4px;
+        background-color: purple;
+        color: white;
+      }
+
+      .background_pink {
+        padding: 2px 4px;
+        background-color: pink;
+        color: white;
+      }
+    }
+  }
+}
+
+.color_toggle_dropdown {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}

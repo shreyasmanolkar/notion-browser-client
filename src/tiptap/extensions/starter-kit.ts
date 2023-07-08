@@ -23,7 +23,9 @@ import Placeholder from "./placeholder";
 import Link from "./link";
 import Blockquote from "@tiptap/extension-blockquote";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
-import { BubbleMenuPlugin } from "./bubble-menu/bubble-menu-plugin";
+import Highlight from "@tiptap/extension-highlight";
+import TextStyle from "@tiptap/extension-text-style";
+import Color from "@tiptap/extension-color";
 
 interface GetExtensionsProps {
   openLinkModal: () => void;
@@ -80,6 +82,13 @@ export const getExtensions = ({ openLinkModal }: GetExtensionsProps) => {
       includeChildren: true,
     }),
 
-    // BubbleMenu
+    // Color
+    Highlight.configure({
+      multicolor: true,
+    }),
+    TextStyle,
+    Color.configure({
+      types: ["textStyle"],
+    }),
   ];
 };

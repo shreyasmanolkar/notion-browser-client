@@ -5,3 +5,7 @@
   height: 0;
   pointer-events: none;
 }
+
+* {
+  outline: none;
+}

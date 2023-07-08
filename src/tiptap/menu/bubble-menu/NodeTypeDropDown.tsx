@@ -7,24 +7,24 @@ import styles from "./nodeTypeDropDown.module.scss";
 export const NodeTypeDropDown = ({ editor }: { editor: Editor }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const buttonText = () => {
-    if (editor.isActive("heading", { level: 1 })) {
-      return "Heading 1";
-    }
-    if (editor.isActive("heading", { level: 2 })) {
-      return "Heading 2";
-    }
-    if (editor.isActive("heading", { level: 3 })) {
-      return "Heading 3";
-    }
-    if (editor.isActive("orderedList")) {
-      return "Number List";
-    }
-    if (editor.isActive("bulletList")) {
-      return "Bullet List";
-    }
-    return "Normal Text";
-  };
+  // const buttonText = () => {
+  //   if (editor.isActive("heading", { level: 1 })) {
+  //     return "Heading 1";
+  //   }
+  //   if (editor.isActive("heading", { level: 2 })) {
+  //     return "Heading 2";
+  //   }
+  //   if (editor.isActive("heading", { level: 3 })) {
+  //     return "Heading 3";
+  //   }
+  //   if (editor.isActive("orderedList")) {
+  //     return "Number List";
+  //   }
+  //   if (editor.isActive("bulletList")) {
+  //     return "Bullet List";
+  //   }
+  //   return "Normal Text";
+  // };
 
   const isOnlyParagraph =
     !editor.isActive("bulletList") &&
@@ -175,7 +175,7 @@ export const NodeTypeDropDown = ({ editor }: { editor: Editor }) => {
         className={`${styles.bubble_toggle_dropdown}`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="truncate">{buttonText()}</span>
+        <span className="truncate">Node</span>
         <DownIcon />
       </div>
     </Tippy>
