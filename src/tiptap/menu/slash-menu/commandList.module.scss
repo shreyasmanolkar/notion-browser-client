@@ -1,0 +1,17 @@
+.items {
+  background-color: #252525;
+  display: flex;
+  flex-direction: column;
+
+  .item {
+    display: flex;
+
+    .icon {
+      padding: 4px;
+    }
+  }
+
+  .is_selected {
+    background-color: black;
+  }
+}

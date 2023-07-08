@@ -28,6 +28,8 @@ import TextStyle from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
 import { SuperChargedTableExtensions } from "./supercharged-table/superChargedTableKit";
 import { ResizeableMedia } from "./resizableMedia/resizableMedia";
+import Mention from "@tiptap/extension-mention";
+import { suggestion } from "../menu/slash-menu/suggestions";
 
 interface GetExtensionsProps {
   openLinkModal: () => void;
@@ -118,6 +120,11 @@ export const getExtensions = ({ openLinkModal }: GetExtensionsProps) => {
 
         return "https://source.unsplash.com/8xznAGy4HcY/800x400";
       },
+    }),
+
+    // Slash-menu
+    Mention.configure({
+      suggestion: suggestion,
     }),
   ];
 };
