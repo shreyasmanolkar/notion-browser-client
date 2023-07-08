@@ -26,6 +26,8 @@ import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import Highlight from "@tiptap/extension-highlight";
 import TextStyle from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
+import { SuperChargedTableExtensions } from "./supercharged-table/superChargedTableKit";
+import { ResizeableMedia } from "./resizableMedia/resizableMedia";
 
 interface GetExtensionsProps {
   openLinkModal: () => void;
@@ -89,6 +91,33 @@ export const getExtensions = ({ openLinkModal }: GetExtensionsProps) => {
     TextStyle,
     Color.configure({
       types: ["textStyle"],
+    }),
+
+    // table
+    ...SuperChargedTableExtensions,
+
+    // Resizable Media
+    ResizeableMedia.configure({
+      uploadFn: async (image: string | Blob) => {
+        const fd = new FormData();
+
+        fd.append("file", image);
+
+        try {
+          const response = await fetch("https://api.imgur.com/3/image", {
+            method: "POST",
+            body: fd,
+          });
+
+          console.log(await response.json());
+        } catch {
+          // do your thing
+        } finally {
+          // do your thing
+        }
+
+        return "https://source.unsplash.com/8xznAGy4HcY/800x400";
+      },
     }),
   ];
 };
