@@ -5,31 +5,6 @@ import { autolink } from "./helpers/autolink";
 import { clickHandler } from "./helpers/clickHandler";
 import { pasteHandler } from "./helpers/pasteHandler";
 
-async function fetchOpenGraphData(url: string) {
-  try {
-    const response = await fetch(url);
-    const html = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, "text/html");
-    const metaTags = doc.querySelectorAll('meta[property^="og:"]');
-
-    // Extract Open Graph data
-    const openGraphData: { [key: string]: string } = {};
-    metaTags.forEach((tag) => {
-      const property = tag.getAttribute("property");
-      const content = tag.getAttribute("content");
-      const key = property!.replace("og:", "");
-      openGraphData[key] = content ?? "";
-    });
-
-    // Return Open Graph data
-    return openGraphData;
-  } catch (error) {
-    console.error("Error fetching Open Graph data:", error);
-    return null;
-  }
-}
-
 export interface LinkOptions {
   /**
    * If enabled, it adds links as you type.
@@ -61,8 +36,6 @@ export interface LinkOptions {
    * Runs a provided function when `Mod-k` is pressed
    */
   onModKPressed?: () => any;
-
-  fetchOpenGraph: boolean;
 }
 
 declare module "@tiptap/core" {
