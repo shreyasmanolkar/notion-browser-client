@@ -17,6 +17,7 @@ import { ReactComponent as AddCoverIcon } from "../../assets/icons/add-cover.svg
 import ChangeCover from "../change-cover-panel";
 import { getRandomPhoto } from "../../utils/randomImage";
 import { useNavigate, useParams } from "react-router-dom";
+import Tiptap from "../../tiptap";
 
 const PageBody = () => {
   const { theme } = useContext(ThemeContext);
@@ -334,6 +335,9 @@ const PageBody = () => {
               spellCheck="false"
             />
           </form>
+          <div className={`${styles.editor}`}>
+            <Tiptap />
+          </div>
         </div>
       </div>
       <EmojiSelector

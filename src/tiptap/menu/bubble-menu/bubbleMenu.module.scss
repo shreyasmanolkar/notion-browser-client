@@ -1,0 +1,32 @@
+.bubble_menu {
+  background-color: #252525;
+  color: #888888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  box-sizing: border-box;
+  z-index: 9999;
+
+  .bubble_menu_button {
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 14px;
+
+    .format_bold {
+      font-weight: bold;
+    }
+
+    .format_italic {
+      font-style: italic;
+    }
+
+    .format_underline {
+      text-decoration: underline;
+    }
+
+    .format_strike {
+      text-decoration: line-through;
+    }
+  }
+}
