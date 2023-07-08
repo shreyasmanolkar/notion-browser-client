@@ -1,5 +1,8 @@
 .media_node_view {
   display: flex;
+  // TODO: width
+  // width: 100%;
+  width: 1350px;
 
   .inner_media {
     width: fit-content;

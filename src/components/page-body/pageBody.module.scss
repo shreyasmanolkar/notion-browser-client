@@ -136,6 +136,11 @@
         }
       }
     }
+
+    .editor {
+      border: 1px solid red;
+      margin: 0 100px;
+    }
   }
 
   .full_width {
@@ -151,11 +156,6 @@
 
     form {
       padding: 10px 0 0 475px;
-    }
-
-    .editor {
-      border: 1px solid red;
-      margin: 0 100px;
     }
   }
 
