@@ -23,8 +23,8 @@ export const Tiptap = () => {
   return (
     editor && (
       <>
-        <EditorContent editor={editor} />
         <CustomBubbleMenu editor={editor} />
+        <EditorContent editor={editor} />
       </>
     )
   );

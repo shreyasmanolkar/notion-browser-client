@@ -1,0 +1,32 @@
+.bubble_menu {
+  background-color: #252525;
+  position: relative;
+  top: -10px;
+  padding: 0 12px;
+
+  .bubble_dropdown_item {
+    padding: 4px 0;
+
+    .bubble_dropdown_button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+
+      .info {
+        display: flex;
+        align-items: center;
+      }
+
+      .icon {
+        width: 10px;
+      }
+    }
+  }
+}
+
+.bubble_toggle_dropdown {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}

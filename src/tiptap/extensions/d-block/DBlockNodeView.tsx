@@ -29,19 +29,23 @@ export const DBlockNodeView: React.FC<NodeViewProps> = ({
   };
 
   return (
-    <NodeViewWrapper as="div" className={`${styles.dblock}`}>
-      <section className={`${styles.wrapper_section}`} aria-label="left-menu">
-        <div className={`${styles.icon}`} onClick={createNodeAfter}>
-          <PlusIcon />
-        </div>
-        <div className={`${styles.icon}`} draggable data-drag-handle>
-          <DragIcon />
-        </div>
-      </section>
+    <>
+      <NodeViewWrapper as="div" className={`${styles.dblock}`}>
+        <section className={`${styles.wrapper_section}`} aria-label="left-menu">
+          <div className={`${styles.icon}`} onClick={createNodeAfter}>
+            <PlusIcon />
+          </div>
+          <div className={`${styles.icon}`} draggable data-drag-handle>
+            <DragIcon />
+          </div>
+        </section>
 
-      <NodeViewContent
-        className={`${styles.dblock_view} ${isTable ? styles.margin_left : ""}`}
-      />
-    </NodeViewWrapper>
+        <NodeViewContent
+          className={`${styles.dblock_view} ${
+            isTable ? styles.margin_left : ""
+          }`}
+        />
+      </NodeViewWrapper>
+    </>
   );
 };
