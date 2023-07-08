@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useState } from "react";
+import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import { stopPrevent } from "../../utils/eventModifier";
 import { Icon } from "@iconify/react";
 import styles from "./commandList.module.scss";
@@ -11,10 +11,15 @@ interface CommandListProps {
 export const CommandList = React.forwardRef(
   ({ items, command }: CommandListProps, ref) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
       setSelectedIndex(0);
     }, [items]);
+
+    useEffect(() => {
+      scrollSelectedItemIntoView();
+    }, [selectedIndex]);
 
     useImperativeHandle(ref, () => ({
       onKeyDown: ({ event }: { event: KeyboardEvent }) => {
@@ -58,14 +63,35 @@ export const CommandList = React.forwardRef(
       if (item) setTimeout(() => command(item));
     };
 
+    const scrollSelectedItemIntoView = () => {
+      const container = scrollContainerRef.current;
+      const selectedItem = container?.querySelector(
+        // `.${styles.item}:nth-child(${selectedIndex + 1})`
+        `.${styles.item}:nth-child(${selectedIndex + 2})`
+      );
+
+      if (container && selectedItem) {
+        const containerRect = container.getBoundingClientRect();
+        const selectedItemRect = selectedItem.getBoundingClientRect();
+
+        if (selectedItemRect.bottom > containerRect.bottom) {
+          // Scroll down
+          container.scrollTop += selectedItemRect.bottom - containerRect.bottom;
+        } else if (selectedItemRect.top < containerRect.top) {
+          // Scroll up
+          container.scrollTop -= containerRect.top - selectedItemRect.top;
+        }
+      }
+    };
+
     return (
-      <div className={`${styles.items}`}>
+      <div className={`${styles.items}`} ref={scrollContainerRef}>
+        <div className={`${styles.bubble_menu_dropdown}`}>Basic blocks</div>
         {items.length ? (
           <>
             {items.map((item, index) => {
               return (
-                <button
-                  type="button"
+                <div
                   className={`
                   ${styles.item}
                   ${index === selectedIndex ? styles.is_selected : ""} 
@@ -76,17 +102,14 @@ export const CommandList = React.forwardRef(
                   onKeyDown={(e) => {
                     e.code === "Enter" && selectItem(index);
                   }}
+                  tabIndex={0}
                 >
-                  <span className={`${styles.icon}`}>
-                    <Icon icon={`${item.iconClass}`} />
-                  </span>
-                  <span
-                    className={`${styles.label}`}
-                    dangerouslySetInnerHTML={{
-                      __html: item.highlightedTitle || item.title,
-                    }}
-                  />
-                </button>
+                  <img src={item.img} alt="Text" width="48" height="48" />
+                  <div className={`${styles.info}`}>
+                    <div className={`${styles.title}`}>{item.title}</div>
+                    <div className={`${styles.description}`}>{item.desc}</div>
+                  </div>
+                </div>
               );
             })}
           </>

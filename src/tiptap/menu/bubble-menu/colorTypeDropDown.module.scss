@@ -1,9 +1,19 @@
+@use "../../../styles/abstracts/colors" as *;
+
 .color_menu {
   background-color: #252525;
   position: absolute;
   top: -10px;
-  padding: 0 12px;
+  width: 165px;
+  padding: 0 8px 8px 8px;
   z-index: 9999;
+  font-size: 14px;
+
+  .color_menu_dropdown {
+    color: wheat;
+    margin: 8px 0;
+    font-size: 10px;
+  }
 
   .color_dropdown_button {
     display: flex;
@@ -14,109 +24,149 @@
     .info {
       display: flex;
       align-items: center;
+      width: 100%;
+      padding: 4px;
+      font-size: 13px;
 
       .default {
+        font-size: 16px;
         padding: 2px 4px;
         color: white;
       }
 
       .gray {
+        font-size: 16px;
         padding: 2px 4px;
         color: gray;
       }
 
       .brown {
+        font-size: 16px;
         padding: 2px 4px;
         color: brown;
       }
 
       .orange {
+        font-size: 16px;
         padding: 2px 4px;
         color: orange;
       }
 
       .yellow {
+        font-size: 16px;
         padding: 2px 4px;
         color: yellow;
       }
 
       .green {
+        font-size: 16px;
         padding: 2px 4px;
         color: green;
       }
 
       .blue {
+        font-size: 16px;
         padding: 2px 4px;
         color: blue;
       }
 
       .purple {
+        font-size: 16px;
         padding: 2px 4px;
         color: purple;
       }
 
       .pink {
+        font-size: 16px;
         padding: 2px 4px;
         color: pink;
       }
 
       .red {
+        font-size: 16px;
         padding: 2px 4px;
         color: red;
       }
 
       .background_red {
-        padding: 2px 4px;
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
         background-color: red;
         color: white;
       }
 
       .background_gray {
-        padding: 2px 4px;
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
         background-color: gray;
         color: white;
       }
 
       .background_brown {
-        padding: 2px 4px;
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
         background-color: brown;
         color: white;
       }
 
       .background_orange {
-        padding: 2px 4px;
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
         background-color: orange;
         color: white;
       }
 
       .background_yellow {
-        padding: 2px 4px;
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
         background-color: yellow;
         color: white;
       }
 
       .background_green {
-        padding: 2px 4px;
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
         background-color: green;
         color: white;
       }
 
       .background_blue {
-        padding: 2px 4px;
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
         background-color: blue;
         color: white;
       }
 
       .background_purple {
-        padding: 2px 4px;
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
         background-color: purple;
         color: white;
       }
 
       .background_pink {
-        padding: 2px 4px;
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
         background-color: pink;
         color: white;
+      }
+
+      .label {
+        padding-left: 8px;
+        color: white;
+      }
+
+      &:hover {
+        background-color: #161616;
       }
     }
   }
@@ -126,4 +176,14 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  padding: 2px 8px;
+
+  .icon {
+    fill: $color-primary;
+    padding: 8px 0 0 2px;
+  }
+
+  &:hover {
+    background-color: #161616;
+  }
 }

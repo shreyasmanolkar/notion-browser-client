@@ -1,8 +1,15 @@
+@use "../../../styles/abstracts/colors" as *;
+
 .bubble_menu {
   background-color: #252525;
   position: relative;
   top: -10px;
-  padding: 0 12px;
+  padding: 8px 12px;
+
+  .bubble_menu_dropdown {
+    color: wheat;
+    font-size: 12px;
+  }
 
   .bubble_dropdown_item {
     padding: 4px 0;
@@ -16,10 +23,22 @@
       .info {
         display: flex;
         align-items: center;
+        font-size: 13px;
+        color: white;
+
+        img {
+          border-radius: 2px;
+          background-color: white;
+        }
+
+        .bubble_dropdown_button_label {
+          padding-left: 8px;
+        }
       }
 
       .icon {
         width: 10px;
+        color: white;
       }
     }
   }
@@ -29,4 +48,14 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  padding: 2px 8px;
+
+  .icon {
+    fill: $color-primary;
+    padding: 6px 0 0 2px;
+  }
+
+  &:hover {
+    background-color: #161616;
+  }
 }

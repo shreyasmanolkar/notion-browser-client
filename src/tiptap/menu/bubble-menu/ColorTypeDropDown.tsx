@@ -156,6 +156,27 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
             </div>
           </div>
 
+          <div className={`${styles.color_menu_dropdown}`}>
+            BACKGROUND COLOR
+          </div>
+
+          <div
+            className={`${styles.color_dropdown_button}`}
+            onClick={() => {
+              editor
+                .chain()
+                .focus()
+                .setColor("white")
+                .toggleHighlight({ color: "red" })
+                .run();
+            }}
+          >
+            <div className={`${styles.info}`}>
+              <div className={`${styles.background_red}`}>A</div>
+              <span className={`${styles.label}`}>Background Red</span>
+            </div>
+          </div>
+
           <div
             className={`${styles.color_dropdown_button}`}
             onClick={() => {
@@ -300,7 +321,9 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
       >
         {/* <span className="truncate">{colorType()}</span> */}
         <span className="truncate">Color</span>
-        <DownIcon />
+        <div className={`${styles.icon}`}>
+          <DownIcon />
+        </div>
       </div>
     </Tippy>
   );

@@ -2,6 +2,13 @@ import Tippy from "@tippyjs/react";
 import { Editor } from "@tiptap/core";
 import { useState } from "react";
 import { ReactComponent as DownIcon } from "../../../assets/icons/down-expand.svg";
+import textImg from "../../../assets/images/bubble-menu/en-US.png";
+import headerImg from "../../../assets/images/bubble-menu/header.57a7576a.png";
+import subHeaderImg from "../../../assets/images/bubble-menu/subheader.9aab4769.png";
+import subSubHeaderImg from "../../../assets/images/bubble-menu/subsubheader.d0ed0bb3.png";
+import numberedImg from "../../../assets/images/bubble-menu/numbered-list.0406affe.png";
+import bulletImg from "../../../assets/images/bubble-menu/bulleted-list.0e87e917.png";
+import toDoImg from "../../../assets/images/bubble-menu/to-do.f8d20542.png";
 import styles from "./nodeTypeDropDown.module.scss";
 
 export const NodeTypeDropDown = ({ editor }: { editor: Editor }) => {
@@ -47,7 +54,7 @@ export const NodeTypeDropDown = ({ editor }: { editor: Editor }) => {
           >
             <div className={`${styles.bubble_dropdown_button}`}>
               <div className={`${styles.info}`}>
-                <img src="/editor/text.png" alt="Text" width="24" height="24" />
+                <img src={textImg} alt="Text" width="24" height="24" />
                 <span className={`${styles.bubble_dropdown_button_label}`}>
                   Text
                 </span>
@@ -65,12 +72,7 @@ export const NodeTypeDropDown = ({ editor }: { editor: Editor }) => {
           >
             <div className={`${styles.bubble_dropdown_button}`}>
               <div className={`${styles.info}`}>
-                <img
-                  src="/editor/header.png"
-                  alt="Heading 1"
-                  width="24"
-                  height="24"
-                />
+                <img src={headerImg} alt="Heading 1" width="24" height="24" />
                 <span className={`${styles.bubble_dropdown_button_label}`}>
                   Heading 1
                 </span>
@@ -89,7 +91,7 @@ export const NodeTypeDropDown = ({ editor }: { editor: Editor }) => {
             <div className={`${styles.bubble_dropdown_button}`}>
               <div className={`${styles.info}`}>
                 <img
-                  src="/editor/header.png"
+                  src={subHeaderImg}
                   alt="Heading 2"
                   width="24"
                   height="24"
@@ -112,7 +114,7 @@ export const NodeTypeDropDown = ({ editor }: { editor: Editor }) => {
             <div className={`${styles.bubble_dropdown_button}`}>
               <div className={`${styles.info}`}>
                 <img
-                  src="/editor/header.png"
+                  src={subSubHeaderImg}
                   alt="Heading 3"
                   width="24"
                   height="24"
@@ -133,7 +135,7 @@ export const NodeTypeDropDown = ({ editor }: { editor: Editor }) => {
             <div className={`${styles.bubble_dropdown_button}`}>
               <div className={`${styles.info}`}>
                 <img
-                  src="/editor/numbered-list.png"
+                  src={numberedImg}
                   alt="Numbered List"
                   width="24"
                   height="24"
@@ -154,7 +156,7 @@ export const NodeTypeDropDown = ({ editor }: { editor: Editor }) => {
             <div className={`${styles.bubble_dropdown_button}`}>
               <div className={`${styles.info}`}>
                 <img
-                  src="/editor/numbered-list.png"
+                  src={bulletImg}
                   alt="Bulleted List"
                   width="24"
                   height="24"
@@ -168,6 +170,22 @@ export const NodeTypeDropDown = ({ editor }: { editor: Editor }) => {
               )}
             </div>
           </div>
+          <div
+            className={`${styles.bubble_dropdown_item}`}
+            onClick={() => editor.chain().focus().toggleTaskList().run()}
+          >
+            <div className={`${styles.bubble_dropdown_button}`}>
+              <div className={`${styles.info}`}>
+                <img src={toDoImg} alt="Task List" width="24" height="24" />
+                <span className={`${styles.bubble_dropdown_button_label}`}>
+                  Task List
+                </span>
+              </div>
+              {editor.isActive("taskList") && (
+                <div className={`${styles.icon}`}>&#10003;</div>
+              )}
+            </div>
+          </div>
         </div>
       }
     >
@@ -176,7 +194,9 @@ export const NodeTypeDropDown = ({ editor }: { editor: Editor }) => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="truncate">Node</span>
-        <DownIcon />
+        <div className={`${styles.icon}`}>
+          <DownIcon />
+        </div>
       </div>
     </Tippy>
   );
