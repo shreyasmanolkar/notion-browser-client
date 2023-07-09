@@ -10,7 +10,7 @@
     position: relative;
 
     .media_box {
-      border-radius: 2px;
+      border-radius: 5px;
     }
 
     .horizontal_resize_handle {
@@ -32,6 +32,9 @@
         padding-left: 0.5rem;
         padding-right: 0.5rem;
         border-radius: 0;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
       }
 
       .active {
