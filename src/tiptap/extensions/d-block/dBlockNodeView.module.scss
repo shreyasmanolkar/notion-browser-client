@@ -117,6 +117,8 @@
 }
 
 .dark {
+  color: $background-secondary;
+
   .wrapper_section {
     .icon {
       fill: $color-tertiary;

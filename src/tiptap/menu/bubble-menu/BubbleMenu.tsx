@@ -6,7 +6,8 @@ import { ReactComponent as GoToIcon } from "../../../assets/icons/go-to.svg";
 import { ReactComponent as CommentIcon } from "../../../assets/icons/comment.svg";
 import { ReactComponent as MentionIcon } from "../../../assets/icons/mention.svg";
 import styles from "./bubbleMenu.module.scss";
-import React, { useMemo } from "react";
+import React, { useContext, useMemo } from "react";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface CustomBubbleMenuProps {
   editor: Editor;
@@ -14,6 +15,8 @@ interface CustomBubbleMenuProps {
 
 export const CustomBubbleMenu: React.FC<CustomBubbleMenuProps> = React.memo(
   ({ editor }) => {
+    const { theme } = useContext(ThemeContext);
+
     const memoizedButtons = useMemo(() => {
       return generalButtons.map((btn) => (
         <div
@@ -31,7 +34,7 @@ export const CustomBubbleMenu: React.FC<CustomBubbleMenuProps> = React.memo(
     return (
       <BubbleMenu
         editor={editor}
-        className={`${styles.bubble_menu}`}
+        className={`${styles.bubble_menu} ${styles[theme]}`}
         tippyOptions={{
           duration: 200,
           animation: "shift-toward-subtle",

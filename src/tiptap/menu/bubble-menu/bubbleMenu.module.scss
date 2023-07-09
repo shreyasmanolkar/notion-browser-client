@@ -1,8 +1,9 @@
 @use "../../../styles/abstracts/colors" as *;
 
 .bubble_menu {
-  background-color: #252525;
-  color: #888888;
+  background-color: $background-secondary;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  color: $dark-background-hover;
   width: 460px;
   padding: 0 10px;
   display: flex;
@@ -15,18 +16,17 @@
 
   .divider {
     height: 26px;
-    border-left: 1px solid grey;
+    border-left: 1px solid $color-tertiary;
   }
 
   .filler_button {
     cursor: not-allowed;
     display: flex;
-    // margin: 0 8px;
     height: max-content;
     padding: 6px 8px;
 
     .icon {
-      fill: $color-primary;
+      fill: $dark-background-hover;
       padding-right: 4px;
     }
 
@@ -35,7 +35,7 @@
     }
 
     &:hover {
-      background-color: #161616;
+      background-color: $background-hover;
     }
   }
 
@@ -66,7 +66,32 @@
     }
 
     &:hover {
-      background-color: #161616;
+      background-color: $background-hover;
+    }
+  }
+}
+
+.dark {
+  background-color: $dark-background-tertiary;
+  color: $background-hover;
+
+  .divider {
+    border-left: 1px solid $dark-color-tertiary;
+  }
+
+  .filler_button {
+    .icon {
+      fill: $background-hover;
+    }
+
+    &:hover {
+      background-color: $dark-background-hover;
+    }
+  }
+
+  .bubble_menu_button {
+    &:hover {
+      background-color: $dark-background-hover;
     }
   }
 }

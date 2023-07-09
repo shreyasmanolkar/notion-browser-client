@@ -1,10 +1,13 @@
 import Tippy from "@tippyjs/react";
 import { Editor } from "@tiptap/core";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ReactComponent as DownIcon } from "../../../assets/icons/down-expand.svg";
+import { ThemeContext } from "../../../context/ThemeContext";
 import styles from "./colorTypeDropDown.module.scss";
+import dropButtonTogglestyles from "./colorTypeToggle.module.scss";
 
 export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
+  const { theme } = useContext(ThemeContext);
   const [isOpen, setIsOpen] = useState(false);
 
   // const colorType = () => {
@@ -52,7 +55,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
       offset={[0, 8]}
       zIndex={9999}
       content={
-        <div className={`${styles.color_menu}`}>
+        <div className={`${styles.color_menu} ${styles[theme]}`}>
           <div className={`${styles.color_menu_dropdown}`}>COLOR</div>
           <div
             className={`${styles.color_dropdown_button}`}
@@ -66,7 +69,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
 
           <div
             className={`${styles.color_dropdown_button}`}
-            onClick={() => editor.chain().focus().setColor("gray").run()}
+            onClick={() => editor.chain().focus().setColor("#898989").run()}
           >
             <div className={`${styles.info}`}>
               <div className={`${styles.gray}`}>A</div>
@@ -76,7 +79,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
 
           <div
             className={`${styles.color_dropdown_button}`}
-            onClick={() => editor.chain().focus().setColor("brown").run()}
+            onClick={() => editor.chain().focus().setColor("#976f5e").run()}
           >
             <div className={`${styles.info}`}>
               <div className={`${styles.brown}`}>A</div>
@@ -86,7 +89,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
 
           <div
             className={`${styles.color_dropdown_button}`}
-            onClick={() => editor.chain().focus().setColor("orange").run()}
+            onClick={() => editor.chain().focus().setColor("#c27a47").run()}
           >
             <div className={`${styles.info}`}>
               <div className={`${styles.orange}`}>A</div>
@@ -96,7 +99,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
 
           <div
             className={`${styles.color_dropdown_button}`}
-            onClick={() => editor.chain().focus().setColor("yellow").run()}
+            onClick={() => editor.chain().focus().setColor("#ca9849").run()}
           >
             <div className={`${styles.info}`}>
               <div className={`${styles.yellow}`}>A</div>
@@ -106,7 +109,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
 
           <div
             className={`${styles.color_dropdown_button}`}
-            onClick={() => editor.chain().focus().setColor("green").run()}
+            onClick={() => editor.chain().focus().setColor("#4b8c67").run()}
           >
             <div className={`${styles.info}`}>
               <div className={`${styles.green}`}>A</div>
@@ -116,7 +119,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
 
           <div
             className={`${styles.color_dropdown_button}`}
-            onClick={() => editor.chain().focus().setColor("blue").run()}
+            onClick={() => editor.chain().focus().setColor("#5c83c2").run()}
           >
             <div className={`${styles.info}`}>
               <div className={`${styles.blue}`}>A</div>
@@ -126,7 +129,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
 
           <div
             className={`${styles.color_dropdown_button}`}
-            onClick={() => editor.chain().focus().setColor("purple").run()}
+            onClick={() => editor.chain().focus().setColor("#835bac").run()}
           >
             <div className={`${styles.info}`}>
               <div className={`${styles.purple}`}>A</div>
@@ -136,7 +139,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
 
           <div
             className={`${styles.color_dropdown_button}`}
-            onClick={() => editor.chain().focus().setColor("pink").run()}
+            onClick={() => editor.chain().focus().setColor("#d15796").run()}
           >
             <div className={`${styles.info}`}>
               <div className={`${styles.pink}`}>A</div>
@@ -147,7 +150,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
           <div
             className={`${styles.color_dropdown_button}`}
             onClick={() => {
-              editor.chain().focus().setColor("red").run();
+              editor.chain().focus().setColor("#df5452").run();
             }}
           >
             <div className={`${styles.info}`}>
@@ -167,7 +170,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
                 .chain()
                 .focus()
                 .setColor("white")
-                .toggleHighlight({ color: "red" })
+                .toggleHighlight({ color: "#df5452" })
                 .run();
             }}
           >
@@ -184,7 +187,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
                 .chain()
                 .focus()
                 .setColor("white")
-                .toggleHighlight({ color: "gray" })
+                .toggleHighlight({ color: "#898989" })
                 .run();
             }}
           >
@@ -201,7 +204,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
                 .chain()
                 .focus()
                 .setColor("white")
-                .toggleHighlight({ color: "brown" })
+                .toggleHighlight({ color: "#976f5e" })
                 .run();
             }}
           >
@@ -218,7 +221,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
                 .chain()
                 .focus()
                 .setColor("white")
-                .toggleHighlight({ color: "orange" })
+                .toggleHighlight({ color: "#c27a47" })
                 .run();
             }}
           >
@@ -235,7 +238,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
                 .chain()
                 .focus()
                 .setColor("white")
-                .toggleHighlight({ color: "yellow" })
+                .toggleHighlight({ color: "#ca9849" })
                 .run();
             }}
           >
@@ -252,7 +255,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
                 .chain()
                 .focus()
                 .setColor("white")
-                .toggleHighlight({ color: "green" })
+                .toggleHighlight({ color: "#4b8c67" })
                 .run();
             }}
           >
@@ -269,7 +272,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
                 .chain()
                 .focus()
                 .setColor("white")
-                .toggleHighlight({ color: "blue" })
+                .toggleHighlight({ color: "#5c83c2" })
                 .run();
             }}
           >
@@ -286,7 +289,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
                 .chain()
                 .focus()
                 .setColor("white")
-                .toggleHighlight({ color: "purple" })
+                .toggleHighlight({ color: "#835bac" })
                 .run();
             }}
           >
@@ -303,7 +306,7 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
                 .chain()
                 .focus()
                 .setColor("white")
-                .toggleHighlight({ color: "Pink" })
+                .toggleHighlight({ color: "#df5452" })
                 .run();
             }}
           >
@@ -316,12 +319,12 @@ export const ColorTypeDropDown = ({ editor }: { editor: Editor }) => {
       }
     >
       <div
-        className={`${styles.color_toggle_dropdown}`}
+        className={`${dropButtonTogglestyles.color_toggle_dropdown}  ${dropButtonTogglestyles[theme]}`}
         onClick={() => setIsOpen(!isOpen)}
       >
         {/* <span className="truncate">{colorType()}</span> */}
         <span className="truncate">Color</span>
-        <div className={`${styles.icon}`}>
+        <div className={`${dropButtonTogglestyles.icon}`}>
           <DownIcon />
         </div>
       </div>
