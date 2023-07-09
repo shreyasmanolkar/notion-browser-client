@@ -1,6 +1,5 @@
 import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import { stopPrevent } from "../../utils/eventModifier";
-import { Icon } from "@iconify/react";
 import styles from "./commandList.module.scss";
 
 interface CommandListProps {
@@ -19,6 +18,7 @@ export const CommandList = React.forwardRef(
 
     useEffect(() => {
       scrollSelectedItemIntoView();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedIndex]);
 
     useImperativeHandle(ref, () => ({
