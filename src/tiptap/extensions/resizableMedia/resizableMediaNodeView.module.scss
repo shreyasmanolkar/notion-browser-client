@@ -1,8 +1,6 @@
 .media_node_view {
   display: flex;
-  // TODO: width
-  // width: 100%;
-  width: 1350px;
+  width: 1500px;
 
   .inner_media {
     width: fit-content;
@@ -55,6 +53,10 @@
       border-right: 5px solid rgb(36, 36, 36);
     }
   }
+}
+
+.full_width {
+  width: 700px;
 }
 
 .f_left {
