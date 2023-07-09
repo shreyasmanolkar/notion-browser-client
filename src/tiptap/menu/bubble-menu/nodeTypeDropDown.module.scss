@@ -1,13 +1,14 @@
 @use "../../../styles/abstracts/colors" as *;
 
 .bubble_menu {
-  background-color: #252525;
+  background-color: $background-secondary;
   position: relative;
   top: -10px;
-  padding: 8px 12px;
+  padding: 8px 4px;
+  width: 150px;
 
   .bubble_menu_dropdown {
-    color: wheat;
+    color: $dark-background-hover;
     font-size: 12px;
   }
 
@@ -24,7 +25,7 @@
         display: flex;
         align-items: center;
         font-size: 13px;
-        color: white;
+        color: $dark-background-hover;
 
         img {
           border-radius: 2px;
@@ -38,24 +39,36 @@
 
       .icon {
         width: 10px;
-        color: white;
+        color: $dark-background-hover;
       }
+    }
+
+    &:hover {
+      background-color: $background-hover;
     }
   }
 }
 
-.bubble_toggle_dropdown {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding: 2px 8px;
+.dark {
+  background-color: $dark-background-tertiary;
 
-  .icon {
-    fill: $color-primary;
-    padding: 6px 0 0 2px;
+  .bubble_menu_dropdown {
+    color: $background-hover;
   }
 
-  &:hover {
-    background-color: #161616;
+  .bubble_dropdown_item {
+    .bubble_dropdown_button {
+      .info {
+        color: $background-hover;
+      }
+
+      .icon {
+        color: $background-hover;
+      }
+    }
+
+    &:hover {
+      background-color: $dark-background-hover;
+    }
   }
 }

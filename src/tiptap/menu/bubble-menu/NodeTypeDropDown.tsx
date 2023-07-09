@@ -1,6 +1,6 @@
 import Tippy from "@tippyjs/react";
 import { Editor } from "@tiptap/core";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ReactComponent as DownIcon } from "../../../assets/icons/down-expand.svg";
 import textImg from "../../../assets/images/bubble-menu/en-US.png";
 import headerImg from "../../../assets/images/bubble-menu/header.57a7576a.png";
@@ -9,9 +9,12 @@ import subSubHeaderImg from "../../../assets/images/bubble-menu/subsubheader.d0e
 import numberedImg from "../../../assets/images/bubble-menu/numbered-list.0406affe.png";
 import bulletImg from "../../../assets/images/bubble-menu/bulleted-list.0e87e917.png";
 import toDoImg from "../../../assets/images/bubble-menu/to-do.f8d20542.png";
+import { ThemeContext } from "../../../context/ThemeContext";
 import styles from "./nodeTypeDropDown.module.scss";
+import toggleButtonStyles from "./nodeTypeToggle.module.scss";
 
 export const NodeTypeDropDown = ({ editor }: { editor: Editor }) => {
+  const { theme } = useContext(ThemeContext);
   const [isOpen, setIsOpen] = useState(false);
 
   // const buttonText = () => {
@@ -46,7 +49,7 @@ export const NodeTypeDropDown = ({ editor }: { editor: Editor }) => {
       animation="shift-toward-subtle"
       placement="bottom-start"
       content={
-        <div className={`${styles.bubble_menu}`}>
+        <div className={`${styles.bubble_menu}  ${styles[theme]}`}>
           <div className={`${styles.bubble_menu_dropdown}`}>Turn Into</div>
           <div
             className={`${styles.bubble_dropdown_item}`}
@@ -190,11 +193,11 @@ export const NodeTypeDropDown = ({ editor }: { editor: Editor }) => {
       }
     >
       <div
-        className={`${styles.bubble_toggle_dropdown}`}
+        className={`${toggleButtonStyles.bubble_toggle_dropdown} ${toggleButtonStyles[theme]}`}
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="truncate">Node</span>
-        <div className={`${styles.icon}`}>
+        <div className={`${toggleButtonStyles.icon}`}>
           <DownIcon />
         </div>
       </div>

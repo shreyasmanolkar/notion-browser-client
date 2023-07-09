@@ -1,0 +1,27 @@
+@use "../../../styles/abstracts/colors" as *;
+
+.bubble_toggle_dropdown {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 2px 8px;
+
+  .icon {
+    fill: $dark-background-hover;
+    padding: 6px 0 0 2px;
+  }
+
+  &:hover {
+    background-color: $background-hover;
+  }
+}
+
+.dark {
+  .icon {
+    fill: $background-hover;
+  }
+
+  &:hover {
+    background-color: $dark-background-hover;
+  }
+}
