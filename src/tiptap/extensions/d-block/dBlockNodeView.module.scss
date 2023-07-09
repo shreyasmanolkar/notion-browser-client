@@ -20,7 +20,7 @@
     background-color: rgba(#616161, 0.1);
     border-radius: 0.25em;
     box-decoration-break: clone;
-    color: #616161;
+    color: $danger;
     font-size: 0.9rem;
     padding: 0.25em;
   }
@@ -36,7 +36,7 @@
       align-items: center;
       padding: 0 2px;
       cursor: pointer;
-      fill: #616161;
+      fill: $dark-color-tertiary;
 
       &:last-child {
         cursor: grab;
@@ -55,7 +55,7 @@
     td,
     th {
       min-width: 15em;
-      border: 2px solid #ced4da;
+      border: 1px solid $color-tertiary;
       padding: 3px 5px;
       vertical-align: top;
       box-sizing: border-box;
@@ -69,12 +69,12 @@
     th {
       font-weight: bold;
       text-align: left;
-      background-color: #f1f3f5;
+      background-color: $background-hover;
     }
   }
 
   blockquote {
-    border-left: 3px solid rgba(13, 13, 13, 0.1);
+    border-left: 3px solid black;
     padding-left: 1rem;
   }
 
@@ -113,5 +113,28 @@
 
   &:hover .wrapper_section {
     visibility: visible;
+  }
+}
+
+.dark {
+  .wrapper_section {
+    .icon {
+      fill: $color-tertiary;
+    }
+  }
+
+  table {
+    td,
+    th {
+      border: 1px solid $color-primary;
+    }
+
+    th {
+      background-color: $dark-background-hover;
+    }
+  }
+
+  blockquote {
+    border-left: 3px solid white;
   }
 }
