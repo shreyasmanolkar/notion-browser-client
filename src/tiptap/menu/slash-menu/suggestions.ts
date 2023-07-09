@@ -134,6 +134,26 @@ const SlashMenuItems: Partial<SlashMenuItem>[] = [
     desc: "Capture a code snippet.",
     shortcut: "- C",
   },
+  // {
+  //   title: "Image",
+  //   command: ({ editor, range }) => {
+  //     editor
+  //       .chain()
+  //       .deleteRange(range)
+  //       .setMedia({
+  //         src: "https://source.unsplash.com/8xznAGy4HcY/800x400",
+  //         "media-type": "img",
+  //         alt: "Something else",
+  //         title: "Something",
+  //         width: "800",
+  //         height: "400",
+  //       })
+  //       .run();
+  //   },
+  //   img: artImg,
+  //   desc: "Upload or embed with a link.",
+  //   shortcut: "- I",
+  // },
   {
     title: "Image",
     command: ({ editor, range }) => {

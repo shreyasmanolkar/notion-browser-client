@@ -12,6 +12,8 @@ export const ResizableMediaNodeView = ({
   updateAttributes,
   deleteNode,
 }: NodeViewProps) => {
+  // console.log("node", JSON.stringify(node, null, 2));
+
   const [mediaType, setMediaType] = useState<"img" | "video">();
 
   useEffect(() => {

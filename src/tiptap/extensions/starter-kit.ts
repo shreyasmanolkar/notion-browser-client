@@ -30,6 +30,9 @@ import { SuperChargedTableExtensions } from "./supercharged-table/superChargedTa
 import { ResizeableMedia } from "./resizableMedia/resizableMedia";
 import Mention from "@tiptap/extension-mention";
 import { suggestion } from "../menu/slash-menu/suggestions";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../config/firebase";
+import { v4 } from "uuid";
 
 interface GetExtensionsProps {
   openLinkModal: () => void;
@@ -100,25 +103,18 @@ export const getExtensions = ({ openLinkModal }: GetExtensionsProps) => {
 
     // Resizable Media
     ResizeableMedia.configure({
-      uploadFn: async (image: string | Blob) => {
-        const fd = new FormData();
+      uploadFn: async (image: any) => {
+        if (image.name) {
+          const imageRef = ref(storage, `images/${image?.name + v4()}`);
 
-        fd.append("file", image);
-
-        try {
-          const response = await fetch("https://api.imgur.com/3/image", {
-            method: "POST",
-            body: fd,
-          });
-
-          console.log(await response.json());
-        } catch {
-          // do your thing
-        } finally {
-          // do your thing
+          try {
+            const snapshot = await uploadBytes(imageRef, image);
+            const url = await getDownloadURL(snapshot.ref);
+            return url;
+          } catch {
+            console.error("problem uploading file");
+          }
         }
-
-        return "https://source.unsplash.com/8xznAGy4HcY/800x400";
       },
     }),
 
