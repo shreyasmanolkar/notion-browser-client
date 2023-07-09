@@ -5,6 +5,7 @@ import { ReactComponent as LoopIcon } from "../../assets/icons/loop.svg";
 import { ReactComponent as MoveToIcon } from "../../assets/icons/move-to.svg";
 import { ReactComponent as CustomizeIcon } from "../../assets/icons/customize.svg";
 import { ReactComponent as LockIcon } from "../../assets/icons/lock.svg";
+import { ReactComponent as UnlockIcon } from "../../assets/icons/unlock.svg";
 import { ReactComponent as StarIcon } from "../../assets/icons/star.svg";
 import { ReactComponent as RemoveStarIcon } from "../../assets/icons/remove-star.svg";
 import { ReactComponent as LinkIcon } from "../../assets/icons/link.svg";
@@ -62,11 +63,17 @@ const PageOptions: React.FC<PageOptionsProps> = ({
   const [smallTextChecked, setSmallTextChecked] = useState(isSmallText);
   const isFullWidth = pageInfo?.pageSettings.fullWidth;
   const [fullWidthChecked, setFullWidthChecked] = useState(isFullWidth);
+  const isLock = pageInfo?.pageSettings.lock;
+  const [lock, setLock] = useState(isLock);
   const { mutate: mutateUpdatePageSettings } =
     usePageData.useUpdatePageSettings();
   const { mutate: mutateDeletePage } = usePageData.useDeletePageData();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
+
+  const handleOnLockClick = () => {
+    setLock(!lock);
+  };
 
   const handleFontChange = (font: string) => {
     setActiveFont(font);
@@ -153,6 +160,35 @@ const PageOptions: React.FC<PageOptionsProps> = ({
       },
     });
   }, [fullWidthChecked]);
+
+  useEffect(() => {
+    const pageSettingsData: updatePageSettingsData = {
+      pageId: pageInfo?.id!,
+      settings: {
+        ...pageInfo?.pageSettings!,
+      },
+    };
+
+    if (lock) {
+      pageSettingsData.settings.lock = lock;
+    } else {
+      pageSettingsData.settings.lock = lock!;
+    }
+
+    mutateUpdatePageSettings(pageSettingsData, {
+      onSuccess: async () => {
+        const updatedPage: PageType = {
+          ...pageInfo!,
+          pageSettings: {
+            ...pageInfo?.pageSettings!,
+            lock: lock!,
+          },
+        };
+
+        dispatch(setPage(updatedPage));
+      },
+    });
+  }, [lock]);
 
   useEffect(() => {
     const pageSettingsData: updatePageSettingsData = {
@@ -381,12 +417,16 @@ const PageOptions: React.FC<PageOptionsProps> = ({
                 <p>Customize page</p>
               </div>
             </div>
-            <div className={`${styles.tab}`}>
+            <div className={`${styles.tab}`} onClick={handleOnLockClick}>
               <div className={`${styles.icon}`}>
-                <LockIcon />
+                {pageInfo?.pageSettings.lock ? <LockIcon /> : <UnlockIcon />}
               </div>
               <div className={`${styles.title}`}>
-                <p>Lock page</p>
+                {pageInfo?.pageSettings.lock ? (
+                  <p>Lock page</p>
+                ) : (
+                  <p>Unlock page</p>
+                )}
               </div>
             </div>
           </div>
