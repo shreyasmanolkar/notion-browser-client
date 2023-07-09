@@ -1,6 +1,13 @@
-import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import { stopPrevent } from "../../utils/eventModifier";
 import styles from "./commandList.module.scss";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface CommandListProps {
   items: any[];
@@ -9,6 +16,7 @@ interface CommandListProps {
 
 export const CommandList = React.forwardRef(
   ({ items, command }: CommandListProps, ref) => {
+    const { theme } = useContext(ThemeContext);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -85,7 +93,10 @@ export const CommandList = React.forwardRef(
     };
 
     return (
-      <div className={`${styles.items}`} ref={scrollContainerRef}>
+      <div
+        className={`${styles.items} ${styles[theme]}`}
+        ref={scrollContainerRef}
+      >
         <div className={`${styles.bubble_menu_dropdown}`}>Basic blocks</div>
         {items.length ? (
           <>
@@ -114,7 +125,9 @@ export const CommandList = React.forwardRef(
             })}
           </>
         ) : (
-          <div className={`${styles.item}`}> No result </div>
+          <div className={`${styles.item}`}>
+            <div className={`${styles.no_result}`}>No result</div>
+          </div>
         )}
       </div>
     );
