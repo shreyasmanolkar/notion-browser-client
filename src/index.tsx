@@ -8,6 +8,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 import { ReactQueryProvider } from "./provider/reactQueryProvider";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
+import { NewPageContextProvider } from "./context/NewPageContext";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -18,7 +19,9 @@ root.render(
       <ReactQueryProvider>
         <Provider store={store}>
           <ThemeProvider>
-            <App />
+            <NewPageContextProvider>
+              <App />
+            </NewPageContextProvider>
           </ThemeProvider>
           <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
         </Provider>
