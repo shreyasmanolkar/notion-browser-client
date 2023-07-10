@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import { ReactComponent as OpenPageIcon } from "../../assets/icons/open-page.svg";
 import { ReactComponent as PeekModeIcon } from "../../assets/icons/peek-mode.svg";
@@ -21,6 +21,10 @@ import { setUser } from "../../slice/userSlice";
 import styles from "./createPagePanel.module.scss";
 import { setPage } from "../../slice/pageSlice";
 import CreatePageOptions from "./CreatePageOptions";
+import { NewPageContext } from "../../context/NewPageContext";
+import { getRandomPhoto } from "../../utils/randomImage";
+import ChangeNewPageCoverPanel from "./cover-panel/ChangeNewPageCoverPanel";
+import { NewPageTiptap } from "../../tiptap/NewPageTiptap";
 
 type CreatePageProps = {
   open: boolean;
@@ -34,6 +38,8 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
   parentPageId,
 }) => {
   const { theme } = useContext(ThemeContext);
+  const { pageSettings, content, coverPicture, setCoverPicture } =
+    useContext(NewPageContext);
   const [favorite, setFavorite] = useState(false);
   const [title, setTitle] = useState<string>("");
   const [openPicker, setOpenPicker] = useState(false);
@@ -41,9 +47,15 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
   const [emoji, setEmoji] = useState<string>("");
   const [emojiCode, setEmojiCode] = useState<string>("1f30e");
   const [displayEmoji, setDisplayEmoji] = useState(false);
+  const [dragging, setDragging] = useState(false);
   const { mutate } = usePageData.useCreatePageData();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
+  const containerRef = useRef(null);
+  const [repositionEnabled, setRepositionEnabled] = useState(false);
+  const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
+  const [verticalPosition, setVerticalPosition] = useState(0);
+  const [openChangeCover, setOpenChangeCover] = useState<boolean>(false);
 
   const workspaceInfo = useAppSelector(
     (state) => state.workspace.workspaceInfo
@@ -78,42 +90,8 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
 
   const handleCreatePage = () => {
     const icon = emojiCode;
-    const coverPicture = {
-      url: "",
-      verticalPosition: 0,
-    };
-    // TODO content
-    const content = {
-      type: "doc",
-      content: [
-        {
-          type: "dBlock",
-          content: [
-            {
-              type: "heading",
-              attrs: {
-                level: 1,
-              },
-              content: [
-                {
-                  type: "text",
-                  text: "untitled content",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    };
 
     const isFavorite = favorite ? [userInfo?.id] : [];
-    // TODO: page settings
-    const pageSettings = {
-      font: "serif",
-      smallText: true,
-      fullWidth: false,
-      lock: false,
-    };
 
     const path = pageMetaData ? `,${pageMetaData.reference}.` : null;
     const workspaceId = workspaceInfo?.id!;
@@ -122,7 +100,7 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
       title,
       icon,
       coverPicture,
-      content,
+      content: { ...content },
       favorite: isFavorite,
       pageSettings,
       path,
@@ -157,6 +135,59 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
         }
       },
     });
+  };
+
+  const handleAddCover = () => {
+    const randomCover = getRandomPhoto();
+
+    const coverPictureData = {
+      url: randomCover,
+      verticalPosition: 0,
+    };
+
+    setCoverPicture(coverPictureData);
+  };
+
+  const handleReposition = () => {
+    setRepositionEnabled((prevEnabled) => !prevEnabled);
+  };
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (repositionEnabled) {
+      setDragging(true);
+      setStartPosition({ x: e.clientX, y: e.clientY });
+    }
+  };
+
+  const handleMouseUp = () => {
+    if (repositionEnabled) {
+      setDragging(false);
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!dragging || !repositionEnabled || !containerRef.current) return;
+
+    const containerElement = containerRef.current as HTMLDivElement;
+    const containerHeight = containerElement.offsetHeight;
+
+    const firstChild = containerElement.firstChild as HTMLDivElement | null;
+    if (!firstChild) return;
+
+    const imageHeight = firstChild.offsetHeight;
+
+    const dy = e.clientY - startPosition.y;
+    const maxVerticalPosition = containerHeight - imageHeight;
+
+    let updatedVerticalPosition = verticalPosition + dy;
+    updatedVerticalPosition = Math.max(
+      updatedVerticalPosition,
+      maxVerticalPosition
+    );
+    updatedVerticalPosition = Math.min(updatedVerticalPosition, 0);
+
+    setVerticalPosition(updatedVerticalPosition);
+    setStartPosition({ x: e.clientX, y: e.clientY });
   };
 
   if (!open) return null;
@@ -230,9 +261,50 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
               </div>
             </div>
           </div>
-          <div className={`${styles.body}`}>
-            {/* TODO: cover photo */}
-            <div className={`${styles.cover}`}></div>
+          <div
+            className={`${styles.body}
+              ${pageSettings.smallText ? styles.small_text : ""}
+              ${styles[pageSettings.font!]}
+          `}
+          >
+            {coverPicture.url !== "" ? (
+              <div
+                className={`${styles.cover} ${dragging ? styles.dragging : ""}`}
+                ref={containerRef}
+                onMouseDown={handleMouseDown}
+                onMouseUp={handleMouseUp}
+                onMouseMove={handleMouseMove}
+              >
+                <div
+                  className={`${styles.image_wrapper}`}
+                  style={{ transform: `translateY(${verticalPosition}px)` }}
+                >
+                  <img src={coverPicture.url} alt="cover" draggable={false} />
+                </div>
+              </div>
+            ) : (
+              <div className={`${styles.no_cover}`}></div>
+            )}
+            {coverPicture.url !== "" ? (
+              <div className={`${styles.image_footer}`}>
+                <div
+                  className={`${styles.image_option}`}
+                  onClick={() => {
+                    setOpenChangeCover(true);
+                  }}
+                >
+                  Change cover
+                </div>
+                <div
+                  className={`${styles.image_option}`}
+                  onClick={handleReposition}
+                >
+                  {repositionEnabled ? "Save" : "Reposition"}
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
             {displayEmoji ? (
               <div
                 className={`${styles.emoji_display}`}
@@ -262,10 +334,17 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
                     <p>Add icon</p>
                   </div>
                 ) : null}
-                <div className={`${styles.add_button}`}>
-                  <AddCoverIcon />
-                  <p>Add cover</p>
-                </div>
+                {coverPicture.url === "" ? (
+                  <div
+                    className={`${styles.add_button}`}
+                    onClick={handleAddCover}
+                  >
+                    <AddCoverIcon />
+                    <p>Add cover</p>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
               <form>
                 <input
@@ -281,8 +360,8 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
                 />
               </form>
             </div>
-            <div className={`${styles.content}`}>
-              {/* TODO: include text editor */}
+            <div className={`${styles.editor}`}>
+              <NewPageTiptap />
             </div>
           </div>
           <div className={`${styles.footer}`}>
@@ -301,6 +380,10 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
         onClose={() => setOpenPageOptions(false)}
         favorite={favorite!}
         onFavoriteClick={() => setFavorite(!favorite)}
+      />
+      <ChangeNewPageCoverPanel
+        open={openChangeCover}
+        onClose={() => setOpenChangeCover(false)}
       />
     </>
   );

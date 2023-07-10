@@ -130,18 +130,96 @@
     }
 
     .body {
-      padding: 0 10%;
       height: 89%;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 8px $scroll-track;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $scroll-thumb;
+        outline: 1px solid $scroll-thumb;
+      }
 
       .cover {
-        height: 50px;
+        width: 100%;
+        height: 280px;
+        overflow: hidden;
+        z-index: -1;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          z-index: -1;
+        }
+      }
+
+      .dragging {
+        cursor: move;
+      }
+
+      .image_footer {
+        position: relative;
+        background-color: $background-secondary;
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 100px;
+
+        .image_option {
+          position: absolute;
+          top: -30px;
+          font-size: 12px;
+          padding: 4px 8px;
+          background-color: $background-secondary;
+          color: $dark-color-primary;
+          cursor: pointer;
+
+          &:first-child {
+            right: 173px;
+            border-radius: 4px 0 0 4px;
+            border-right: 1px solid $color-primary;
+          }
+
+          &:last-child {
+            right: 100px;
+            width: 57px;
+            text-align: center;
+            border-radius: 0 4px 4px 0;
+          }
+
+          &:hover {
+            background-color: $background-hover;
+          }
+        }
+      }
+
+      .no_cover {
+        height: 60px;
+        background-color: $background-secondary;
       }
 
       .emoji_display {
-        margin: 10px;
+        position: relative;
+        width: 80px;
+
+        img {
+          cursor: pointer;
+          width: 80px;
+          position: absolute;
+          top: -45px;
+          left: 90px;
+        }
       }
 
       .title {
+        padding: 5% 10% 0 10%;
+
         .page_options {
           display: flex;
           margin-left: 8px;
@@ -179,6 +257,52 @@
             }
           }
         }
+      }
+
+      .editor {
+        margin: 0 70px;
+      }
+    }
+
+    .small_text {
+      .title {
+        form {
+          input {
+            font-size: 32px;
+          }
+        }
+      }
+
+      .editor {
+        font-size: 14px;
+      }
+    }
+
+    .serif {
+      .title {
+        form {
+          input {
+            font-family: serif;
+          }
+        }
+      }
+
+      .editor {
+        font-family: serif;
+      }
+    }
+
+    .mono {
+      .title {
+        form {
+          input {
+            font-family: monospace;
+          }
+        }
+      }
+
+      .editor {
+        font-family: monospace;
       }
     }
 
@@ -256,6 +380,32 @@
     }
 
     .body {
+      &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 100px $dark-scroll-track;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $dark-scroll-thumb;
+        outline: 1px solid #3f3e39;
+      }
+
+      .image_footer {
+        background-color: $dark-background-primary;
+
+        .image_option {
+          background-color: $dark-background-tertiary;
+          color: $color-primary;
+
+          &:hover {
+            background-color: $dark-background-hover;
+          }
+        }
+      }
+
+      .no_cover {
+        background-color: $dark-background-primary;
+      }
+
       .title {
         .page_options {
           .add_button {

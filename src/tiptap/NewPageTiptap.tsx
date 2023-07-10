@@ -1,24 +1,17 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { getExtensions } from "./extensions/starter-kit";
 import CustomBubbleMenu from "./menu/bubble-menu";
-import { useAppSelector } from "../app/hooks";
 import { Editor } from "@tiptap/core";
 import { debounce } from "lodash";
-import { request } from "../lib/axios";
-import { useDispatch } from "react-redux";
-import { usePageData } from "../services/usePageData";
-import { setPage } from "../slice/pageSlice";
+import { NewPageContext } from "../context/NewPageContext";
 import "./styles.css";
 
-export const Tiptap = () => {
-  const pageInfo = useAppSelector((state) => state.page.pageInfo);
+export const NewPageTiptap = () => {
+  const { content, setContent, pageSettings } = useContext(NewPageContext);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isAddingNewLink, setIsAddingNewLink] = useState(false);
   const openLinkModal = () => setIsAddingNewLink(true);
-  const { mutate: mutateUpdatePageContent } =
-    usePageData.useUpdatePageContentData();
-  const dispatch = useDispatch();
   const [pageContent, setPageContent] = useState<any>(null);
 
   const logContent = useCallback(
@@ -31,23 +24,8 @@ export const Tiptap = () => {
   };
 
   useEffect(() => {
-    const savePageContent = debounce((content) => {
-      if (pageInfo?.content !== content) {
-        const pageData = {
-          content,
-          pageId: pageInfo?.id!,
-        };
-
-        mutateUpdatePageContent(pageData, {
-          onSuccess: async () => {
-            const page = await request({
-              url: `/pages/${pageInfo?.id}`,
-            });
-
-            dispatch(setPage({ ...page.data }));
-          },
-        });
-      }
+    const savePageContent = debounce((pageContent) => {
+      setContent(pageContent);
     }, 2000);
 
     savePageContent(pageContent);
@@ -74,14 +52,14 @@ export const Tiptap = () => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      editor?.setEditable(!pageInfo?.pageSettings.lock!);
-      editor?.commands.setContent(pageInfo?.content);
-      setPageContent(pageInfo?.content);
+      editor?.setEditable(!pageSettings.lock!);
+      editor?.commands.setContent(content);
+      setPageContent(content);
     }, 0);
 
     return () => clearTimeout(timeoutId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageInfo]);
+  }, []);
 
   return (
     editor && (
