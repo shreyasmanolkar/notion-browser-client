@@ -419,13 +419,13 @@ const PageOptions: React.FC<PageOptionsProps> = ({
             </div>
             <div className={`${styles.tab}`} onClick={handleOnLockClick}>
               <div className={`${styles.icon}`}>
-                {pageInfo?.pageSettings.lock ? <LockIcon /> : <UnlockIcon />}
+                {pageInfo?.pageSettings.lock ? <UnlockIcon /> : <LockIcon />}
               </div>
               <div className={`${styles.title}`}>
                 {pageInfo?.pageSettings.lock ? (
-                  <p>Lock page</p>
-                ) : (
                   <p>Unlock page</p>
+                ) : (
+                  <p>Lock page</p>
                 )}
               </div>
             </div>

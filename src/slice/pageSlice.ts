@@ -23,7 +23,8 @@ export interface PageState {
   title: string;
   icon: string;
   coverPicture: CoverPictureType;
-  content: ContentType;
+  // content: ContentType;
+  content: any;
   favorite: string[];
   pageSettings: PageSettingsType;
   path: string | null;
