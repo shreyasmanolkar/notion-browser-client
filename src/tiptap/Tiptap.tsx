@@ -58,24 +58,6 @@ export const Tiptap = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleContentUpdate]);
 
-  // const contentUpdate = async (content: any, pageId: string) => {
-  //   console.log("co", content);
-  //   const pageData = {
-  //     content,
-  //     pageId,
-  //   };
-
-  //   mutateUpdatePageContent(pageData, {
-  //     onSuccess: async () => {
-  //       const page = await request({
-  //         url: `/pages/${pageInfo}`,
-  //       });
-
-  //       dispatch(setPage({ ...page.data }));
-  //     },
-  //   });
-  // };
-
   const editor = useEditor({
     extensions: getExtensions({ openLinkModal }),
     editorProps: {
