@@ -24,6 +24,7 @@ import CreatePageOptions from "./CreatePageOptions";
 import { NewPageContext } from "../../context/NewPageContext";
 import { getRandomPhoto } from "../../utils/randomImage";
 import ChangeNewPageCoverPanel from "./cover-panel/ChangeNewPageCoverPanel";
+import { NewPageTiptap } from "../../tiptap/NewPageTiptap";
 
 type CreatePageProps = {
   open: boolean;
@@ -37,7 +38,7 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
   parentPageId,
 }) => {
   const { theme } = useContext(ThemeContext);
-  const { pageSettings, coverPicture, setCoverPicture } =
+  const { pageSettings, content, coverPicture, setCoverPicture } =
     useContext(NewPageContext);
   const [favorite, setFavorite] = useState(false);
   const [title, setTitle] = useState<string>("");
@@ -89,29 +90,6 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
 
   const handleCreatePage = () => {
     const icon = emojiCode;
-    // TODO content
-    const content = {
-      type: "doc",
-      content: [
-        {
-          type: "dBlock",
-          content: [
-            {
-              type: "heading",
-              attrs: {
-                level: 1,
-              },
-              content: [
-                {
-                  type: "text",
-                  text: "untitled content",
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    };
 
     const isFavorite = favorite ? [userInfo?.id] : [];
 
@@ -122,7 +100,7 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
       title,
       icon,
       coverPicture,
-      content,
+      content: { ...content },
       favorite: isFavorite,
       pageSettings,
       path,
@@ -283,7 +261,12 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
               </div>
             </div>
           </div>
-          <div className={`${styles.body}`}>
+          <div
+            className={`${styles.body}
+              ${pageSettings.smallText ? styles.small_text : ""}
+              ${styles[pageSettings.font!]}
+          `}
+          >
             {coverPicture.url !== "" ? (
               <div
                 className={`${styles.cover} ${dragging ? styles.dragging : ""}`}
@@ -377,8 +360,8 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
                 />
               </form>
             </div>
-            <div className={`${styles.content}`}>
-              {/* TODO: include text editor */}
+            <div className={`${styles.editor}`}>
+              <NewPageTiptap />
             </div>
           </div>
           <div className={`${styles.footer}`}>

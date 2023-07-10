@@ -131,6 +131,20 @@
 
     .body {
       height: 89%;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 8px $scroll-track;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $scroll-thumb;
+        outline: 1px solid $scroll-thumb;
+      }
 
       .cover {
         width: 100%;
@@ -186,13 +200,9 @@
       }
 
       .no_cover {
-        height: 80px;
+        height: 60px;
         background-color: $background-secondary;
       }
-
-      // .emoji_display {
-      //   margin: 10px;
-      // }
 
       .emoji_display {
         position: relative;
@@ -247,6 +257,52 @@
             }
           }
         }
+      }
+
+      .editor {
+        margin: 0 70px;
+      }
+    }
+
+    .small_text {
+      .title {
+        form {
+          input {
+            font-size: 32px;
+          }
+        }
+      }
+
+      .editor {
+        font-size: 14px;
+      }
+    }
+
+    .serif {
+      .title {
+        form {
+          input {
+            font-family: serif;
+          }
+        }
+      }
+
+      .editor {
+        font-family: serif;
+      }
+    }
+
+    .mono {
+      .title {
+        form {
+          input {
+            font-family: monospace;
+          }
+        }
+      }
+
+      .editor {
+        font-family: monospace;
       }
     }
 
@@ -324,6 +380,15 @@
     }
 
     .body {
+      &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 100px $dark-scroll-track;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $dark-scroll-thumb;
+        outline: 1px solid #3f3e39;
+      }
+
       .image_footer {
         background-color: $dark-background-primary;
 

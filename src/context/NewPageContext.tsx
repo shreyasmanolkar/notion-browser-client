@@ -12,8 +12,15 @@ export const NewPageContext = createContext<any>({
         type: "dBlock",
         content: [
           {
-            type: "text",
-            text: "",
+            type: "paragraph",
+          },
+        ],
+      },
+      {
+        type: "dBlock",
+        content: [
+          {
+            type: "paragraph",
           },
         ],
       },
@@ -41,8 +48,15 @@ export const NewPageContextProvider: React.FC<{ children: any }> = ({
         type: "dBlock",
         content: [
           {
-            type: "text",
-            text: "",
+            type: "paragraph",
+          },
+        ],
+      },
+      {
+        type: "dBlock",
+        content: [
+          {
+            type: "paragraph",
           },
         ],
       },
