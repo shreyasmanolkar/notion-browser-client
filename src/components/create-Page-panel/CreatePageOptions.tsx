@@ -10,6 +10,7 @@ import { ReactComponent as RemoveStarIcon } from "../../assets/icons/remove-star
 import { ReactComponent as LinkIcon } from "../../assets/icons/link.svg";
 import { ReactComponent as DuplicateIcon } from "../../assets/icons/duplicate.svg";
 import { ReactComponent as UndoIcon } from "../../assets/icons/undo.svg";
+import { ReactComponent as UnlockIcon } from "../../assets/icons/unlock.svg";
 import { ReactComponent as PageHistortyIcon } from "../../assets/icons/page-history.svg";
 import { ReactComponent as PageAnalyticsIcon } from "../../assets/icons/page-analytics.svg";
 import { ReactComponent as ShowDeletedPagesIcon } from "../../assets/icons/show-deleted-pages.svg";
@@ -17,14 +18,7 @@ import { ReactComponent as DeleteIcon } from "../../assets/icons/delete.svg";
 import { ReactComponent as ImportIcon } from "../../assets/icons/import.svg";
 import { ReactComponent as ExportIcon } from "../../assets/icons/export.svg";
 import { ThemeContext } from "../../context/ThemeContext";
-import {
-  updatePageSettingsData,
-  usePageData,
-} from "../../services/usePageData";
-import { useAppSelector } from "../../app/hooks";
-import { PageType } from "../../common/types/Page";
-import { useDispatch } from "react-redux";
-import { setPage } from "../../slice/pageSlice";
+import { NewPageContext } from "../../context/NewPageContext";
 
 type CreatePageOptionsProps = {
   open: boolean;
@@ -40,16 +34,15 @@ const CreatePageOptions: React.FC<CreatePageOptionsProps> = ({
   onFavoriteClick,
 }) => {
   const { theme } = useContext(ThemeContext);
-  const pageInfo = useAppSelector((state) => state.page.pageInfo);
-  const selectedFont = pageInfo?.pageSettings.font;
+  const { pageSettings, setPageSettings } = useContext(NewPageContext);
+  const selectedFont = pageSettings.font;
   const [activeFont, setActiveFont] = useState(selectedFont);
-  const isSmallText = pageInfo?.pageSettings.smallText;
+  const isSmallText = pageSettings.smallText;
   const [smallTextChecked, setSmallTextChecked] = useState(isSmallText);
-  const isFullWidth = pageInfo?.pageSettings.fullWidth;
+  const isFullWidth = pageSettings.fullWidth;
   const [fullWidthChecked, setFullWidthChecked] = useState(isFullWidth);
-  const { mutate: mutateUpdatePageSettings } =
-    usePageData.useUpdatePageSettings();
-  const dispatch = useDispatch();
+  const isLock = pageSettings.lock;
+  const [lockChecked, setLockChecked] = useState(isLock);
 
   const handleFontChange = (font: string) => {
     setActiveFont(font);
@@ -67,6 +60,10 @@ const CreatePageOptions: React.FC<CreatePageOptionsProps> = ({
     setFullWidthChecked(event.target.checked);
   };
 
+  const handleOnLockClick = () => {
+    setLockChecked(!isLock);
+  };
+
   useEffect(() => {
     setSmallTextChecked(isSmallText);
   }, [isSmallText]);
@@ -80,93 +77,66 @@ const CreatePageOptions: React.FC<CreatePageOptionsProps> = ({
   }, [isFullWidth]);
 
   useEffect(() => {
-    const pageSettingsData: updatePageSettingsData = {
-      pageId: pageInfo?.id!,
-      settings: {
-        ...pageInfo?.pageSettings!,
-      },
+    setLockChecked(isLock);
+  }, [isLock]);
+
+  useEffect(() => {
+    const pageSettingsData = {
+      ...pageSettings,
     };
 
     if (smallTextChecked) {
-      pageSettingsData.settings.smallText = smallTextChecked;
+      pageSettingsData.smallText = smallTextChecked;
     } else {
-      pageSettingsData.settings.smallText = smallTextChecked!;
+      pageSettingsData.smallText = smallTextChecked!;
     }
 
-    mutateUpdatePageSettings(pageSettingsData, {
-      onSuccess: async () => {
-        const updatedPage: PageType = {
-          ...pageInfo!,
-          pageSettings: {
-            ...pageInfo?.pageSettings!,
-            smallText: smallTextChecked!,
-          },
-        };
-
-        dispatch(setPage(updatedPage));
-      },
-    });
+    setPageSettings(pageSettingsData);
   }, [smallTextChecked]);
 
   useEffect(() => {
-    const pageSettingsData: updatePageSettingsData = {
-      pageId: pageInfo?.id!,
-      settings: {
-        ...pageInfo?.pageSettings!,
-      },
+    const pageSettingsData = {
+      ...pageSettings,
     };
 
     if (fullWidthChecked) {
-      pageSettingsData.settings.fullWidth = fullWidthChecked;
+      pageSettingsData.fullWidth = fullWidthChecked;
     } else {
-      pageSettingsData.settings.fullWidth = fullWidthChecked!;
+      pageSettingsData.fullWidth = fullWidthChecked!;
     }
 
-    mutateUpdatePageSettings(pageSettingsData, {
-      onSuccess: async () => {
-        const updatedPage: PageType = {
-          ...pageInfo!,
-          pageSettings: {
-            ...pageInfo?.pageSettings!,
-            fullWidth: fullWidthChecked!,
-          },
-        };
-
-        dispatch(setPage(updatedPage));
-      },
-    });
+    setPageSettings(pageSettingsData);
   }, [fullWidthChecked]);
 
   useEffect(() => {
-    const pageSettingsData: updatePageSettingsData = {
-      pageId: pageInfo?.id!,
-      settings: {
-        ...pageInfo?.pageSettings!,
-      },
+    const pageSettingsData = {
+      ...pageSettings,
     };
 
     if (activeFont === "san-serif") {
-      pageSettingsData.settings.font = activeFont;
+      pageSettingsData.font = activeFont;
     } else if (activeFont === "serif") {
-      pageSettingsData.settings.font = activeFont;
+      pageSettingsData.font = activeFont;
     } else if (activeFont === "mono") {
-      pageSettingsData.settings.font = activeFont;
+      pageSettingsData.font = activeFont;
     }
 
-    mutateUpdatePageSettings(pageSettingsData, {
-      onSuccess: async () => {
-        const updatedPage: PageType = {
-          ...pageInfo!,
-          pageSettings: {
-            ...pageInfo?.pageSettings!,
-            font: activeFont!,
-          },
-        };
-
-        dispatch(setPage(updatedPage));
-      },
-    });
+    setPageSettings(pageSettingsData);
   }, [activeFont]);
+
+  useEffect(() => {
+    const pageSettingsData = {
+      ...pageSettings,
+    };
+
+    if (lockChecked) {
+      pageSettingsData.lock = lockChecked;
+    } else {
+      pageSettingsData.lock = lockChecked!;
+    }
+
+    setPageSettings(pageSettingsData);
+  }, [lockChecked]);
 
   if (!open) return null;
 
@@ -277,12 +247,12 @@ const CreatePageOptions: React.FC<CreatePageOptionsProps> = ({
                 <p>Customize page</p>
               </div>
             </div>
-            <div className={`${styles.tab}`}>
+            <div className={`${styles.tab}`} onClick={handleOnLockClick}>
               <div className={`${styles.icon}`}>
-                <LockIcon />
+                {pageSettings.lock ? <UnlockIcon /> : <LockIcon />}
               </div>
               <div className={`${styles.title}`}>
-                <p>Lock page</p>
+                {pageSettings.lock ? <p>Unlock page</p> : <p>Lock page</p>}
               </div>
             </div>
           </div>
