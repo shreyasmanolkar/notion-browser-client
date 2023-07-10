@@ -22,8 +22,8 @@ const Upload = () => {
 
     const imageRef = ref(storage, `images/${selectedImage?.name + v4()}`);
 
-    uploadBytes(imageRef, selectedImage!).then((snapshort) => {
-      getDownloadURL(snapshort.ref).then((url) => {
+    uploadBytes(imageRef, selectedImage!).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
         const pageData = {
           pageId: pageInfo!.id,
           url,
