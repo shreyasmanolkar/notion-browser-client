@@ -1,0 +1,74 @@
+@use "../../../styles/abstracts/colors" as *;
+
+.bubble_menu {
+  background-color: $background-secondary;
+  position: relative;
+  top: -10px;
+  padding: 8px 4px;
+  width: 150px;
+
+  .bubble_menu_dropdown {
+    color: $dark-background-hover;
+    font-size: 12px;
+  }
+
+  .bubble_dropdown_item {
+    padding: 4px 0;
+
+    .bubble_dropdown_button {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+
+      .info {
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+        color: $dark-background-hover;
+
+        img {
+          border-radius: 2px;
+          background-color: white;
+        }
+
+        .bubble_dropdown_button_label {
+          padding-left: 8px;
+        }
+      }
+
+      .icon {
+        width: 10px;
+        color: $dark-background-hover;
+      }
+    }
+
+    &:hover {
+      background-color: $background-hover;
+    }
+  }
+}
+
+.dark {
+  background-color: $dark-background-tertiary;
+
+  .bubble_menu_dropdown {
+    color: $background-hover;
+  }
+
+  .bubble_dropdown_item {
+    .bubble_dropdown_button {
+      .info {
+        color: $background-hover;
+      }
+
+      .icon {
+        color: $background-hover;
+      }
+    }
+
+    &:hover {
+      background-color: $dark-background-hover;
+    }
+  }
+}

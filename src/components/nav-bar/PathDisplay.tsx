@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useAppSelector } from "../../app/hooks";
 import twemoji from "twemoji";
 import { ThemeContext } from "../../context/ThemeContext";
+import { ReactComponent as FilledLock } from "../../assets/icons/filled-lock.svg";
 import styles from "./pathDisplay.module.scss";
 import { request } from "../../lib/axios";
 import { setPage } from "../../slice/pageSlice";
@@ -14,6 +15,7 @@ type PathDisplayProps = {
 const PathDisplay: React.FC<PathDisplayProps> = ({ id }) => {
   const { theme } = useContext(ThemeContext);
   const dispatch = useDispatch();
+  const pageInfo = useAppSelector((state) => state.page.pageInfo);
   const workspaceInfo = useAppSelector(
     (state) => state.workspace.workspaceInfo
   );
@@ -88,27 +90,39 @@ const PathDisplay: React.FC<PathDisplayProps> = ({ id }) => {
   };
 
   return (
-    <div className={`${styles.path_container} ${styles[theme]}`}>
-      {handlePathDisplay(id).map((page) => (
-        <React.Fragment key={page.id}>
-          <div
-            className={`${styles.path_tab}`}
-            onClick={() => handlePathTabClick(page.id)}
-          >
-            <div className={`${styles.emoji}`}>
-              <img
-                src={getEmojiUrl(page.icon)}
-                onError={(e) => handleBrokenImage(e)}
-                alt="dp"
-                draggable="false"
-              />
+    <>
+      <div className={`${styles.path_container} ${styles[theme]}`}>
+        {handlePathDisplay(id).map((page) => (
+          <React.Fragment key={page.id}>
+            <div
+              className={`${styles.path_tab}`}
+              onClick={() => handlePathTabClick(page.id)}
+            >
+              <div className={`${styles.emoji}`}>
+                <img
+                  src={getEmojiUrl(page.icon)}
+                  onError={(e) => handleBrokenImage(e)}
+                  alt="dp"
+                  draggable="false"
+                />
+              </div>
+              {page.title}
             </div>
-            {page.title}
+            <div className={`${styles.separator}`}>/</div>
+          </React.Fragment>
+        ))}
+      </div>
+      {pageInfo?.pageSettings.lock ? (
+        <div className={`${styles.lock}`}>
+          <div className={`${styles.icon}`}>
+            <FilledLock />
           </div>
-          <div className={`${styles.separator}`}>/</div>
-        </React.Fragment>
-      ))}
-    </div>
+          Locked
+        </div>
+      ) : (
+        ""
+      )}
+    </>
   );
 };
 

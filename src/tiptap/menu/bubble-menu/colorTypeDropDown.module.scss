@@ -1,0 +1,194 @@
+@use "../../../styles/abstracts/colors" as *;
+
+.color_menu {
+  background-color: $background-secondary;
+  position: absolute;
+  top: -10px;
+  width: 165px;
+  padding: 0 8px 8px 8px;
+  z-index: 9999;
+  font-size: 14px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  .color_menu_dropdown {
+    color: $dark-background-hover;
+    margin: 8px 0;
+    font-size: 10px;
+  }
+
+  .color_dropdown_button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    .info {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 4px;
+      font-size: 13px;
+
+      .default {
+        font-size: 16px;
+        padding: 2px 4px;
+        color: white;
+      }
+
+      .gray {
+        font-size: 16px;
+        padding: 2px 4px;
+        color: #898989;
+      }
+
+      .brown {
+        font-size: 16px;
+        padding: 2px 4px;
+        color: #976f5e;
+      }
+
+      .orange {
+        font-size: 16px;
+        padding: 2px 4px;
+        color: #c27a47;
+      }
+
+      .yellow {
+        font-size: 16px;
+        padding: 2px 4px;
+        color: #ca9849;
+      }
+
+      .green {
+        font-size: 16px;
+        padding: 2px 4px;
+        color: #4b8c67;
+      }
+
+      .blue {
+        font-size: 16px;
+        padding: 2px 4px;
+        color: #5c83c2;
+      }
+
+      .purple {
+        font-size: 16px;
+        padding: 2px 4px;
+        color: #835bac;
+      }
+
+      .pink {
+        font-size: 16px;
+        padding: 2px 4px;
+        color: #d15796;
+      }
+
+      .red {
+        font-size: 16px;
+        padding: 2px 4px;
+        color: #df5452;
+      }
+
+      .background_gray {
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
+        background-color: #898989;
+        color: white;
+      }
+
+      .background_brown {
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
+        background-color: #976f5e;
+        color: white;
+      }
+
+      .background_orange {
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
+        background-color: #c27a47;
+        color: white;
+      }
+
+      .background_yellow {
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
+        background-color: #ca9849;
+        color: white;
+      }
+
+      .background_green {
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
+        background-color: #4b8c67;
+        color: white;
+      }
+
+      .background_blue {
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
+        background-color: #5c83c2;
+        color: white;
+      }
+
+      .background_purple {
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
+        background-color: #835bac;
+        color: white;
+      }
+
+      .background_pink {
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
+        background-color: #d15796;
+        color: white;
+      }
+
+      .background_red {
+        font-size: 16px;
+        padding: 2px 6px;
+        border-radius: 2px;
+        background-color: #df5452;
+        color: white;
+      }
+
+      .label {
+        padding-left: 8px;
+        color: $dark-background-hover;
+      }
+
+      &:hover {
+        background-color: $background-hover;
+      }
+    }
+  }
+}
+
+.dark {
+  background-color: $dark-background-tertiary;
+
+  .color_menu_dropdown {
+    color: $background-hover;
+  }
+
+  .color_dropdown_button {
+    .info {
+      .label {
+        color: $background-hover;
+      }
+
+      &:hover {
+        background-color: $dark-background-hover;
+      }
+    }
+  }
+}

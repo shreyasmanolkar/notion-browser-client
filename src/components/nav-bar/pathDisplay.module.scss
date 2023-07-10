@@ -47,3 +47,14 @@
     color: $color-primary;
   }
 }
+
+.lock {
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+  color: $color-primary;
+
+  .icon {
+    fill: $color-primary;
+  }
+}

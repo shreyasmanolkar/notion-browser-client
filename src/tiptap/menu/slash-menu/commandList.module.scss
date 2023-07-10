@@ -1,0 +1,104 @@
+@use "../../../styles/abstracts/colors" as *;
+
+.items {
+  background-color: $background-secondary;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 4px;
+  border-radius: 5px;
+  height: 400px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 8px $scroll-track;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $scroll-thumb;
+    outline: 1px solid $scroll-thumb;
+  }
+
+  .bubble_menu_dropdown {
+    color: $color-primary;
+    font-size: 12px;
+    padding: 0 0 8px 4px;
+  }
+
+  .item {
+    display: flex;
+    border-radius: 4px;
+    padding: 4px 8px;
+    width: 250px;
+
+    img {
+      background-color: white;
+      border-radius: 5px;
+      border: 1px solid $color-tertiary;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      padding-left: 8px;
+
+      .title {
+        font-size: 14px;
+        color: $dark-background-primary;
+      }
+
+      .description {
+        margin-top: 4px;
+        font-size: 12px;
+        color: $color-primary;
+      }
+    }
+
+    .no_result {
+      color: $dark-background-primary;
+    }
+  }
+
+  .is_selected {
+    background-color: $background-hover;
+  }
+}
+
+.dark {
+  background-color: $dark-background-tertiary;
+
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 8px $dark-scroll-track;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $dark-scroll-thumb;
+    outline: 1px solid #3f3e39;
+  }
+
+  .bubble_menu_dropdown {
+    color: $background-hover;
+  }
+
+  .item {
+    .info {
+      .title {
+        color: $background-hover;
+      }
+    }
+
+    .no_result {
+      color: $background-primary;
+    }
+  }
+
+  .is_selected {
+    background-color: $dark-background-hover;
+  }
+}
