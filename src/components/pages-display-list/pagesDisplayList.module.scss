@@ -1,7 +1,7 @@
 @use "../../styles/abstracts/colors" as *;
 
 .sidebar_body {
-  height: 69vh;
+  height: calc(100vh - (45px + 150px + 95px));
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
