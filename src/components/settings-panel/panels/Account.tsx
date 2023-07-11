@@ -5,11 +5,10 @@ import { ThemeContext } from "../../../context/ThemeContext";
 import { useUserData } from "../../../services/useUserData";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../slice/userSlice";
-import styles from "./account.module.scss";
-import { useNavigate } from "react-router-dom";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../../config/firebase";
 import { v4 } from "uuid";
+import styles from "./account.module.scss";
 
 const Account = () => {
   const { theme } = useContext(ThemeContext);
@@ -21,7 +20,6 @@ const Account = () => {
   const { mutate: mutateUploadUserProfilePicture } =
     useUserData.useUploadUserProfilePictureData();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setName(e.target.value);
@@ -56,8 +54,19 @@ const Account = () => {
   const handleDelete = () => {
     const userData = { userId: userInfo?.id! };
 
-    mutateDeleteUser(userData);
-    navigate("/register");
+    mutateDeleteUser(userData, {
+      onSuccess: async () => {
+        localStorage.removeItem("userInfo");
+        localStorage.removeItem("pageInfo");
+        localStorage.removeItem("workspaceInfo");
+        localStorage.removeItem("workspaceListState");
+        localStorage.removeItem("activePage");
+        localStorage.removeItem("pagesListState");
+        localStorage.removeItem("favoritePagesListState");
+        localStorage.removeItem("imagePosition");
+        window.location.reload();
+      },
+    });
   };
 
   useEffect(() => {
