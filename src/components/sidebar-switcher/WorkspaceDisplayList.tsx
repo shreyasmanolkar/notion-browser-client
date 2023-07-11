@@ -107,8 +107,6 @@ const WorkspaceDisplayList = () => {
   }, [workspacesMetaData, initialWorkspaces]);
 
   useEffect(() => {
-    // TODO: after implementing redirect on logout change if statement accordingly
-
     const savedState = localStorage.getItem("workspaceListState");
 
     if (savedState !== "undefined") {

@@ -22,16 +22,24 @@
         flex-direction: column;
         padding: 18px 0 0 0;
 
-        img {
-          border-radius: 50%;
-          width: 55px;
-          cursor: pointer;
-        }
-
         p {
           color: $dark-color-primary;
           width: 75px;
           font-size: 14px;
+        }
+
+        .file_upload {
+          cursor: pointer;
+
+          img {
+            border-radius: 50%;
+            width: 55px;
+            cursor: pointer;
+          }
+        }
+
+        input[type="file"] {
+          display: none;
         }
       }
 
