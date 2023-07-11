@@ -32,6 +32,11 @@ type deleteUserDataType = {
   userId: string;
 };
 
+type uploadUserProgilePictureDataType = {
+  userId: string;
+  url: string;
+};
+
 export class useUserData {
   static registerUser = async (user: userDataType) => {
     const response = await request({
@@ -93,6 +98,18 @@ export class useUserData {
     return response.data;
   };
 
+  static uploadUserProfilePicture = async (
+    data: uploadUserProgilePictureDataType
+  ) => {
+    const response = await request({
+      url: `/users/${data.userId}/profile-picture`,
+      method: "patch",
+      data,
+    });
+
+    return response.data;
+  };
+
   static useRegisterUserData = () => {
     return useMutation(useUserData.registerUser, {
       onSuccess: (data) => {
@@ -140,6 +157,15 @@ export class useUserData {
 
   static useDeleteUserData = () => {
     return useMutation(useUserData.deleteUser, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useUploadUserProfilePictureData = () => {
+    return useMutation(useUserData.uploadUserProfilePicture, {
       onSuccess: (data) => {
         return data;
       },

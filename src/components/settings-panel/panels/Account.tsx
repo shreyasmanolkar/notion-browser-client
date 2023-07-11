@@ -7,13 +7,19 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../../slice/userSlice";
 import styles from "./account.module.scss";
 import { useNavigate } from "react-router-dom";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../../config/firebase";
+import { v4 } from "uuid";
 
 const Account = () => {
   const { theme } = useContext(ThemeContext);
   const userInfo = useAppSelector((state) => state.user.userInfo);
   const [name, setName] = useState("");
+
   const { mutate: mutateUpdateName } = useUserData.useUpdateUserNameData();
   const { mutate: mutateDeleteUser } = useUserData.useDeleteUserData();
+  const { mutate: mutateUploadUserProfilePicture } =
+    useUserData.useUploadUserProfilePictureData();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -58,6 +64,32 @@ const Account = () => {
     setName(userInfo?.name || "");
   }, [userInfo?.name]);
 
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const selectedImage = e.target.files?.[0];
+    if (selectedImage === null) return;
+    const imageRef = ref(storage, `profile/${selectedImage?.name + v4()}`);
+    uploadBytes(imageRef, selectedImage!).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        const userData = {
+          userId: userInfo?.id!,
+          url,
+        };
+        mutateUploadUserProfilePicture(userData, {
+          onSuccess: async () => {
+            const updatedUser = {
+              ...userInfo!,
+              profilePicture: {
+                url,
+              },
+            };
+
+            dispatch(setUser(updatedUser));
+          },
+        });
+      });
+    });
+  };
+
   return (
     <div className={`${styles.panel} ${styles[theme]}`}>
       <div>
@@ -65,9 +97,11 @@ const Account = () => {
         <div className={`${styles.body}`}>
           <div className={`${styles.container}`}>
             <div className={`${styles.profile_picture}`}>
-              {/* TODO: add feature to upload picture */}
-              <img src={`${userInfo?.profilePicture.url}`} alt="dp" />
+              <label htmlFor="file-upload" className={`${styles.file_upload}`}>
+                <img src={userInfo?.profilePicture.url} alt="dp" />
+              </label>
               <p>Add Photo</p>
+              <input id="file-upload" type="file" onChange={handleFileUpload} />
             </div>
             <div className={`${styles.change_name}`}>
               <p>Preferred name</p>
