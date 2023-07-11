@@ -25,6 +25,7 @@ import { NewPageContext } from "../../context/NewPageContext";
 import { getRandomPhoto } from "../../utils/randomImage";
 import ChangeNewPageCoverPanel from "./cover-panel/ChangeNewPageCoverPanel";
 import { NewPageTiptap } from "../../tiptap/NewPageTiptap";
+import { useNavigate } from "react-router-dom";
 
 type CreatePageProps = {
   open: boolean;
@@ -56,6 +57,7 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
   const [verticalPosition, setVerticalPosition] = useState(0);
   const [openChangeCover, setOpenChangeCover] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const workspaceInfo = useAppSelector(
     (state) => state.workspace.workspaceInfo
@@ -126,8 +128,8 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
           dispatch(setUser({ ...user.data }));
           dispatch(setWorkspace({ ...workspace.data }));
           dispatch(setPage({ ...page.data }));
-          // TODO: redirect to page
 
+          navigate(`/${page.data.reference}`);
           setTitle("");
           setDisplayEmoji(false);
 

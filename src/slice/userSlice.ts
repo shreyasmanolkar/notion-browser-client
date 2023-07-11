@@ -39,6 +39,13 @@ const userSlice = createSlice({
     logout: (state) => {
       state.userInfo = null;
       localStorage.removeItem("userInfo");
+      localStorage.removeItem("pageInfo");
+      localStorage.removeItem("workspaceInfo");
+      localStorage.removeItem("workspaceListState");
+      localStorage.removeItem("activePage");
+      localStorage.removeItem("pagesListState");
+      localStorage.removeItem("favoritePagesListState");
+      localStorage.removeItem("imagePosition");
     },
   },
 });

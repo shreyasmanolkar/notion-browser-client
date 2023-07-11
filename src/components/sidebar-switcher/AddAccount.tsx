@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
-import LoginPanel from "../login-panel";
+import RegisterPanel from "../register-panel";
 import styles from "./addAccount.module.scss";
 
 type AddAccountProps = {
@@ -25,8 +25,7 @@ const AddAccount: React.FC<AddAccountProps> = ({
         className={`${styles.add_account}`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* TODO add register and login panel router*/}
-        <LoginPanel />
+        <RegisterPanel />
       </div>
     </div>
   );
