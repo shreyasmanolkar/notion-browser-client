@@ -98,7 +98,7 @@
 
       .key {
         p {
-          width: 675px;
+          max-width: 675px;
           font-size: 14px;
           margin: 0;
           color: $dark-color-tertiary;
@@ -352,6 +352,44 @@
 
     .divider {
       border-color: $dark-color-tertiary;
+    }
+  }
+}
+
+@media screen and (max-width: 1375px) {
+  .panel {
+    padding: 42px 22px 0 22px;
+
+    .body {
+      .container {
+        .change_name {
+          form {
+            input[type="text"] {
+              width: calc(35vw - 235px);
+              min-width: 150px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .panel {
+    .body {
+      .container {
+        .change_name {
+          form {
+            flex-direction: column;
+          }
+
+          button {
+            margin-top: 10px;
+            width: 160px;
+          }
+        }
+      }
     }
   }
 }

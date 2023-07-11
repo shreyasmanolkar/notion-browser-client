@@ -58,3 +58,15 @@
     fill: $color-primary;
   }
 }
+
+@media screen and (max-width: 800px) {
+  .path_container {
+    .path_tab {
+      display: none;
+
+      img {
+        display: block;
+      }
+    }
+  }
+}

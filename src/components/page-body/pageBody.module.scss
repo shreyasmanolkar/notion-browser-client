@@ -23,11 +23,13 @@
     overflow: hidden;
     z-index: -1;
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
+    .image_wrapper {
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+      }
     }
   }
 
@@ -247,6 +249,43 @@
         &::placeholder {
           color: $dark-background-hover;
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1320px) {
+  .content {
+    .cover {
+      height: 200px;
+      background-color: red;
+
+      .image_wrapper {
+        height: 800px;
+      }
+    }
+
+    .image_footer {
+      display: none;
+    }
+
+    .page_content {
+      .emoji_display {
+        img {
+          left: 16px;
+        }
+      }
+
+      .page_header_options {
+        margin-left: 16px;
+      }
+
+      form {
+        padding-left: 16px;
+      }
+
+      .editor {
+        margin: 0;
       }
     }
   }

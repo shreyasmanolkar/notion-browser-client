@@ -18,3 +18,12 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 }
+
+@media screen and (max-width: 1320px) {
+  .emoji_selector_background {
+    .emoji_selector {
+      margin-top: 400px;
+      margin-left: calc(190px - 40vw);
+    }
+  }
+}
