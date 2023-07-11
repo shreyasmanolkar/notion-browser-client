@@ -19,6 +19,7 @@ type EmojiSelectorProps = {
   setEmojiCode: (unified: string) => void;
   leftOpen: boolean;
   fullWidth: boolean;
+  cover: boolean;
 };
 
 const EmojiSelector: React.FC<EmojiSelectorProps> = ({
@@ -28,6 +29,7 @@ const EmojiSelector: React.FC<EmojiSelectorProps> = ({
   setEmoji,
   leftOpen,
   fullWidth,
+  cover,
 }) => {
   const { theme } = useContext(ThemeContext);
   const { mutate: mutateUpdatePageIcon } = usePageData.useUpdatePageIconData();
@@ -92,7 +94,7 @@ const EmojiSelector: React.FC<EmojiSelectorProps> = ({
     <div
       className={`${styles.emoji_selector_background} ${
         fullWidth ? styles.full_width : ""
-      } ${leftOpen ? "" : styles.left_open}`}
+      } ${leftOpen ? "" : styles.left_open} ${cover ? styles.cover : ""}`}
       onClick={closePicker}
     >
       <div

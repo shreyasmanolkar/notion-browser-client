@@ -12,7 +12,7 @@
   align-items: center;
 
   .emoji_selector {
-    margin-top: 225px;
+    margin-top: -20px;
     margin-left: -100px;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -28,5 +28,22 @@
 .left_open {
   .emoji_selector {
     margin-left: -1300px;
+  }
+}
+
+.cover {
+  .emoji_selector {
+    margin-top: 225px;
+  }
+}
+
+@media screen and (max-width: 1320px) {
+  .emoji_selector_background {
+    background-color: rgba(0, 0, 0, 0.5);
+
+    .emoji_selector {
+      margin-top: 100px;
+      margin-left: calc(190px - 40vw);
+    }
   }
 }
