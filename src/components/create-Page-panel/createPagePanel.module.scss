@@ -430,3 +430,54 @@
     }
   }
 }
+
+@media screen and (max-width: 1320px) {
+  .create_page_background {
+    .create_page {
+      width: 80vw;
+      height: 80vh;
+
+      .body {
+        .editor {
+          margin: 0 8%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .create_page_background {
+    .create_page {
+      .header {
+        .left_options {
+          .add_to {
+            .parent_page_title {
+              display: none;
+            }
+          }
+        }
+
+        .right_options {
+          .tab {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .create_page_background {
+    .create_page {
+      .header {
+        .right_options {
+          .invalid_icon {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

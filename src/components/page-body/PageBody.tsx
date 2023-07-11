@@ -347,6 +347,7 @@ const PageBody = () => {
         setEmojiCode={setEmojiCode}
         leftOpen={leftOpen}
         fullWidth={pageInfo?.pageSettings.fullWidth!}
+        cover={pageInfo?.coverPicture.url !== ""}
       />
       <ChangeCover
         open={openChangeCover}

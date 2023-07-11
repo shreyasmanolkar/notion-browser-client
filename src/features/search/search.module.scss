@@ -214,3 +214,11 @@
     }
   }
 }
+
+@media screen and (max-width: 800px) {
+  .search_panel_background {
+    .search_panel {
+      width: 90vw;
+    }
+  }
+}

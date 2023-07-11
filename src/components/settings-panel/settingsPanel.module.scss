@@ -21,7 +21,7 @@
     display: flex;
 
     .sidebar {
-      width: 21%;
+      min-width: 21%;
       background-color: $background-primary;
       border-radius: 5px 0 0 5px;
 
@@ -236,6 +236,66 @@
       &::-webkit-scrollbar-thumb {
         background-color: $dark-scroll-thumb;
         outline: 1px solid #3f3e39;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1375px) {
+  .settings_panel_background {
+    .settings_panel {
+      width: 80vw;
+
+      .sidebar {
+        min-width: 245px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .settings_panel_background {
+    .settings_panel {
+      .sidebar {
+        min-width: 20px;
+
+        .account {
+          .title {
+            display: none;
+          }
+
+          .info_tab {
+            .name {
+              display: none;
+            }
+
+            .email {
+              display: none;
+            }
+          }
+
+          .tabs {
+            p {
+              display: none;
+            }
+          }
+        }
+
+        .workspace {
+          .title {
+            display: none;
+          }
+
+          .tabs {
+            p {
+              display: none;
+            }
+          }
+        }
+      }
+
+      .body {
+        width: 92%;
       }
     }
   }
