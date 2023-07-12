@@ -1,4 +1,5 @@
 @use "../../styles/abstracts/colors" as *;
+@use "../../styles/abstracts/modalAnimation" as *;
 
 .update_panel_background {
   width: 100vw;
@@ -9,6 +10,7 @@
   z-index: 1;
 
   .update_panel {
+    @include modal-animation();
     width: 500px;
     height: 260px;
     position: absolute;

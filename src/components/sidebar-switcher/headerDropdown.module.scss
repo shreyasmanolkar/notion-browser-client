@@ -1,4 +1,5 @@
 @use "../../styles/abstracts/colors" as *;
+@use "../../styles/abstracts/modalAnimation" as *;
 
 .header_dropdown_background {
   width: 100vw;
@@ -8,6 +9,7 @@
   cursor: auto;
 
   .header_dropdown {
+    @include modal-animation();
     position: absolute;
     top: 70px;
     left: 150px;

@@ -1,4 +1,5 @@
 @use "../../styles/abstracts/colors" as *;
+@use "../../styles/abstracts/modalAnimation" as *;
 
 .dropdown_background {
   width: 100vw;
@@ -9,6 +10,7 @@
   cursor: auto;
 
   .dropdown {
+    @include modal-animation();
     position: absolute;
     top: 45px;
     left: 10px;
@@ -75,3 +77,13 @@
     }
   }
 }
+
+// @keyframes modal {
+//   0% {
+//     opacity: 0;
+//   }
+
+//   100% {
+//     opacity: 1;
+//   }
+// }

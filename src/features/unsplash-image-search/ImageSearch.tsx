@@ -66,6 +66,7 @@ const ImageSearch = () => {
           placeholder="Search for an image..."
           onChange={(e) => setQuery(e.target.value)}
           autoFocus
+          autoComplete="off"
         />
         {searchImages && searchImages.length === 0 ? (
           <p>No result found.</p>
