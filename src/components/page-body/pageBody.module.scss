@@ -101,6 +101,7 @@
       display: flex;
       margin-left: 90px;
       color: $dark-color-primary;
+      transition: margin-left 1s;
 
       .add_button {
         display: flex;
