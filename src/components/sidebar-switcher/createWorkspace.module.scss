@@ -1,6 +1,8 @@
 @use "../../styles/abstracts/colors" as *;
+@use "../../styles/abstracts/modalAnimation" as *;
 
 .create_workspace_background {
+  @include modal-animation();
   width: 100vw;
   height: 100vh;
   background-color: rgba(255, 255, 255, 0.5);
@@ -12,6 +14,7 @@
   cursor: auto;
 
   .create_workspace {
+    @include modal-animation();
     width: 450px;
     height: 550px;
     border-radius: 12px;

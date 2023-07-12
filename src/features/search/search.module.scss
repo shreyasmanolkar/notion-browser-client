@@ -1,6 +1,8 @@
 @use "../../styles/abstracts/colors" as *;
+@use "../../styles/abstracts/modalAnimation" as *;
 
 .search_panel_background {
+  @include modal-animation();
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -13,6 +15,7 @@
   z-index: 1;
 
   .search_panel {
+    @include modal-animation();
     width: 655px;
     max-height: 750px;
     position: absolute;
