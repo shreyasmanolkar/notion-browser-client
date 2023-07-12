@@ -144,6 +144,21 @@
       margin: 0 50px;
       transition: margin 1s;
     }
+
+    .project {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      color: $dark-color-tertiary;
+      background-color: $background-primary;
+      border: 1px solid $color-tertiary;
+
+      padding: 3px 16px;
+      font-size: 26px;
+      border-radius: 50%;
+      z-index: 1;
+      cursor: pointer;
+    }
   }
 
   .full_width {
@@ -254,6 +269,12 @@
           color: $dark-background-hover;
         }
       }
+    }
+
+    .project {
+      border: none;
+      background-color: $dark-background-tertiary;
+      color: $color-tertiary;
     }
   }
 }

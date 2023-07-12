@@ -12,6 +12,7 @@
 .right {
   background-color: gray;
   transition: width 0.3s ease-in-out;
+  z-index: 2;
 
   .sidebar {
     color: #80807c;

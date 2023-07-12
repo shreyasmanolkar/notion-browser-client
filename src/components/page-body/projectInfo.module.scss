@@ -1,0 +1,79 @@
+@use "../../styles/abstracts/colors" as *;
+@use "../../styles/abstracts/modalAnimation" as *;
+
+.project_info_background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  .project_info {
+    @include modal-animation();
+    background-color: $background-tertiary;
+    width: 200px;
+    position: absolute;
+    bottom: 60px;
+    right: 20px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 8px;
+
+    .title {
+      color: $dark-color-tertiary;
+      padding: 0 4px 4px 4px;
+      font-size: 14px;
+    }
+
+    .tab {
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      border: 1px solid $background-secondary;
+      text-decoration: none;
+      cursor: pointer;
+
+      .img {
+        padding: 4px;
+
+        img {
+          width: 36px;
+          border-radius: 5px;
+        }
+      }
+
+      .info {
+        font-size: 14px;
+        padding-left: 10px;
+        color: $dark-color-tertiary;
+      }
+
+      &:hover {
+        background-color: $background-hover;
+      }
+    }
+  }
+}
+
+.dark {
+  .project_info {
+    background-color: $dark-background-tertiary;
+
+    .title {
+      color: $color-tertiary;
+    }
+
+    .tab {
+      border: 1px solid $dark-background-secondary;
+
+      .info {
+        color: $color-tertiary;
+      }
+
+      &:hover {
+        background-color: $dark-background-hover;
+      }
+    }
+  }
+}
