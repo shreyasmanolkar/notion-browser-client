@@ -357,6 +357,7 @@ const PageBody = () => {
           <div className={`${styles.editor}`}>
             <Tiptap />
           </div>
+          <div className={`${styles.project}`}>!</div>
         </div>
       </div>
       <EmojiSelector

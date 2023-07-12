@@ -6,7 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "./context/ThemeContext";
 import { ReactQueryProvider } from "./provider/reactQueryProvider";
-import { ReactQueryDevtools } from "react-query/devtools";
+// import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
 import { NewPageContextProvider } from "./context/NewPageContext";
 
@@ -23,7 +23,7 @@ root.render(
               <App />
             </NewPageContextProvider>
           </ThemeProvider>
-          <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+          {/* <ReactQueryDevtools initialIsOpen={false} position="bottom-right" /> */}
         </Provider>
       </ReactQueryProvider>
     </BrowserRouter>
