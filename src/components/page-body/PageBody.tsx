@@ -18,6 +18,7 @@ import ChangeCover from "../change-cover-panel";
 import { getRandomPhoto } from "../../utils/randomImage";
 import { useNavigate, useParams } from "react-router-dom";
 import Tiptap from "../../tiptap";
+import ProjectInfo from "./ProjectInfo";
 
 const PageBody = () => {
   const { theme } = useContext(ThemeContext);
@@ -32,6 +33,7 @@ const PageBody = () => {
   const [repositionEnabled, setRepositionEnabled] = useState(false);
   const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
   const [openChangeCover, setOpenChangeCover] = useState<boolean>(false);
+  const [openProjectInfo, setOpenProjectInfo] = useState<boolean>(false);
   const { mutate: mutateUpdatePageTitle } =
     usePageData.useUpdatePageTitleData();
   const workspaceInfo = useAppSelector(
@@ -126,6 +128,18 @@ const PageBody = () => {
 
     setVerticalPosition(updatedVerticalPosition);
     setStartPosition({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleChangeFavicon = (href: string) => {
+    const favicon = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+    if (favicon) {
+      favicon.href = href;
+    } else {
+      const newFavicon = document.createElement("link");
+      newFavicon.rel = "icon";
+      newFavicon.href = href;
+      document.head.appendChild(newFavicon);
+    }
   };
 
   useEffect(() => {
@@ -247,6 +261,13 @@ const PageBody = () => {
     }
   }, [navigate, pageInfo?.reference, pageReference, workspaceInfo?.pages]);
 
+  useEffect(() => {
+    handleChangeFavicon(
+      `https://twemoji.maxcdn.com/v/latest/72x72/${pageInfo?.icon}.png`
+    );
+    document.title = pageInfo?.title!;
+  }, [pageInfo?.icon, pageInfo?.title]);
+
   return (
     <>
       <div className={`${styles.content} ${styles[theme]}`}>
@@ -338,6 +359,14 @@ const PageBody = () => {
           <div className={`${styles.editor}`}>
             <Tiptap />
           </div>
+          <div
+            className={`${styles.project}`}
+            onClick={() => {
+              setOpenProjectInfo(true);
+            }}
+          >
+            !
+          </div>
         </div>
       </div>
       <EmojiSelector
@@ -352,6 +381,10 @@ const PageBody = () => {
       <ChangeCover
         open={openChangeCover}
         onClose={() => setOpenChangeCover(false)}
+      />
+      <ProjectInfo
+        open={openProjectInfo}
+        onClose={() => setOpenProjectInfo(false)}
       />
     </>
   );
