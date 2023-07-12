@@ -128,6 +128,18 @@ const PageBody = () => {
     setStartPosition({ x: e.clientX, y: e.clientY });
   };
 
+  const handleChangeFavicon = (href: string) => {
+    const favicon = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+    if (favicon) {
+      favicon.href = href;
+    } else {
+      const newFavicon = document.createElement("link");
+      newFavicon.rel = "icon";
+      newFavicon.href = href;
+      document.head.appendChild(newFavicon);
+    }
+  };
+
   useEffect(() => {
     setEmojiCode(null);
   }, [emojiCode]);
@@ -246,6 +258,13 @@ const PageBody = () => {
       navigate(`/${pageInfo?.reference}`);
     }
   }, [navigate, pageInfo?.reference, pageReference, workspaceInfo?.pages]);
+
+  useEffect(() => {
+    handleChangeFavicon(
+      `https://twemoji.maxcdn.com/v/latest/72x72/${pageInfo?.icon}.png`
+    );
+    document.title = pageInfo?.title!;
+  }, [pageInfo?.icon, pageInfo?.title]);
 
   return (
     <>
