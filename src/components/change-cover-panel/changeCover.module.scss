@@ -1,4 +1,5 @@
 @use "../../styles/abstracts/colors" as *;
+@use "../../styles/abstracts/modalAnimation" as *;
 
 .change_cover_background {
   width: 100vw;
@@ -12,6 +13,7 @@
   z-index: 1;
 
   .change_cover {
+    @include modal-animation();
     position: fixed;
     top: 34%;
     right: 14px;

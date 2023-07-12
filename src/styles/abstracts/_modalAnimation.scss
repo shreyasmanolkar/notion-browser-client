@@ -1,0 +1,14 @@
+@mixin modal-animation() {
+  opacity: 0;
+  animation: modal 0.18s ease-in-out forwards;
+}
+
+@keyframes modal {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

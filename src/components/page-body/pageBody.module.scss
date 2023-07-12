@@ -92,6 +92,7 @@
         position: absolute;
         top: -45px;
         left: 90px;
+        transition: left 1s;
       }
     }
 
@@ -119,6 +120,7 @@
 
     form {
       padding: 10px 0 0 75px;
+      transition: padding 1s;
 
       input {
         width: 90%;
@@ -139,6 +141,7 @@
 
     .editor {
       margin: 0 50px;
+      transition: margin 1s;
     }
   }
 
