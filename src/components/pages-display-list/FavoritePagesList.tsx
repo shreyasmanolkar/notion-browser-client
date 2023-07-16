@@ -163,6 +163,7 @@ const FavoritePagesList = () => {
               <NavLink
                 to={`${item.reference}`}
                 className={`${styles.nav_link}`}
+                onClick={() => handleOnPageTabClick(item.id)}
               >
                 <div
                   className={`${styles.page_emoji}`}
