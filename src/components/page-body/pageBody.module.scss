@@ -3,6 +3,7 @@
 .content {
   overflow-y: auto;
   height: calc(100vh - 44px);
+  background-color: $background-secondary;
 
   &::-webkit-scrollbar {
     width: 10px;
