@@ -22,7 +22,7 @@ import ProjectInfo from "./ProjectInfo";
 
 const PageBody = () => {
   const { theme } = useContext(ThemeContext);
-  const { leftOpen } = useContext(SidebarLogicContext);
+  const { leftOpen, rightOpen } = useContext(SidebarLogicContext);
   const [openPicker, setOpenPicker] = useState(false);
   const pageInfo = useAppSelector((state) => state.page.pageInfo);
   const [emoji, setEmoji] = useState<string>("");
@@ -318,6 +318,8 @@ const PageBody = () => {
             pageInfo?.pageSettings.fullWidth ? "" : styles.full_width
           }
           ${pageInfo?.pageSettings.smallText ? styles.small_text : ""}
+          ${leftOpen ? styles.left_open : ""}
+          ${rightOpen ? styles.right_open : ""}
           ${styles[pageInfo?.pageSettings.font!]}
           `}
         >
