@@ -4,7 +4,6 @@
   display: flex;
   width: 90vw;
   transition: width 0.4s ease-in-out;
-  border: 1px solid red;
 
   .inner_media {
     width: fit-content;
@@ -134,6 +133,6 @@
 
 @media screen and (max-width: 1320px) {
   .media_node_view {
-    width: 95vw;
+    width: 85vw;
   }
 }

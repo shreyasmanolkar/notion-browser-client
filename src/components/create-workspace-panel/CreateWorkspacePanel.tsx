@@ -88,10 +88,23 @@ const CreateWorkspacePanel = () => {
             url: `/pages/${pageId}`,
           });
 
+          // console.log("user", JSON.stringify(user.data, null, 2));
+          // console.log("workspace", JSON.stringify(workspace.data, null, 2));
+          // console.log("page", JSON.stringify(page.data, null, 2));
+
           dispatch(setUser({ ...user.data }));
           dispatch(setWorkspace({ ...workspace.data }));
           dispatch(setPage({ ...page.data }));
           navigate(`/${page.data.reference}`);
+
+          // const workspaceList = user.data.workspaces;
+
+          // localStorage.setItem("userInfo", JSON.stringify(user.data));
+          // localStorage.setItem("workspaceInfo", JSON.stringify(workspace.data));
+          // localStorage.setItem(
+          //   "workspaceListState",
+          //   JSON.stringify(workspaceList)
+          // );
 
           setName("");
         }
