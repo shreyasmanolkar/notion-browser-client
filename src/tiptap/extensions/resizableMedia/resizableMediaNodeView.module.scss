@@ -1,3 +1,5 @@
+@use "../../../styles/abstracts/colors" as *;
+
 .media_node_view {
   display: flex;
   width: 1500px;
@@ -22,7 +24,7 @@
       right: 0;
       padding-right: 5px;
       border-radius: 5px;
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: rgba(17, 8, 8, 0.2);
 
       .btn {
         display: inline-flex;
@@ -35,6 +37,7 @@
         background-color: transparent;
         border: none;
         cursor: pointer;
+        color: $background-secondary;
       }
 
       .active {
@@ -52,7 +55,8 @@
     }
 
     &:hover .horizontal_resize_handle {
-      border-right: 5px solid rgb(36, 36, 36);
+      border-right: 5px solid $dark-background-hover-three;
+      // border-right: 5px solid red;
     }
   }
 }
@@ -79,4 +83,14 @@
 
 .justify_center {
   justify-content: center;
+}
+
+.dark {
+  .inner_media {
+    .media_control_buttons {
+      .btn {
+        color: $dark-background-secondary;
+      }
+    }
+  }
 }

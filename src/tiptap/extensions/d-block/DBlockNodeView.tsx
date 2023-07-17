@@ -4,6 +4,7 @@ import { ReactComponent as PlusIcon } from "../../../assets/icons/plus-thick.svg
 import { ReactComponent as DragIcon } from "../../../assets/icons/drag-handle.svg";
 import styles from "./dBlockNodeView.module.scss";
 import { ThemeContext } from "../../../context/ThemeContext";
+import { useAppSelector } from "../../../app/hooks";
 
 export const DBlockNodeView: React.FC<NodeViewProps> = ({
   node,
@@ -11,6 +12,7 @@ export const DBlockNodeView: React.FC<NodeViewProps> = ({
   editor,
 }) => {
   const { theme } = useContext(ThemeContext);
+  const pageInfo = useAppSelector((state) => state.page.pageInfo);
   const isTable = useMemo(() => {
     const { content } = node.content as any;
 
@@ -30,9 +32,16 @@ export const DBlockNodeView: React.FC<NodeViewProps> = ({
     });
   };
 
+  const fullWidth = pageInfo?.pageSettings.fullWidth!;
+
   return (
     <>
-      <NodeViewWrapper as="div" className={`${styles.dblock} ${styles[theme]}`}>
+      <NodeViewWrapper
+        as="div"
+        className={`${styles.dblock} ${styles[theme]} ${
+          fullWidth ? styles.full_width : ""
+        }`}
+      >
         <section className={`${styles.wrapper_section}`} aria-label="left-menu">
           <div className={`${styles.icon}`} onClick={createNodeAfter}>
             <PlusIcon />

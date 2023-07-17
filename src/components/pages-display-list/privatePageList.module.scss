@@ -37,7 +37,7 @@
       .nav_link {
         text-decoration: none;
         color: $color-primary;
-        width: 100%;
+        width: 160px;
         display: flex;
 
         .page_emoji {
@@ -52,7 +52,7 @@
         .page_title {
           margin-left: 6px;
           font-size: 14px;
-          width: 65%;
+          width: 120px;
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
@@ -61,7 +61,6 @@
       }
 
       .page_settings {
-        width: 15%;
         display: flex;
         justify-content: space-around;
 

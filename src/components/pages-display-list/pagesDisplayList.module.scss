@@ -3,6 +3,7 @@
 .sidebar_body {
   height: calc(100vh - (45px + 150px + 95px));
   overflow-y: scroll;
+  // overflow-x: hidden;
 
   &::-webkit-scrollbar {
     width: 8px;

@@ -11,9 +11,17 @@
     margin: 5px 0;
   }
 
+  p {
+    line-height: 22px;
+  }
+
   a {
     cursor: pointer;
     color: $primary;
+  }
+
+  hr {
+    width: 700px;
   }
 
   code {
@@ -138,5 +146,11 @@
 
   blockquote {
     border-left: 3px solid white;
+  }
+}
+
+.full_width {
+  hr {
+    width: 1500px;
   }
 }
