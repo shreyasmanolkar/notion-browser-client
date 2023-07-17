@@ -125,6 +125,7 @@ const WorkspaceDisplayList = () => {
           onDragEnter={(e) => (dragOverItem.current = index)}
           onDragEnd={handleSort}
           onDragOver={(e) => e.preventDefault()}
+          onClick={() => handleOnClick(item.workspaceId)}
         >
           <div className={`${styles.workspace_info}`}>
             <div className={`${styles.drag_handle}`}>

@@ -9,11 +9,22 @@
   h3 {
     text-align: start;
     margin: 5px 0;
+    width: 50vw;
+    transition: width 0.2s ease 0.1s;
+  }
+
+  p {
+    line-height: 22px;
   }
 
   a {
     cursor: pointer;
     color: $primary;
+  }
+
+  hr {
+    width: 920px;
+    transition: width 0.5s ease-in-out;
   }
 
   code {
@@ -51,10 +62,11 @@
     width: 100%;
     margin: 0;
     overflow-x: auto;
+    transition: width 0.2s ease-out 0.1s;
 
     td,
     th {
-      min-width: 15em;
+      width: 15em;
       border: 1px solid $color-tertiary;
       padding: 3px 5px;
       vertical-align: top;
@@ -64,6 +76,10 @@
 
     tr div {
       width: 100%;
+
+      p {
+        width: 95%;
+      }
     }
 
     th {
@@ -138,5 +154,155 @@
 
   blockquote {
     border-left: 3px solid white;
+  }
+}
+
+.full_width {
+  p,
+  h1,
+  h2,
+  h3 {
+    width: 90vw;
+  }
+
+  hr {
+    width: 90vw;
+  }
+}
+
+.full_width.left_open {
+  p,
+  h1,
+  h2,
+  h3 {
+    width: 75vw;
+  }
+
+  hr {
+    width: 75vw;
+  }
+
+  table {
+    width: 75vw;
+
+    tr div {
+      p {
+        width: 95%;
+      }
+    }
+  }
+}
+
+.full_width.right_open {
+  p,
+  h1,
+  h2,
+  h3 {
+    width: 70vw;
+  }
+
+  hr {
+    width: 70vw;
+  }
+
+  table {
+    width: 70vw;
+
+    tr div {
+      p {
+        width: 95%;
+      }
+    }
+  }
+}
+
+.full_width.left_open.right_open {
+  p,
+  h1,
+  h2,
+  h3 {
+    width: 60vw;
+  }
+
+  hr {
+    width: 60vw;
+  }
+
+  table {
+    width: 60vw;
+
+    tr div {
+      p {
+        width: 95%;
+      }
+    }
+  }
+}
+
+.left_open {
+  p,
+  h1,
+  h2,
+  h3 {
+    // width: 75vw;
+    // width: 38vw;
+    width: 36vw;
+  }
+
+  hr {
+    width: 36vw;
+  }
+
+  table {
+    width: 36vw;
+
+    tr div {
+      p {
+        width: 95%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1320px) {
+  .dblock {
+    p,
+    h1,
+    h2,
+    h3 {
+      width: 85vw;
+    }
+
+    hr {
+      width: 85vw;
+    }
+
+    table {
+      width: 25vw;
+
+      tr div {
+        p {
+          width: 75%;
+        }
+      }
+    }
+  }
+
+  .left_open {
+    p,
+    h1,
+    h2,
+    h3 {
+      width: 70vw;
+    }
+  }
+
+  .right_open {
+    p,
+    h1,
+    h2,
+    h3 {
+      width: 50vw;
+    }
   }
 }

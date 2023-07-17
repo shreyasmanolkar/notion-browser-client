@@ -3,6 +3,8 @@
 .content {
   overflow-y: auto;
   height: calc(100vh - 44px);
+  background-color: $background-secondary;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar {
     width: 10px;
@@ -164,20 +166,64 @@
   .full_width {
     .emoji_display {
       img {
-        left: 480px;
+        // left: 480px;
+        left: 460px;
       }
     }
 
     .page_header_options {
-      margin-left: 480px;
+      // margin-left: 480px;
+      margin-left: 460px;
     }
 
     form {
-      padding: 10px 0 0 475px;
+      // padding: 10px 0 0 475px;
+      padding: 10px 0 0 455px;
     }
 
     .editor {
-      margin: 0 450px;
+      // margin: 0 450px;
+      margin: 0 430px;
+    }
+  }
+
+  .full_width.left_open.right_open {
+    .emoji_display {
+      img {
+        left: 280px;
+      }
+    }
+
+    .page_header_options {
+      margin-left: 280px;
+    }
+
+    form {
+      padding: 10px 0 0 260px;
+    }
+
+    .editor {
+      margin: 0 250px;
+    }
+  }
+
+  .full_width.right_open {
+    .emoji_display {
+      img {
+        left: 280px;
+      }
+    }
+
+    .page_header_options {
+      margin-left: 280px;
+    }
+
+    form {
+      padding: 10px 0 0 260px;
+    }
+
+    .editor {
+      margin: 0 250px;
     }
   }
 
@@ -281,9 +327,10 @@
 
 @media screen and (max-width: 1320px) {
   .content {
+    overflow-x: hidden;
+
     .cover {
-      height: 200px;
-      background-color: red;
+      height: 150px;
 
       .image_wrapper {
         height: 800px;
@@ -311,6 +358,7 @@
 
       .editor {
         margin: 0;
+        width: 95vw;
       }
     }
   }

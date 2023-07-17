@@ -1,6 +1,9 @@
+@use "../../../styles/abstracts/colors" as *;
+
 .media_node_view {
   display: flex;
-  width: 1500px;
+  width: 90vw;
+  transition: width 0.4s ease-in-out;
 
   .inner_media {
     width: fit-content;
@@ -21,6 +24,8 @@
       position: absolute;
       right: 0;
       padding-right: 5px;
+      border-radius: 5px;
+      background-color: rgba(17, 8, 8, 0.2);
 
       .btn {
         display: inline-flex;
@@ -33,6 +38,7 @@
         background-color: transparent;
         border: none;
         cursor: pointer;
+        color: $background-secondary;
       }
 
       .active {
@@ -50,14 +56,14 @@
     }
 
     &:hover .horizontal_resize_handle {
-      border-right: 5px solid rgb(36, 36, 36);
+      border-right: 5px solid $dark-background-hover-three;
     }
   }
 }
 
-.full_width {
-  width: 700px;
-}
+// .full_width {
+//   width: 700px;
+// }
 
 .f_left {
   float: left;
@@ -77,4 +83,56 @@
 
 .justify_center {
   justify-content: center;
+}
+
+.right_open {
+  width: 1150px;
+}
+
+.right_open.full_width {
+  width: 300px;
+}
+
+.media_node_view.left_open {
+  width: 75vw;
+}
+
+.media_node_view.right_open {
+  width: 70vw;
+}
+
+.media_node_view.left_open.right_open {
+  width: 60vw;
+}
+
+.full_width {
+  width: 50vw;
+}
+
+.full_width.left_open {
+  width: 38vw;
+}
+
+.full_width.right_open {
+  width: 40vw;
+}
+
+.full_width.left_open.right_open {
+  width: 30vw;
+}
+
+.dark {
+  .inner_media {
+    .media_control_buttons {
+      .btn {
+        color: $dark-background-secondary;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1320px) {
+  .media_node_view {
+    width: 85vw;
+  }
 }

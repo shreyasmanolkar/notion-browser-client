@@ -106,7 +106,12 @@ const PrivatePagesList = () => {
   };
 
   useEffect(() => {
-    if (pagesMetaData?.length === rootPages?.length) {
+    if (pagesMetaData?.length === 1 && rootPages?.length === 1) {
+      if (pagesMetaData[0].id !== rootPages[0].id) {
+        localStorage.setItem("pagesListState", JSON.stringify(rootPages));
+        setPagesMetaData(rootPages);
+      }
+    } else if (pagesMetaData?.length === rootPages?.length) {
       const isIconEqual = checkSameIcons(pagesMetaData, rootPages);
       const isTitleEqual = checkSameTitles(pagesMetaData, rootPages);
 
