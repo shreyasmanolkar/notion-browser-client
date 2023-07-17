@@ -2,8 +2,8 @@
 
 .media_node_view {
   display: flex;
-  width: 1450px;
-  transition: width 0.2s ease-out;
+  width: 90vw;
+  transition: width 0.4s ease-in-out;
   border: 1px solid red;
 
   .inner_media {
@@ -62,9 +62,9 @@
   }
 }
 
-.full_width {
-  width: 700px;
-}
+// .full_width {
+//   width: 700px;
+// }
 
 .f_left {
   float: left;
@@ -92,6 +92,26 @@
 
 .right_open.full_width {
   width: 300px;
+}
+
+.media_node_view.left_open {
+  width: 75vw;
+}
+
+.media_node_view.right_open {
+  width: 70vw;
+}
+
+.media_node_view.left_open.right_open {
+  width: 60vw;
+}
+
+.full_width {
+  width: 50vw;
+}
+
+.full_width.left_open {
+  width: 50vw;
 }
 
 .dark {

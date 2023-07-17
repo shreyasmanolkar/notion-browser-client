@@ -166,20 +166,64 @@
   .full_width {
     .emoji_display {
       img {
-        left: 480px;
+        // left: 480px;
+        left: 460px;
       }
     }
 
     .page_header_options {
-      margin-left: 480px;
+      // margin-left: 480px;
+      margin-left: 460px;
     }
 
     form {
-      padding: 10px 0 0 475px;
+      // padding: 10px 0 0 475px;
+      padding: 10px 0 0 455px;
     }
 
     .editor {
-      margin: 0 450px;
+      // margin: 0 450px;
+      margin: 0 430px;
+    }
+  }
+
+  .full_width.left_open.right_open {
+    .emoji_display {
+      img {
+        left: 280px;
+      }
+    }
+
+    .page_header_options {
+      margin-left: 280px;
+    }
+
+    form {
+      padding: 10px 0 0 260px;
+    }
+
+    .editor {
+      margin: 0 250px;
+    }
+  }
+
+  .full_width.right_open {
+    .emoji_display {
+      img {
+        left: 280px;
+      }
+    }
+
+    .page_header_options {
+      margin-left: 280px;
+    }
+
+    form {
+      padding: 10px 0 0 260px;
+    }
+
+    .editor {
+      margin: 0 250px;
     }
   }
 
