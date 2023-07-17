@@ -9,6 +9,9 @@
   h3 {
     text-align: start;
     margin: 5px 0;
+    width: 50vw;
+    // width: 60vw;
+    transition: width 0.2s ease-out 0.1s;
   }
 
   p {
@@ -21,7 +24,8 @@
   }
 
   hr {
-    width: 700px;
+    width: 920px;
+    transition: width 0.5s ease;
   }
 
   code {
@@ -62,7 +66,7 @@
 
     td,
     th {
-      min-width: 15em;
+      width: 15em;
       border: 1px solid $color-tertiary;
       padding: 3px 5px;
       vertical-align: top;
@@ -72,6 +76,10 @@
 
     tr div {
       width: 100%;
+
+      p {
+        width: 95%;
+      }
     }
 
     th {
@@ -150,7 +158,79 @@
 }
 
 .full_width {
+  p,
+  h1,
+  h2,
+  h3 {
+    width: 90vw;
+  }
+
   hr {
-    width: 1500px;
+    width: 90vw;
+  }
+}
+
+.full_width.left_open {
+  p,
+  h1,
+  h2,
+  h3 {
+    width: 60vw;
+  }
+
+  hr {
+    width: 60vw;
+  }
+}
+
+.left_open {
+  p,
+  h1,
+  h2,
+  h3 {
+    // width: 75vw;
+    width: 40vw;
+  }
+
+  hr {
+    // width: 500px;
+  }
+}
+
+.right_open {
+  p,
+  h1,
+  h2,
+  h3 {
+    width: 60vw;
+  }
+}
+
+@media screen and (max-width: 1320px) {
+  .dblock {
+    p,
+    h1,
+    h2,
+    h3 {
+      width: 85vw;
+    }
+  }
+
+  .left_open {
+    p,
+    h1,
+    h2,
+    h3 {
+      width: 70vw;
+    }
+  }
+
+  .right_open {
+    p,
+    h1,
+    h2,
+    h3 {
+      width: 50vw;
+    }
   }
 }

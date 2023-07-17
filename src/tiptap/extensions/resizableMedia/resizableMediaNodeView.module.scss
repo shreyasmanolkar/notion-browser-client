@@ -2,7 +2,9 @@
 
 .media_node_view {
   display: flex;
-  width: 1500px;
+  width: 1450px;
+  transition: width 0.2s ease-out;
+  border: 1px solid red;
 
   .inner_media {
     width: fit-content;
@@ -84,6 +86,14 @@
   justify-content: center;
 }
 
+.right_open {
+  width: 1150px;
+}
+
+.right_open.full_width {
+  width: 300px;
+}
+
 .dark {
   .inner_media {
     .media_control_buttons {
@@ -91,5 +101,11 @@
         color: $dark-background-secondary;
       }
     }
+  }
+}
+
+@media screen and (max-width: 1320px) {
+  .media_node_view {
+    width: 95vw;
   }
 }

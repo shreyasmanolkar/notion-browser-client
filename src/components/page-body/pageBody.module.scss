@@ -4,6 +4,7 @@
   overflow-y: auto;
   height: calc(100vh - 44px);
   background-color: $background-secondary;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar {
     width: 10px;
@@ -282,9 +283,10 @@
 
 @media screen and (max-width: 1320px) {
   .content {
+    overflow-x: hidden;
+
     .cover {
-      height: 200px;
-      background-color: red;
+      height: 150px;
 
       .image_wrapper {
         height: 800px;
@@ -312,6 +314,7 @@
 
       .editor {
         margin: 0;
+        width: 95vw;
       }
     }
   }

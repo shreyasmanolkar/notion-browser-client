@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import styles from "./resizableMediaNodeView.module.scss";
 import { useAppSelector } from "../../../app/hooks";
 import { ThemeContext } from "../../../context/ThemeContext";
+import { SidebarLogicContext } from "../../../context/SidebarContext";
 
 let lastClientX: number;
 
@@ -15,6 +16,7 @@ export const ResizableMediaNodeView = ({
   deleteNode,
 }: NodeViewProps) => {
   const { theme } = useContext(ThemeContext);
+  const { leftOpen, rightOpen } = useContext(SidebarLogicContext);
   const pageInfo = useAppSelector((state) => state.page.pageInfo);
 
   const [mediaType, setMediaType] = useState<"img" | "video">();
@@ -207,7 +209,9 @@ export const ResizableMediaNodeView = ({
       as="article"
       className={`${styles.media_node_view} ${
         pageInfo?.pageSettings.fullWidth ? "" : styles.full_width
-      } ${floatClass} ${alignClass} ${styles[theme]}`}
+      } ${floatClass} ${alignClass} ${styles[theme]} ${
+        leftOpen ? styles.left_open : ""
+      } ${rightOpen ? styles.right_open : ""}`}
     >
       <div className={`${styles.inner_media} ${styles.group}`}>
         {mediaType === "img" && (
