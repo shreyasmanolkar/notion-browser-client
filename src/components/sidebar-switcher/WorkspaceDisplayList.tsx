@@ -10,6 +10,7 @@ import { setPage } from "../../slice/pageSlice";
 import styles from "./workspaceDisplayList.module.scss";
 import { useWorkspaceData } from "../../services/useWorkspaceData";
 import { useNavigate } from "react-router-dom";
+import { setUser } from "../../slice/userSlice";
 
 type WorkspaceDisplayListProps = {
   onClose: () => void;
@@ -64,6 +65,8 @@ const WorkspaceDisplayList: React.FC<WorkspaceDisplayListProps> = ({
       onSuccess: async (data) => {
         if (data) {
           onClose();
+          const userId = userInfo?.id;
+          const user = await request({ url: `/users/${userId}` });
           const workspace = await request({
             url: `/workspaces/${workspaceId}`,
           });
@@ -73,6 +76,8 @@ const WorkspaceDisplayList: React.FC<WorkspaceDisplayListProps> = ({
             url: `/pages/${pageId}`,
           });
 
+          dispatch(setUser({ ...user.data }));
+          // dispatch(setUser(userInfo!));
           dispatch(setWorkspace({ ...workspace.data }));
           dispatch(setPage({ ...page.data }));
 
