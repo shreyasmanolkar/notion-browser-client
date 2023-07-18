@@ -77,7 +77,6 @@ const WorkspaceDisplayList: React.FC<WorkspaceDisplayListProps> = ({
           });
 
           dispatch(setUser({ ...user.data }));
-          // dispatch(setUser(userInfo!));
           dispatch(setWorkspace({ ...workspace.data }));
           dispatch(setPage({ ...page.data }));
 

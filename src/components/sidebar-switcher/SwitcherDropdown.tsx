@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../slice/userSlice";
 import AddAccount from "./AddAccount";
 import { useNavigate } from "react-router-dom";
+import { useWorkspaceData } from "../../services/useWorkspaceData";
 
 type SwitcherDropdownProps = {
   open: boolean;
@@ -25,8 +26,24 @@ const SwitcherDropdown: React.FC<SwitcherDropdownProps> = ({
   const userInfo = useAppSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { mutate: mutateUpdateWorkspacePages } =
+    useWorkspaceData.useUpdateWorkspacePagesData();
+  const workspaceInfo = useAppSelector(
+    (state) => state.workspace.workspaceInfo
+  );
 
   const handleLogout = () => {
+    const initialPages = workspaceInfo?.pages;
+    const branchPages = initialPages?.filter((page) => page.path !== null);
+    const savedState = localStorage.getItem("pagesListState");
+    const parsedRootPages = JSON.parse(savedState!);
+
+    const workspaceData = {
+      workspaceId: workspaceInfo?.id!,
+      pages: [...parsedRootPages!, ...branchPages!],
+    };
+
+    mutateUpdateWorkspacePages(workspaceData);
     dispatch(logout());
     navigate("/login");
   };
