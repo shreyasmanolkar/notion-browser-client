@@ -10,6 +10,7 @@ import { logout } from "../../slice/userSlice";
 import AddAccount from "./AddAccount";
 import { useNavigate } from "react-router-dom";
 import { useWorkspaceData } from "../../services/useWorkspaceData";
+import { useUserData } from "../../services/useUserData";
 
 type SwitcherDropdownProps = {
   open: boolean;
@@ -28,6 +29,8 @@ const SwitcherDropdown: React.FC<SwitcherDropdownProps> = ({
   const navigate = useNavigate();
   const { mutate: mutateUpdateWorkspacePages } =
     useWorkspaceData.useUpdateWorkspacePagesData();
+  const { mutate: mutateUpdateUserWorkspacesList } =
+    useUserData.useUpdateUserWorkspaceListData();
   const workspaceInfo = useAppSelector(
     (state) => state.workspace.workspaceInfo
   );
@@ -38,12 +41,21 @@ const SwitcherDropdown: React.FC<SwitcherDropdownProps> = ({
     const savedState = localStorage.getItem("pagesListState");
     const parsedRootPages = JSON.parse(savedState!);
 
+    const savedWorkspaceListState = localStorage.getItem("workspaceListState");
+    const parsedWorkspaceListState = JSON.parse(savedWorkspaceListState!);
+
     const workspaceData = {
       workspaceId: workspaceInfo?.id!,
       pages: [...parsedRootPages!, ...branchPages!],
     };
 
+    const userData = {
+      userId: userInfo?.id!,
+      workspaces: [...parsedWorkspaceListState],
+    };
+
     mutateUpdateWorkspacePages(workspaceData);
+    mutateUpdateUserWorkspacesList(userData);
     dispatch(logout());
     navigate("/login");
   };

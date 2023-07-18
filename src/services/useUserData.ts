@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { UserType } from "../common/types/User";
+import { UserType, WorkspaceType } from "../common/types/User";
 import { request } from "../lib/axios/index";
 import { AxiosError } from "axios";
 
@@ -21,6 +21,11 @@ type createWorkspaceDataType = {
 type updateUserNameDataType = {
   name: string;
   userId: string;
+};
+
+type updateUserWorkspaceListDataType = {
+  userId: string;
+  workspaces: WorkspaceType[];
 };
 
 type updateIsDarkModeDataType = {
@@ -69,6 +74,18 @@ export class useUserData {
   };
 
   static updateUserName = async (data: updateUserNameDataType) => {
+    const response = await request({
+      url: `/users/${data.userId}`,
+      method: "patch",
+      data,
+    });
+
+    return response.data;
+  };
+
+  static updateUserWorkspaceList = async (
+    data: updateUserWorkspaceListDataType
+  ) => {
     const response = await request({
       url: `/users/${data.userId}`,
       method: "patch",
@@ -139,6 +156,15 @@ export class useUserData {
 
   static useUpdateUserNameData = () => {
     return useMutation(useUserData.updateUserName, {
+      onSuccess: (data) => {
+        return data;
+      },
+      onError: (error: AxiosError) => {},
+    });
+  };
+
+  static useUpdateUserWorkspaceListData = () => {
+    return useMutation(useUserData.updateUserWorkspaceList, {
       onSuccess: (data) => {
         return data;
       },
