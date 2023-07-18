@@ -133,6 +133,13 @@ const CreatePagePanel: React.FC<CreatePageProps> = ({
           setTitle("");
           setDisplayEmoji(false);
 
+          const coverPictureData = {
+            url: "",
+            verticalPosition: 0,
+          };
+
+          setCoverPicture(coverPictureData);
+
           onClose();
         }
       },
