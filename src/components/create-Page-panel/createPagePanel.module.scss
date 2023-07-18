@@ -135,6 +135,7 @@
     .body {
       height: 89%;
       overflow-y: auto;
+      overflow-x: hidden;
 
       &::-webkit-scrollbar {
         width: 10px;
@@ -264,6 +265,22 @@
 
       .editor {
         margin: 0 70px;
+        width: 800px;
+
+        p,
+        h1,
+        h2,
+        h3 {
+          width: 800px;
+        }
+
+        article {
+          width: 800px;
+        }
+
+        table {
+          width: 800px;
+        }
       }
     }
 

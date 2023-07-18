@@ -13,7 +13,17 @@ import { setPage } from "../../slice/pageSlice";
 import { useWorkspaceData } from "../../services/useWorkspaceData";
 import { useNavigate } from "react-router-dom";
 
-const CreateWorkspacePanel = () => {
+type CreateWorkspacePanelProps = {
+  createWorkspaceOnClose: () => void;
+  headerOnClose: () => void;
+  onCloseSwitcherDropDown: () => void;
+};
+
+const CreateWorkspacePanel: React.FC<CreateWorkspacePanelProps> = ({
+  createWorkspaceOnClose,
+  headerOnClose,
+  onCloseSwitcherDropDown,
+}) => {
   const { theme } = useContext(ThemeContext);
   const [name, setName] = useState<string>("");
   const [emoji, setEmoji] = useState<string>("");
@@ -94,6 +104,9 @@ const CreateWorkspacePanel = () => {
           navigate(`/${page.data.reference}`);
 
           setName("");
+          createWorkspaceOnClose();
+          headerOnClose();
+          onCloseSwitcherDropDown();
         }
       },
     });

@@ -10,6 +10,7 @@ import { request } from "../../lib/axios";
 import { useDispatch } from "react-redux";
 import { setPage } from "../../slice/pageSlice";
 import { NavLink } from "react-router-dom";
+import { checkSameWorkspace } from "../../utils/checkSameWorkspace";
 
 const FavoritePagesList = () => {
   const { theme } = useContext(ThemeContext);
@@ -31,13 +32,14 @@ const FavoritePagesList = () => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const favoritePages: PageType[] = [];
+  // const [favoritePages, setFavoritePages] = useState<PageType[]>([]);
 
   // eslint-disable-next-line array-callback-return
   favoriteIds?.map((id) => {
-    const FavoritePage = workspaceInfo?.pages.find((page) => page.id === id);
-    favoritePages.push(FavoritePage!);
+    const favoritePage = workspaceInfo?.pages.find((page) => page.id === id);
+    favoritePages.push(favoritePage!);
+    // setFavoritePages((pages) => [...pages, favoritePage!]);
   });
-
   const [pagesMetaData, setPagesMetaData] = useState(favoritePages);
 
   const pageId = pageInfo?.id;
@@ -84,11 +86,21 @@ const FavoritePagesList = () => {
 
   useEffect(() => {
     if (pagesMetaData?.length === favoritePages?.length) {
-      if (pagesMetaData !== favoritePages) {
-        localStorage.setItem(
-          "favoritePagesListState",
-          JSON.stringify(pagesMetaData)
+      if (favoritePages[0] !== undefined) {
+        const isSameWorkspace = checkSameWorkspace(
+          pagesMetaData,
+          favoritePages
         );
+
+        if (!isSameWorkspace) {
+          localStorage.setItem("pagesListState", JSON.stringify(favoritePages));
+          setPagesMetaData(favoritePages);
+        } else if (pagesMetaData !== favoritePages) {
+          localStorage.setItem(
+            "favoritePagesListState",
+            JSON.stringify(pagesMetaData)
+          );
+        }
       }
     } else if (pagesMetaData?.length !== favoritePages?.length) {
       localStorage.setItem(

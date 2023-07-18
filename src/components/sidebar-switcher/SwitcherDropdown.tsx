@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../slice/userSlice";
 import AddAccount from "./AddAccount";
 import { useNavigate } from "react-router-dom";
+import { useWorkspaceData } from "../../services/useWorkspaceData";
+import { useUserData } from "../../services/useUserData";
 
 type SwitcherDropdownProps = {
   open: boolean;
@@ -25,8 +27,35 @@ const SwitcherDropdown: React.FC<SwitcherDropdownProps> = ({
   const userInfo = useAppSelector((state) => state.user.userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { mutate: mutateUpdateWorkspacePages } =
+    useWorkspaceData.useUpdateWorkspacePagesData();
+  const { mutate: mutateUpdateUserWorkspacesList } =
+    useUserData.useUpdateUserWorkspaceListData();
+  const workspaceInfo = useAppSelector(
+    (state) => state.workspace.workspaceInfo
+  );
 
   const handleLogout = () => {
+    const initialPages = workspaceInfo?.pages;
+    const branchPages = initialPages?.filter((page) => page.path !== null);
+    const savedState = localStorage.getItem("pagesListState");
+    const parsedRootPages = JSON.parse(savedState!);
+
+    const savedWorkspaceListState = localStorage.getItem("workspaceListState");
+    const parsedWorkspaceListState = JSON.parse(savedWorkspaceListState!);
+
+    const workspaceData = {
+      workspaceId: workspaceInfo?.id!,
+      pages: [...parsedRootPages!, ...branchPages!],
+    };
+
+    const userData = {
+      userId: userInfo?.id!,
+      workspaces: [...parsedWorkspaceListState],
+    };
+
+    mutateUpdateWorkspacePages(workspaceData);
+    mutateUpdateUserWorkspacesList(userData);
     dispatch(logout());
     navigate("/login");
   };
@@ -60,7 +89,7 @@ const SwitcherDropdown: React.FC<SwitcherDropdownProps> = ({
               <DotsIcon />
             </div>
           </div>
-          <WorkspaceDisplayList />
+          <WorkspaceDisplayList onClose={onClose} />
           <div className={`${styles.options}`}>
             <div
               className={`${styles.option}`}
@@ -82,6 +111,7 @@ const SwitcherDropdown: React.FC<SwitcherDropdownProps> = ({
       <HeaderDropdown
         openHeader={openHeaderDropdown}
         onCloseHeader={() => setOpenHeaderDropdown(false)}
+        onCloseSwitcherDropDown={onClose}
       />
       <AddAccount
         addAccountOpen={openAddAccount}

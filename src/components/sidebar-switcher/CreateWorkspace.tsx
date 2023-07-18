@@ -6,11 +6,15 @@ import { ThemeContext } from "../../context/ThemeContext";
 type CreateWorkspaceProps = {
   createWorkspaceOpen: boolean;
   createWorkspaceOnClose: () => void;
+  headerOnClose: () => void;
+  onCloseSwitcherDropDown: () => void;
 };
 
 const CreateWorkspace: React.FC<CreateWorkspaceProps> = ({
   createWorkspaceOpen,
   createWorkspaceOnClose,
+  headerOnClose,
+  onCloseSwitcherDropDown,
 }) => {
   const { theme } = useContext(ThemeContext);
 
@@ -25,7 +29,11 @@ const CreateWorkspace: React.FC<CreateWorkspaceProps> = ({
         className={`${styles.create_workspace}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <CreateWorkspacePanel />
+        <CreateWorkspacePanel
+          createWorkspaceOnClose={createWorkspaceOnClose}
+          headerOnClose={headerOnClose}
+          onCloseSwitcherDropDown={onCloseSwitcherDropDown}
+        />
       </div>
     </div>
   );
