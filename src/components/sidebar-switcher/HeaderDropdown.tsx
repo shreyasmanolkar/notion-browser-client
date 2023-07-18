@@ -11,11 +11,13 @@ import { useNavigate } from "react-router-dom";
 type HeaderDropdownProps = {
   openHeader: boolean;
   onCloseHeader: () => void;
+  onCloseSwitcherDropDown: () => void;
 };
 
 const HeaderDropdown: React.FC<HeaderDropdownProps> = ({
   openHeader,
   onCloseHeader,
+  onCloseSwitcherDropDown,
 }) => {
   const { theme } = useContext(ThemeContext);
   const [openCreateWorkspace, setOpenCreateWorkspace] = useState(false);
@@ -63,6 +65,8 @@ const HeaderDropdown: React.FC<HeaderDropdownProps> = ({
       <CreateWorkspace
         createWorkspaceOpen={openCreateWorkspace}
         createWorkspaceOnClose={() => setOpenCreateWorkspace(false)}
+        headerOnClose={onCloseHeader}
+        onCloseSwitcherDropDown={onCloseSwitcherDropDown}
       />
     </>
   );

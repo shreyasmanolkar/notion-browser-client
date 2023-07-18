@@ -52,14 +52,6 @@ export const NewPageContextProvider: React.FC<{ children: any }> = ({
           },
         ],
       },
-      {
-        type: "dBlock",
-        content: [
-          {
-            type: "paragraph",
-          },
-        ],
-      },
     ],
   });
   const [pageSettings, setPageSettings] = useState({

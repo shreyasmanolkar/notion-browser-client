@@ -82,6 +82,7 @@ const SwitcherDropdown: React.FC<SwitcherDropdownProps> = ({
       <HeaderDropdown
         openHeader={openHeaderDropdown}
         onCloseHeader={() => setOpenHeaderDropdown(false)}
+        onCloseSwitcherDropDown={onClose}
       />
       <AddAccount
         addAccountOpen={openAddAccount}
