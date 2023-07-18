@@ -11,7 +11,13 @@ import styles from "./workspaceDisplayList.module.scss";
 import { useWorkspaceData } from "../../services/useWorkspaceData";
 import { useNavigate } from "react-router-dom";
 
-const WorkspaceDisplayList = () => {
+type WorkspaceDisplayListProps = {
+  onClose: () => void;
+};
+
+const WorkspaceDisplayList: React.FC<WorkspaceDisplayListProps> = ({
+  onClose,
+}) => {
   const { theme } = useContext(ThemeContext);
   const dragItem = React.useRef<any>(null);
   const dragOverItem = React.useRef<any>(null);
@@ -57,6 +63,7 @@ const WorkspaceDisplayList = () => {
     mutateUpdateWorkspacePages(workspaceData, {
       onSuccess: async (data) => {
         if (data) {
+          onClose();
           const workspace = await request({
             url: `/workspaces/${workspaceId}`,
           });

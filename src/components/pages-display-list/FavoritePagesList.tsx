@@ -10,6 +10,7 @@ import { request } from "../../lib/axios";
 import { useDispatch } from "react-redux";
 import { setPage } from "../../slice/pageSlice";
 import { NavLink } from "react-router-dom";
+import { checkSameWorkspace } from "../../utils/checkSameWorkspace";
 
 const FavoritePagesList = () => {
   const { theme } = useContext(ThemeContext);
@@ -84,7 +85,15 @@ const FavoritePagesList = () => {
 
   useEffect(() => {
     if (pagesMetaData?.length === favoritePages?.length) {
-      if (pagesMetaData !== favoritePages) {
+      console.log("pmd", JSON.stringify(pagesMetaData, null, 2));
+      console.log("fp", JSON.stringify(favoritePages, null, 2));
+
+      const isSameWorkspace = checkSameWorkspace(pagesMetaData, favoritePages);
+
+      if (!isSameWorkspace) {
+        localStorage.setItem("pagesListState", JSON.stringify(favoritePages));
+        setPagesMetaData(favoritePages);
+      } else if (pagesMetaData !== favoritePages) {
         localStorage.setItem(
           "favoritePagesListState",
           JSON.stringify(pagesMetaData)

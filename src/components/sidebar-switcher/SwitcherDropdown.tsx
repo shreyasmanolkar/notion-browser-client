@@ -60,7 +60,7 @@ const SwitcherDropdown: React.FC<SwitcherDropdownProps> = ({
               <DotsIcon />
             </div>
           </div>
-          <WorkspaceDisplayList />
+          <WorkspaceDisplayList onClose={onClose} />
           <div className={`${styles.options}`}>
             <div
               className={`${styles.option}`}
