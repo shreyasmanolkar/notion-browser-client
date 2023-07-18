@@ -14,6 +14,7 @@ import { checkSameIcons } from "../../utils/checkSameIcons";
 import { PageType } from "../../common/types/Workspace";
 import { checkSameTitles } from "../../utils/checkSameTitles";
 import { NavLink } from "react-router-dom";
+import { checkSameWorkspace } from "../../utils/checkSameWorkspace";
 
 const PrivatePagesList = () => {
   const { theme } = useContext(ThemeContext);
@@ -114,8 +115,12 @@ const PrivatePagesList = () => {
     } else if (pagesMetaData?.length === rootPages?.length) {
       const isIconEqual = checkSameIcons(pagesMetaData, rootPages);
       const isTitleEqual = checkSameTitles(pagesMetaData, rootPages);
+      const isSameWorkspace = checkSameWorkspace(pagesMetaData, rootPages);
 
-      if (pagesMetaData !== rootPages) {
+      if (!isSameWorkspace) {
+        localStorage.setItem("pagesListState", JSON.stringify(rootPages));
+        setPagesMetaData(rootPages);
+      } else if (pagesMetaData !== rootPages) {
         if (isIconEqual) {
           localStorage.setItem("pagesListState", JSON.stringify(pagesMetaData));
         }

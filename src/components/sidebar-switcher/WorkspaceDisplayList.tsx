@@ -10,8 +10,15 @@ import { setPage } from "../../slice/pageSlice";
 import styles from "./workspaceDisplayList.module.scss";
 import { useWorkspaceData } from "../../services/useWorkspaceData";
 import { useNavigate } from "react-router-dom";
+import { setUser } from "../../slice/userSlice";
 
-const WorkspaceDisplayList = () => {
+type WorkspaceDisplayListProps = {
+  onClose: () => void;
+};
+
+const WorkspaceDisplayList: React.FC<WorkspaceDisplayListProps> = ({
+  onClose,
+}) => {
   const { theme } = useContext(ThemeContext);
   const dragItem = React.useRef<any>(null);
   const dragOverItem = React.useRef<any>(null);
@@ -57,6 +64,9 @@ const WorkspaceDisplayList = () => {
     mutateUpdateWorkspacePages(workspaceData, {
       onSuccess: async (data) => {
         if (data) {
+          onClose();
+          const userId = userInfo?.id;
+          const user = await request({ url: `/users/${userId}` });
           const workspace = await request({
             url: `/workspaces/${workspaceId}`,
           });
@@ -66,6 +76,7 @@ const WorkspaceDisplayList = () => {
             url: `/pages/${pageId}`,
           });
 
+          dispatch(setUser({ ...user.data }));
           dispatch(setWorkspace({ ...workspace.data }));
           dispatch(setPage({ ...page.data }));
 
