@@ -86,6 +86,61 @@ To run test coverage report, run the following command
 ```bash
   npm run coverage
 ```
+
+### Demo
+
+Cover Photo:
+
+https://github.com/shreyasmanolkar/notion-browser-client/assets/80336980/bb58e0ca-18c5-49e2-9d2d-3a6c17faee0f
+ 
+New Workspace:
+
+https://github.com/shreyasmanolkar/notion-browser-client/assets/80336980/2beecc0e-c14d-4d1d-90fe-699a7ff47414
+
+Settings Panel:
+
+https://github.com/shreyasmanolkar/notion-browser-client/assets/80336980/1a144902-18c9-449c-b8eb-f9a694d80c3d
+
+Favorites: 
+
+https://github.com/shreyasmanolkar/notion-browser-client/assets/80336980/241f5587-f6f4-435a-8228-69194e44039e
+
+Custom Text Editor:
+
+https://github.com/shreyasmanolkar/notion-browser-client/assets/80336980/a9a69e4c-baf4-490a-92e5-4d6ee26eca27
+
+Workspace Switch:
+
+https://github.com/shreyasmanolkar/notion-browser-client/assets/80336980/4afcfd63-b8db-4ad8-aaf5-9377382cbba9
+
+New Page: 
+
+https://github.com/shreyasmanolkar/notion-browser-client/assets/80336980/8fa1ce4f-8acb-4480-866c-4966d71a5cfa
+
+Search: 
+
+https://github.com/shreyasmanolkar/notion-browser-client/assets/80336980/b9d242b6-dfb4-4154-b62d-6bc494c007d6
+
+unsplash API: 
+
+https://github.com/shreyasmanolkar/notion-browser-client/assets/80336980/bb4e929b-e957-4cec-b41b-80072edbdaf2
+
+Upload: 
+
+https://github.com/shreyasmanolkar/notion-browser-client/assets/80336980/0241b2fb-83de-43a8-bf19-adc38e89838a
+
+Profile Picture:
+
+https://github.com/shreyasmanolkar/notion-browser-client/assets/80336980/274e3a47-e2ad-4ff1-a898-7575d5ba1d5f
+
+Theme: 
+
+https://github.com/shreyasmanolkar/notion-browser-client/assets/80336980/1fbd9e58-a9ef-46dd-aadf-0c42402f8e6c
+
+Responsive Design:
+
+https://github.com/shreyasmanolkar/notion-browser-client/assets/80336980/4873010a-d362-4270-8692-93364f7fca39
+
 ## License
 
 This project is under the MIT [license](https://github.com/shreyasmanolkar/notion-browser-client/blob/main/LICENSE)
