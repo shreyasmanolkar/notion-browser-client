@@ -4,6 +4,10 @@
 The Notion-Clone Frontend is a TypeScript-based React application that complements the robust backend API. It offers a user interface and experience similar to the popular note-taking and collaboration application, Notion. This frontend is designed to work seamlessly with the [backend API](https://github.com/shreyasmanolkar/notion-api), handling user authentication and authorization, while providing a wide range of functionalities for creating, managing, and collaborating on various types of content, such as supercharged tables, multimedia, lists etc.
 
 By adhering to best practices in frontend development, the Notion-Clone application employs TypeScript to ensure type safety and improve code quality. The React framework enables building interactive and responsive user interfaces, enhancing the overall user experience.  
+
+## Detail Blog:
+https://shreyasmanolkar.hashnode.dev/building-notion-clone-part-2-crafting-the-front-end-experience
+
 ## Features
 
 - User Authentication: Secure user registration and login processes with hashed passwords and token-based authentication.
