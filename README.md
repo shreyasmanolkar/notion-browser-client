@@ -5,7 +5,7 @@ The Notion-Clone Frontend is a TypeScript-based React application that complemen
 
 By adhering to best practices in frontend development, the Notion-Clone application employs TypeScript to ensure type safety and improve code quality. The React framework enables building interactive and responsive user interfaces, enhancing the overall user experience.  
 
-## Demo Vidoe: 
+## Demo Video: 
 https://www.youtube.com/watch?v=XkFgv8AsUe0&t=13s
 
 ## Detail Blog:
