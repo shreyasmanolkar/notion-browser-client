@@ -19,11 +19,14 @@ const LoginPanel = () => {
   const [error, setError] = useState<string | null>(null);
   const [formErrors, setFormErrors] = useState<Partial<validateLoginProps>>({});
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
   const { mutate } = useUserData.useLoginUserData();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
+      setIsSubmitting(true);
       handleLogin();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -114,7 +117,13 @@ const LoginPanel = () => {
         {formErrors.password && (
           <p className={`${styles.error}`}>{formErrors.password}</p>
         )}
-        <button type="submit">Log in</button>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          style={{ cursor: isSubmitting ? "not-allowed" : "pointer" }}
+        >
+          Log in
+        </button>
         <br />
       </form>
       {error && <p className={`${styles.error}`}>{error}</p>}
