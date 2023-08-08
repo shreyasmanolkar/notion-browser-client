@@ -24,6 +24,7 @@ const RegisterPanel = () => {
     Partial<validateRegistrationProps>
   >({});
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const isDarkMode = useThemeDetector();
   const { mutate } = useUserData.useRegisterUserData();
@@ -31,6 +32,7 @@ const RegisterPanel = () => {
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
+      setIsSubmitting(true);
       handleRegistration();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -98,8 +100,6 @@ const RegisterPanel = () => {
           setName("");
           setEmail("");
           setPassword("");
-
-          // redirect from here
         }
       },
       onError: (error: AxiosError) => {
@@ -149,7 +149,13 @@ const RegisterPanel = () => {
         {formErrors.password && (
           <p className={`${styles.error}`}>{formErrors.password}</p>
         )}
-        <button type="submit">Sign up</button>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          style={{ cursor: isSubmitting ? "not-allowed" : "pointer" }}
+        >
+          Sign up
+        </button>
         <br />
       </form>
       {error && <p className={`${styles.error}`}>{error}</p>}
