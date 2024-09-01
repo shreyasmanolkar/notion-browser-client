@@ -56,7 +56,18 @@ With Tiptap's intuitive interface and seamless integration with ProseMirror, it 
 this Notion-like text editor is, powered by the ProseMirror library and enriched with the simplicity and power of Tiptap extensions. Experience a seamless and feature-rich text editing experience that takes inspiration from Notion's innovative content organization and collaboration capabilities.
 ## Run Locally
 
-Clone the project
+Create notion-clone directory
+
+```bash
+  mkdir notion-clone
+```
+
+Go to the project directory
+
+```bash
+  cd notion-clone
+```
+Clone the browser client project adjacent to [notion-api](https://github.com/shreyasmanolkar/notion-api)
 
 ```bash
   git clone git@github.com:shreyasmanolkar/notion-browser-client.git
@@ -73,6 +84,13 @@ Install dependencies
 ```bash
   npm install
 ```
+
+Create .env file
+
+```bash
+  cp .env-example .env
+```
+
 Start the server
 
 ```bash
